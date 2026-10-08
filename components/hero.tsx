@@ -2,18 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "motion/react";
-import { ArrowRight, Code2, Megaphone, Palette, Sparkles, Compass, Share2 } from "lucide-react";
-import { LogoMark } from "./logo";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { Macropad } from "./macropad";
 
 const audiences = ["startups", "business owners", "creators", "students"];
-
-const orbit = [
-  { label: "Web", icon: Code2, angle: 0 },
-  { label: "Social", icon: Share2, angle: 72 },
-  { label: "Marketing", icon: Megaphone, angle: 144 },
-  { label: "Branding", icon: Palette, angle: 216 },
-  { label: "Strategy", icon: Compass, angle: 288 },
-];
 
 export function Hero() {
   const [i, setI] = useState(0);
@@ -143,41 +135,12 @@ export function Hero() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto hidden aspect-square w-full max-w-[460px] sm:block"
+          initial={{ opacity: 0, y: 30, scale: 0.94 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           aria-hidden
         >
-          {/* rings */}
-          <div className="absolute inset-0 rounded-full border border-white/10" />
-          <div className="absolute inset-[16%] rounded-full border border-dashed border-white/10" />
-          <div className="absolute inset-[32%] rounded-full bg-[radial-gradient(circle,rgb(106_90_216/0.35),transparent_70%)] blur-xl" />
-
-          {/* orbiting services */}
-          <div className="absolute inset-0 animate-spin-slow">
-            {orbit.map(({ label, icon: Icon, angle }) => {
-              const rad = (angle * Math.PI) / 180;
-              return (
-                <div
-                  key={label}
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${50 + 50 * Math.sin(rad)}%`, top: `${50 - 50 * Math.cos(rad)}%` }}
-                >
-                  <div className="flex animate-spin-slow items-center gap-2 rounded-full border border-white/15 bg-night/80 px-3 py-1.5 text-xs font-medium text-white shadow-lg shadow-indigo/30 backdrop-blur [animation-direction:reverse]">
-                    <Icon className="size-3.5 text-lavender" />
-                    {label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* center tile — mirrors the brand square */}
-          <div className="absolute left-1/2 top-1/2 grid size-[42%] -translate-x-1/2 -translate-y-1/2 place-items-center overflow-hidden rounded-[2rem] border border-white/15 bg-[linear-gradient(135deg,#02020a_0%,#0a0a5a_50%,#3a3aa8_80%,#9ec9ec_115%)] shadow-[0_30px_80px_-20px_rgb(43_63_214/0.7)]">
-            <div className="absolute inset-0 bg-noise opacity-10 mix-blend-overlay" />
-            <LogoMark className="relative h-[52%] w-auto text-white drop-shadow-[0_0_24px_rgb(184_172_239/0.6)]" />
-          </div>
+          <Macropad />
         </motion.div>
       </div>
     </section>
