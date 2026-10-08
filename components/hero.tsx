@@ -3,10 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { ArrowRight, Code2, Megaphone, Palette, Sparkles, Compass, Share2 } from "lucide-react";
-import dynamic from "next/dynamic";
 import { LogoMark } from "./logo";
-
-const DitherGradient = dynamic(() => import("./dither-gradient"), { ssr: false });
 
 const audiences = ["startups", "business owners", "creators", "students"];
 
@@ -41,9 +38,10 @@ export function Hero() {
     >
       {/* Brand aurora: deep navy → indigo → lavender/sky glow, echoing the logo artwork */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#02020a_0%,#06073a_45%,#12127a_75%,#2a2a9e_100%)]" />
-        <DitherGradient className="absolute inset-0" />
-        <div className="absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,#020208_0%,#06073a_45%,#12127a_75%,#2a2a9e_100%)]" />
+        <div className="absolute -bottom-1/3 -right-1/4 h-[80vmax] w-[80vmax] animate-aurora rounded-full bg-[radial-gradient(closest-side,rgb(184_172_239/0.55),rgb(106_90_216/0.25)_45%,transparent_70%)] blur-2xl" />
+        <div className="absolute -bottom-1/2 left-[-10%] h-[70vmax] w-[70vmax] animate-aurora rounded-full bg-[radial-gradient(closest-side,rgb(29_78_216/0.5),rgb(124_196_234/0.12)_50%,transparent_70%)] blur-2xl [animation-delay:-9s]" />
+        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
         <div className="absolute inset-0 bg-noise opacity-[0.07] mix-blend-overlay" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
       </div>
