@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
+import { PixelCanvas } from "./pixel-canvas";
 
 export function SpotlightCard({ children, className = "" }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,6 +34,12 @@ export function SpotlightCard({ children, className = "" }: { children: ReactNod
             background:
               "radial-gradient(500px circle at var(--x) var(--y), rgb(43 63 214 / 0.14), transparent 45%)",
           }}
+        />
+        <PixelCanvas
+          aria-hidden
+          gap={6}
+          radius={110}
+          className="pointer-events-none absolute! inset-0 rounded-[inherit] opacity-70"
         />
         <div className="relative h-full">{children}</div>
       </div>
