@@ -4,7 +4,7 @@ export const site = {
   description:
     "Codifykit is a digital growth and creative studio. We build websites, grow social media, run digital marketing, design brand identities and shape the strategy behind it all.",
   url: "https://codifykit.com",
-  email: "hello@codifykit.com",
+  email: "codifykit@gmail.com",
   socials: {
     linkedin: "https://www.linkedin.com/company/codifykit/",
     instagram: "https://www.instagram.com/codifykit/",
