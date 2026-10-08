@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { ArrowRight, Code2, Megaphone, Palette, Sparkles, Compass, Share2 } from "lucide-react";
 import { LogoMark } from "./logo";
+import { PixelCanvas } from "./pixel-canvas";
 
 const audiences = ["startups", "business owners", "creators", "students"];
 
@@ -45,6 +46,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-noise opacity-[0.07] mix-blend-overlay" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
       </div>
+      <PixelCanvas aria-hidden className="pointer-events-none absolute! inset-0 -z-10 mix-blend-screen" />
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: spotlight }} />
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 lg:grid-cols-[1.15fr_0.85fr]">
