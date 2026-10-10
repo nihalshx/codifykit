@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useMotionTemplate, useMotionValue } from "motion/react";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Macropad } from "./macropad";
+
+const MicroSlats = dynamic(() => import("./micro-slats"), { ssr: false });
 
 const audiences = ["startups", "business owners", "creators", "students"];
 
 export function Hero() {
   const [i, setI] = useState(0);
-  const mx = useMotionValue(-1000);
-  const my = useMotionValue(-1000);
-  const spotlight = useMotionTemplate`radial-gradient(520px circle at ${mx}px ${my}px, rgb(124 196 234 / 0.10), transparent 70%)`;
 
   useEffect(() => {
     const t = setInterval(() => setI((n) => (n + 1) % audiences.length), 2200);
@@ -21,23 +21,28 @@ export function Hero() {
   return (
     <section
       id="top"
-      onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set(e.clientX - r.left);
-        my.set(e.clientY - r.top);
-      }}
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-20 pt-32"
     >
-      {/* Brand aurora: deep navy → indigo → lavender/sky glow, echoing the logo artwork */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,#020208_0%,#06073a_45%,#12127a_75%,#2a2a9e_100%)]" />
-        <div className="absolute -bottom-1/3 -right-1/4 h-[80vmax] w-[80vmax] animate-aurora rounded-full bg-[radial-gradient(closest-side,rgb(184_172_239/0.55),rgb(106_90_216/0.25)_45%,transparent_70%)] blur-2xl" />
-        <div className="absolute -bottom-1/2 left-[-10%] h-[70vmax] w-[70vmax] animate-aurora rounded-full bg-[radial-gradient(closest-side,rgb(29_78_216/0.5),rgb(124_196_234/0.12)_50%,transparent_70%)] blur-2xl [animation-delay:-9s]" />
-        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]" />
-        <div className="absolute inset-0 bg-noise opacity-[0.07] mix-blend-overlay" />
+      {/* Animated slat field in brand colours (dark base shows if WebGL2 is unavailable) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-ink">
+        <MicroSlats
+          className="absolute! inset-0"
+          preset="swell"
+          color="#3b3fd8"
+          glintColor="#b8acef"
+          backgroundColor="#04040f"
+          slatWidth={8}
+          slatHeight={22}
+          gap={3}
+          cursorSize={60}
+          cursorStrength={1.2}
+          trail={1.6}
+        />
+        {/* keep the headline side calm and blend into the page below */}
+        <div className="absolute inset-0 bg-ink/40 lg:bg-transparent lg:bg-[linear-gradient(90deg,rgb(4_4_15/0.85)_0%,rgb(4_4_15/0.55)_40%,transparent_75%)]" />
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
       </div>
-      <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: spotlight }} />
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 lg:grid-cols-[1.15fr_0.85fr]">
         <div>

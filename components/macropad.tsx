@@ -260,7 +260,7 @@ export function Macropad() {
         </div>
       </motion.div>
 
-      <p className="mt-8 hidden items-center justify-center gap-2 text-xs text-mist/60 sm:flex">
+      <p className="mx-auto mt-8 hidden w-fit items-center justify-center gap-2 rounded-full border border-white/10 bg-ink/70 px-3.5 py-1.5 text-xs text-mist/80 backdrop-blur sm:flex">
         Press
         <kbd className="rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-display text-[11px] text-white shadow-[0_2px_0_rgb(255_255_255/.08)]">
           C
