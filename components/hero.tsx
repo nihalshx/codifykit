@@ -23,13 +23,15 @@ export function Hero() {
       id="top"
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-20 pt-32"
     >
-      {/* Animated slat field in brand colours (dark base shows if WebGL2 is unavailable) */}
+      {/* Animated slat field in brand colours (solid ink shows if WebGL2 is unavailable) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-ink">
         <MicroSlats
           className="absolute! inset-0"
           preset="swell"
-          color="#3b3fd8"
-          glintColor="#b8acef"
+          color="#5b5cf0"
+          glintColor="#c9c0ff"
+          fog={0.25}
+          contrast={1.05}
           backgroundColor="#04040f"
           slatWidth={8}
           slatHeight={22}
@@ -38,10 +40,7 @@ export function Hero() {
           cursorStrength={1.2}
           trail={1.6}
         />
-        {/* keep the headline side calm and blend into the page below */}
-        <div className="absolute inset-0 bg-ink/40 lg:bg-transparent lg:bg-[linear-gradient(90deg,rgb(4_4_15/0.85)_0%,rgb(4_4_15/0.55)_40%,transparent_75%)]" />
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-ink" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-ink" />
       </div>
 
       <div className="mx-auto grid w-full max-w-6xl items-center gap-16 px-5 lg:grid-cols-[1.15fr_0.85fr]">
@@ -83,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-mist/85"
+            className="mt-6 max-w-xl text-lg leading-relaxed text-mist [text-shadow:0_1px_14px_rgb(4_4_15/0.95),0_0_2px_rgb(4_4_15/0.8)]"
           >
             Websites, social media, digital marketing, branding and the strategy behind it all —
             designed to work together, so your presence online feels like <em className="not-italic text-white">you</em>,
@@ -115,7 +114,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.85 }}
-            className="mt-10 flex items-center gap-2 text-sm text-mist/70"
+            className="mt-10 flex items-center gap-2 text-sm text-mist [text-shadow:0_1px_10px_rgb(4_4_15/0.95)]"
           >
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-sky opacity-60" />
