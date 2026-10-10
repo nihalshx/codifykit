@@ -23,7 +23,7 @@ export function Navbar() {
         className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-500 sm:px-5 ${
           scrolled || open
             ? "border-white/10 bg-night/70 shadow-[0_8px_40px_-12px_rgb(43_63_214/0.45)] backdrop-blur-xl"
-            : "border-transparent bg-transparent"
+            : "border-white/5 bg-ink/45 backdrop-blur-md"
         }`}
       >
         <a href="#top" aria-label="Codifykit home" onClick={() => setOpen(false)}>
@@ -35,7 +35,7 @@ export function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className="rounded-full px-3.5 py-2 text-sm text-mist/80 transition hover:bg-white/5 hover:text-white"
+                className="rounded-full px-3.5 py-2 text-sm text-mist transition hover:bg-white/5 hover:text-white"
               >
                 {item.label}
               </a>

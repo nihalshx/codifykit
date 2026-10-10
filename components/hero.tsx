@@ -26,7 +26,7 @@ export function Hero() {
       {/* Animated slat field in brand colours (solid ink shows if WebGL2 is unavailable) */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-ink">
         <MicroSlats
-          className="absolute! inset-0"
+          className="absolute! inset-0 [mask-image:linear-gradient(180deg,rgb(0_0_0/0.18)_0%,rgb(0_0_0/0.24)_55%,black_85%)] lg:[mask-image:linear-gradient(90deg,rgb(0_0_0/0.14)_0%,rgb(0_0_0/0.22)_38%,black_66%)]"
           preset="swell"
           color="#5b5cf0"
           glintColor="#c9c0ff"
@@ -49,7 +49,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-mist backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-ink/70 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur"
           >
             <Sparkles className="size-3.5 text-lavender" />
             Digital growth &amp; creative studio
@@ -82,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55 }}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-mist [text-shadow:0_1px_14px_rgb(4_4_15/0.95),0_0_2px_rgb(4_4_15/0.8)]"
+            className="mt-6 max-w-xl text-lg leading-relaxed text-white/90 [text-shadow:0_1px_14px_rgb(4_4_15/0.95),0_0_2px_rgb(4_4_15/0.8)]"
           >
             Websites, social media, digital marketing, branding and the strategy behind it all —
             designed to work together, so your presence online feels like <em className="not-italic text-white">you</em>,
@@ -104,7 +104,7 @@ export function Hero() {
             </a>
             <a
               href="#services"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 font-medium text-white backdrop-blur transition hover:border-white/30 hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-ink/60 px-6 py-3.5 font-medium text-white backdrop-blur transition hover:border-white/30 hover:bg-ink/80"
             >
               Explore services
             </a>
@@ -114,7 +114,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.85 }}
-            className="mt-10 flex items-center gap-2 text-sm text-mist [text-shadow:0_1px_10px_rgb(4_4_15/0.95)]"
+            className="mt-10 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-ink/70 px-3.5 py-1.5 text-sm text-mist backdrop-blur"
           >
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-sky opacity-60" />
