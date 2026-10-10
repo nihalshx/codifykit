@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
-import { Marquee } from "@/components/marquee";
+import { Showreel } from "@/components/showreel";
 import { Story } from "@/components/story";
 import { Services } from "@/components/services";
 import { Audience } from "@/components/audience";
@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
+        <Showreel />
         <Story />
         <Services />
         <Audience />
