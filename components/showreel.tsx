@@ -68,8 +68,8 @@ export function Showreel() {
             onPause={() => setPlaying(false)}
             aria-label="Codifykit brand promo video"
           >
-            <source src="/video/codifykit-promo.webm" type="video/webm" />
             <source src="/video/codifykit-promo.mp4" type="video/mp4" />
+            <source src="/video/codifykit-promo.webm" type="video/webm" />
           </video>
 
           <a
