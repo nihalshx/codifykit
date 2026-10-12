@@ -1,16 +1,39 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, Pause, Play, Volume2, VolumeX } from "lucide-react";
 
-/** Brand promo in a full-bleed rounded frame, followed by a giant tagline marquee. */
+const PHONE = "(max-width: 639px)";
+const subscribe = (cb: () => void) => {
+  const mq = window.matchMedia(PHONE);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+
+/** null on the server, so no video source is picked until we know the screen size. */
+function useIsPhone() {
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(PHONE).matches,
+    () => null,
+  );
+}
+
+const REELS = {
+  wide: { base: "/video/codifykit-reel" },
+  tall: { base: "/video/codifykit-reel-vertical" },
+};
+
+/** Brand reel in a rounded frame (landscape on desktop, vertical on phones), then a giant tagline marquee. */
 export function Showreel() {
   const frame = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
   const [playing, setPlaying] = useState(false);
   const reduce = useReducedMotion();
+  const isPhone = useIsPhone();
+  const reel = isPhone === null ? null : isPhone ? REELS.tall : REELS.wide;
 
   // Frame eases up to full size as it scrolls into view.
   const { scrollYProgress } = useScroll({ target: frame, offset: ["start end", "start 0.15"] });
@@ -29,7 +52,7 @@ export function Showreel() {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [reel]);
 
   const toggleSound = () => {
     const el = video.current;
@@ -54,23 +77,26 @@ export function Showreel() {
         <motion.div
           ref={frame}
           style={{ scale }}
-          className="relative mx-auto aspect-video w-full overflow-hidden rounded-[22px] border border-white/10 bg-black shadow-[0_40px_120px_-40px_rgb(43_63_214/0.55)] will-change-transform sm:aspect-auto sm:h-[calc(100svh-1.5rem)] sm:rounded-[40px]"
+          className="relative mx-auto aspect-[9/16] w-[min(100%,calc((100svh-7rem)*9/16))] overflow-hidden rounded-[22px] border border-white/10 bg-night bg-[url(/video/codifykit-reel-vertical-poster.jpg)] bg-cover bg-center shadow-[0_40px_120px_-40px_rgb(43_63_214/0.55)] will-change-transform sm:aspect-video sm:w-[min(100%,calc((100svh-1.5rem)*16/9))] sm:rounded-[40px] sm:bg-[url(/video/codifykit-reel-poster.jpg)]"
         >
-          <video
-            ref={video}
-            className="absolute inset-0 h-full w-full object-cover"
-            poster="/video/codifykit-promo-poster.jpg"
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-            aria-label="Codifykit brand promo video"
-          >
-            <source src="/video/codifykit-promo.mp4" type="video/mp4" />
-            <source src="/video/codifykit-promo.webm" type="video/webm" />
-          </video>
+          {reel && (
+            <video
+              key={reel.base}
+              ref={video}
+              className="absolute inset-0 h-full w-full object-cover"
+              poster={`${reel.base}-poster.jpg`}
+              muted={muted}
+              loop
+              playsInline
+              preload="metadata"
+              onPlay={() => setPlaying(true)}
+              onPause={() => setPlaying(false)}
+              aria-label="Codifykit brand reel"
+            >
+              <source src={`${reel.base}.mp4`} type="video/mp4" />
+              <source src={`${reel.base}.webm`} type="video/webm" />
+            </video>
+          )}
 
           <a
             href="#contact"
