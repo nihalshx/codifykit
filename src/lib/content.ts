@@ -38,7 +38,7 @@ export const CAMPAIGNS = postersData.campaigns;
 export const POSTER_CATEGORIES = postersData.categories;
 export const WHEEL_CARDS = wheelData.cards as WheelCard[];
 export const TOOLS = toolsData.groups;
-export const SERVICE_PAGES = { web: servicePagesData.web, apps: servicePagesData.apps };
+export const SERVICE_PAGES = { web: servicePagesData.web, apps: servicePagesData.apps, content: servicePagesData.content };
 export type ServicePage = typeof servicePagesData.web;
 
 /** True for any content value the owner still has to replace. */

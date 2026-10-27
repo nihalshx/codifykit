@@ -59,7 +59,7 @@ export function Websites() {
           <p className="muted">
             Business sites, landing pages and portfolios, built to load fast, read well on a phone and turn visitors into enquiries.
           </p>
-          <Link href="/work/web/" className="btn">Enter the 3D web showcase ↗</Link>
+          <Link href="/work/web/" className="btn">View them in 3D ↗</Link>
         </div>
       </div>
       <div ref={wallRef} className={styles.wall}>

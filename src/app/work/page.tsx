@@ -13,7 +13,7 @@ export default function WorkPage() {
       <section className="container page-hero">
         <p className="label">Work</p>
         <h1 className="h-display">Our work</h1>
-        <p className="lead">Websites, apps, posters and videos we&apos;ve built. Pick a 3D showcase or browse everything below.</p>
+        <p className="lead">Websites, apps, posters and videos we&apos;ve built. Pick a kind to filter; websites and apps can also be seen in 3D.</p>
       </section>
       <section className="container">
         <WorkIndex />

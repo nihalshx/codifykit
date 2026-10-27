@@ -1,24 +1,18 @@
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
-import { WhatWeDo } from "@/components/sections/WhatWeDo";
-import { AppShowcase } from "@/components/sections/AppShowcase";
-import { StackedSites } from "@/components/sections/StackedSites";
-import { PosterFeed } from "@/components/sections/PosterFeed";
+import { ServiceTeasers } from "@/components/sections/ServiceTeasers";
 import { Process } from "@/components/sections/Process";
 import { Students } from "@/components/sections/Students";
 import { AskKitto } from "@/components/sections/AskKitto";
 
-// What we do first (so people can jump to what they came for), then one interactive showcase per
-// kind of work: apps (scroll), websites (stacked cards that tip back as you scroll), posters (a row of posters sliding through a phone, shown as Instagram posts).
+// The homepage is a short overview: one teaser per service, all the same shape, each leading to its
+// service page (which holds the full showcase), then how we work, students, and Kitto.
 export default function Home() {
   return (
     <>
       <Hero />
       <Marquee />
-      <WhatWeDo />
-      <AppShowcase />
-      <StackedSites />
-      <PosterFeed />
+      <ServiceTeasers />
       <Process />
       <Students />
       <AskKitto />
