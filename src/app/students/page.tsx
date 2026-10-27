@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Reveal } from "@/components/ui/Reveal";
-import { CONTACT } from "@/lib/content";
+import { Faq } from "@/components/ui/Faq";
 import styles from "./students.module.css";
 
 export const metadata: Metadata = {
@@ -83,25 +83,7 @@ export default function StudentsPage() {
         </div>
       </section>
 
-      <section className="container section">
-        <div className="grid-2">
-          <div>
-            <p className="label">FAQ</p>
-            <h2 className="h2">Questions students ask us.</h2>
-            <p className="lead" style={{ marginTop: 16 }}>
-              Something else? <a href={CONTACT.whatsapp} target="_blank" rel="noopener">Message us on WhatsApp</a>.
-            </p>
-          </div>
-          <div className={styles.faq}>
-            {FAQ.map((f) => (
-              <details key={f.q}>
-                <summary>{f.q}</summary>
-                <p>{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Faq items={FAQ} title="Questions students ask us." />
 
       <KittoCta title="Tell Kitto about your project." line="Share your course, your deadline and your idea (or that you don't have one yet). Kitto will help you think it through and pass it to the team." />
     </>

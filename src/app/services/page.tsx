@@ -1,57 +1,59 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Process } from "@/components/sections/Process";
+import { Faq } from "@/components/ui/Faq";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Reveal } from "@/components/ui/Reveal";
-import { SERVICES, serviceHref } from "@/lib/content";
+import { Crumbs } from "@/components/ui/Crumbs";
+import { FAQ, SERVICES, serviceHref } from "@/lib/content";
 import styles from "./services.module.css";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Websites, Android and iOS apps, custom CRM & ERP, social media, AI and organic video, Meta and ChatGPT ads, branding and student project guidance. One team, the whole job.",
+  description: "Websites, Android and iOS apps, branding and content, custom CRM & ERP, marketing and ads, and strategy. One team, the whole job.",
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <section className="container page-hero">
-        <p className="label">Services</p>
-        <h1 className="h-display">One team, the whole job.</h1>
-        <p className="lead">
-          Your website, app, systems, ads and content, planned together so they work together. No juggling five different vendors.
-        </p>
-        <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-          <Link href="/services/web/" className="btn btn--ghost">Web development →</Link>
-          <Link href="/services/apps/" className="btn btn--ghost">App development →</Link>
-          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+      <section className={`container page-hero ${styles.hero}`}>
+        <div>
+          <Crumbs trail={[{ label: "Services" }]} />
+          <h1 className="h-display">One team, the whole job.</h1>
+        </div>
+        <div>
+          <p className="lead">
+            Your website, app, systems, ads and content, planned together so they work together. Pick one, or pick a few. No juggling five different vendors.
+          </p>
+          <div className={styles.btns}>
+            <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+            <Link href="/talk/" className="btn btn--ghost">Not sure? Ask Kitto</Link>
+          </div>
         </div>
       </section>
-      <section className="container">
-        <div className={styles.grid}>
+
+      <section className="container" aria-label="Our services">
+        <ul className={styles.grid}>
           {SERVICES.map((s, i) => (
-            <Reveal key={s.slug} delay={(i % 3) * 80}>
-              <Link href={serviceHref(s)} className={styles.card}>
+            <Reveal as="li" key={s.slug} delay={(i % 3) * 80} className={styles.cell}>
+              <div className={styles.card}>
                 <span className={styles.n}>{s.n}</span>
-                <h2 className={styles.name}>{s.name}</h2>
+                <h2 className={styles.name}>
+                  <Link href={serviceHref(s)} className={styles.cover}>{s.name}</Link>
+                </h2>
                 <p className="muted">{s.short}</p>
                 <ul>
                   {s.includes.map((x) => <li key={x}>{x}</li>)}
                 </ul>
-                <span className={styles.more}>Learn more →</span>
-              </Link>
+                <span className={styles.more} aria-hidden="true">See the service →</span>
+              </div>
             </Reveal>
           ))}
-          {/* eight services and one way in: three full rows */}
-          <Reveal delay={80}>
-            <Link href="/contact/" className={`${styles.card} ${styles.cardDark}`}>
-              <h2 className={styles.name}>Not sure which one?</h2>
-              <p>Tell us what you&apos;re working on and we&apos;ll tell you what it needs. Or ask Kitto, our AI helper, first.</p>
-              <span className={styles.more}>Start a project →</span>
-            </Link>
-          </Reveal>
-        </div>
+        </ul>
       </section>
+
       <Process />
+      <Faq items={FAQ} />
       <KittoCta />
     </>
   );

@@ -26,6 +26,8 @@ export const CONTACT = site.contact;
 export const SERVICES = servicesData.services;
 export const MARQUEE = servicesData.marquee;
 export const PROCESS = servicesData.process;
+/** Questions asked about any service (each service also has its own "faq"). */
+export const FAQ = servicesData.faq;
 export const APPS = appsData.apps;
 export const APP_HERO_SCREENS = appsData.heroScreens;
 export const PLATFORM_TECH = appsData.platformTech;

@@ -1,0 +1,6 @@
+.crumbs ol { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; align-items: center; font-size: 14px; color: var(--ck-muted); }
+.crumbs li { display: flex; align-items: center; }
+.crumbs li + li::before { content: "/"; margin: 0 10px; opacity: .5; }
+.crumbs a { color: var(--ck-muted); text-decoration: none; padding: 8px 0; }
+.crumbs a:hover { color: var(--ck-ink); text-decoration: underline; }
+.crumbs [aria-current] { color: var(--ck-ink); font-weight: 500; }

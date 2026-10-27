@@ -2,11 +2,6 @@
 .pill { aspect-ratio: 4 / 5; border-radius: 999px; background: var(--ck-gradient); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; position: sticky; top: 100px; }
 .copy { display: flex; flex-direction: column; gap: 22px; font-size: 19px; line-height: 1.6; }
 .big { font-family: var(--font-display); font-size: clamp(22px, 2vw, 28px); line-height: 1.3; letter-spacing: -.02em; }
-.services { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ck-ink); display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
-.services li { border-bottom: 1px solid var(--ck-line); }
-.services a { display: flex; flex-direction: column; gap: 4px; padding: 18px 0; text-decoration: none; }
-.services strong { font-family: var(--font-display); font-weight: 500; font-size: 22px; }
-.services span { color: var(--ck-muted); }
 .teamSection { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 5vw, 80px); align-items: end; }
 .team { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 @media (max-width: 900px) { .teamSection { grid-template-columns: 1fr; } }
@@ -15,4 +10,5 @@
 .person figcaption { display: flex; flex-direction: column; }
 .person strong { font-family: var(--font-display); font-weight: 500; font-size: 20px; }
 .person span { color: var(--ck-muted); font-size: 15px; }
-@media (max-width: 900px) { .story, .services { grid-template-columns: 1fr; } .pill { position: static; aspect-ratio: 2/1; } }
+@media (max-width: 900px) { .story { grid-template-columns: 1fr; } .pill { position: static; aspect-ratio: 2/1; } }
+.btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }

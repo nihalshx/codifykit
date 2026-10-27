@@ -1,11 +1,31 @@
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 20px; }
-.count { font-family: var(--font-mono); font-size: 12px; opacity: .75; margin-left: 6px; }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
-/* what the chosen filter offers: the 3D view, the service, starting a project */
+.top { scroll-margin-top: 90px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px; }
+.count { font-family: var(--font-mono); font-size: 12px; opacity: .75; margin-left: 6px; font-weight: 400; letter-spacing: 0; }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 20px; }
+
+/* "All": one short row per kind */
+.group { padding: clamp(28px, 4vw, 44px) 0; border-top: 1px solid var(--ck-line); }
+.group:first-of-type { border-top: 0; padding-top: 8px; }
+.groupHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 22px; }
+.groupTitle { font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -.02em; margin-bottom: 4px; }
+.reels { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.reels button { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; max-height: 420px; padding: 0; border: 0; border-radius: var(--r-card); overflow: hidden; background: var(--ck-dark); cursor: pointer; }
+.reels img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-med) var(--ease-out); }
+.reels button:hover img { transform: scale(1.04); }
+.reels button span { position: absolute; left: 12px; bottom: 12px; padding: 7px 12px; border-radius: var(--r-pill); background: rgba(255,255,255,.92); color: var(--ck-ink); font-size: 13px; font-weight: 500; }
+
+/* a filter: what it offers besides the grid */
 .ways { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 28px; padding: 16px 20px; border-radius: 20px; background: #fff; }
 .ways p { font-size: 16px; color: var(--ck-muted); }
 .ways > div { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .wayLink { font-size: 15px; font-weight: 500; color: var(--ck-ink); text-decoration: none; padding: 10px 0; }
 .wayLink:hover { text-decoration: underline; }
-@media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .grid { gap: 20px 12px; } }
+.back { display: block; margin: 36px auto 0; padding: 12px 20px; border: 0; background: none; font: inherit; font-weight: 500; color: var(--ck-ink); cursor: pointer; }
+.back:hover { text-decoration: underline; }
+
+@media (max-width: 1000px) { .grid, .reels { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) {
+  .grid, .reels { grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+  /* phones: the preview rows show two, then "See all" */
+  .group .grid > :nth-child(n + 3), .reels li:nth-child(n + 3) { display: none; }
+}

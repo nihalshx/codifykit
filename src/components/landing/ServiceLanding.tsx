@@ -3,21 +3,27 @@ import type { ReactNode } from "react";
 import { Process } from "@/components/sections/Process";
 import { Reveal } from "@/components/ui/Reveal";
 import { Brace } from "@/components/ui/Brace";
-import { CONTACT, SITE, real, type ServicePage } from "@/lib/content";
+import { Crumbs } from "@/components/ui/Crumbs";
+import { Faq } from "@/components/ui/Faq";
+import { ServiceSwitch } from "@/components/ui/ServiceSwitch";
+import { CONTACT, FAQ, SERVICES, SITE, real, type ServicePage } from "@/lib/content";
 import { IconAsterisk } from "@/components/ui/Icons";
 import styles from "./ServiceLanding.module.css";
 
 /**
  * One template for the service landing pages, laid out like the reference:
  * intro with a pill strip → what you get → the dark showcase (passed in) → process →
- * services we provide → tools & technologies → start a project.
+ * services we provide → tools & technologies → questions → start a project → the other services.
  * Placeholder values ([FILL IN …]) are left out here, so nothing half-finished shows.
  */
 export function ServiceLanding({
+  service,
   page,
   strip,
   children,
 }: {
+  /** the service's slug in services.json */
+  service: string;
   page: ServicePage;
   /** images that slide through the pill at the top */
   strip: string[];
@@ -25,6 +31,7 @@ export function ServiceLanding({
   children: ReactNode;
 }) {
   const stack = page.stack.map((g) => ({ ...g, items: real(g.items) })).filter((g) => g.items.length);
+  const svc = SERVICES.find((x) => x.slug === service)!;
   const stats = SITE.stats.enabled ? (SITE.stats.items as { value: string; label: string }[]) : [];
 
   return (
@@ -33,7 +40,7 @@ export function ServiceLanding({
       <section className={`container ${styles.intro}`} aria-labelledby="landing-title">
         <div className={styles.introTop}>
           <div>
-            <p className="label">{page.label}</p>
+            <Crumbs trail={[{ href: "/services/", label: "Services" }, { label: svc.name }]} />
             <h1 id="landing-title" className={styles.title}>
               {page.titleBefore} <Brace>{page.brace}</Brace> {page.titleAfter}
             </h1>
@@ -110,9 +117,11 @@ export function ServiceLanding({
             <h2 id="stack-title" className={styles.stackTitle}>
               Tools we use for <span>{page.stackFor.toLowerCase()}</span>
             </h2>
-            <p className="muted">
-              We mainly build apps in Flutter, so one codebase runs on Android and iOS. If your project needs another stack, we work in that too.
-            </p>
+            {service === "apps" && (
+              <p className="muted">
+                We mainly build apps in Flutter, so one codebase runs on Android and iOS. If your project needs another stack, we work in that too.
+              </p>
+            )}
           </div>
           <div className={styles.stack}>
             {stack.map((g) => (
@@ -124,6 +133,8 @@ export function ServiceLanding({
           </div>
         </section>
       )}
+
+      <Faq items={[...svc.faq, ...FAQ.slice(0, 3)]} />
 
       {/* start a project */}
       <section className="container section" aria-labelledby="start-title">
@@ -142,6 +153,8 @@ export function ServiceLanding({
           </div>
         </div>
       </section>
+
+      <ServiceSwitch current={service} />
     </div>
   );
 }

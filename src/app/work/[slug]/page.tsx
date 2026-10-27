@@ -23,9 +23,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const i = CASE_STUDIES.findIndex((c) => c.slug === slug);
   if (i < 0) notFound();
   const c = CASE_STUDIES[i];
-  const next = CASE_STUDIES[(i + 1) % CASE_STUDIES.length];
-  const prev = CASE_STUDIES[(i - 1 + CASE_STUDIES.length) % CASE_STUDIES.length];
-  const need = c.kind === "Apps" ? "Android / iOS app" : c.kind === "Websites" ? "Website" : "Branding & posters";
+  // previous and next stay within the same kind of work
+  const same = CASE_STUDIES.filter((x) => x.kind === c.kind);
+  const j = same.indexOf(c);
+  const next = same[(j + 1) % same.length];
+  const prev = same[(j - 1 + same.length) % same.length];
+  const need = c.kind === "Apps" ? "Android / iOS app" : c.kind === "Websites" ? "Website" : "Branding & content";
   const service =
     c.kind === "Apps" ? { href: "/services/apps/", label: "Android & iOS apps" }
     : c.kind === "Websites" ? { href: "/services/web/", label: "Websites" }
@@ -105,7 +108,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <span className={styles.nextTitle}>← <T>{prev.title}</T></span>
         </Link>
         <Link href={`/work/${next.slug}/`} className={styles.next} data-next>
-          <span className="label">Next project</span>
+          <span className="label">Next {c.kind === "Apps" ? "app" : c.kind === "Websites" ? "website" : "campaign"}</span>
           <span className={styles.nextTitle}><T>{next.title}</T> →</span>
         </Link>
       </nav>

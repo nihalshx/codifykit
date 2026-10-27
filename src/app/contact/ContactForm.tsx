@@ -4,10 +4,16 @@
  * and opens WhatsApp or your email app with it filled in. Nothing is stored.
  */
 import { useEffect, useState, type FormEvent } from "react";
-import { CONTACT } from "@/lib/content";
+import { CONTACT, SERVICES } from "@/lib/content";
 import styles from "./contact.module.css";
 
-const NEEDS = ["Website", "Android / iOS app", "Custom CRM or ERP", "Social media & content", "Video", "Ads & marketing", "Branding & posters", "College project", "Something else"];
+// one choice per service (services.json "need"), plus the two that aren't a service
+const NEEDS = [...SERVICES.map((s) => s.need), "College project", "Something else"];
+// older links still preselect the right choice
+const ALIAS: Record<string, string> = {
+  "Branding & posters": "Branding & content", "Social media & content": "Branding & content", Video: "Branding & content",
+  "Ads & marketing": "Marketing & ads",
+};
 const BUDGETS = ["Not sure yet", "Under ₹25,000", "₹25,000 – ₹1 lakh", "₹1 – 3 lakh", "Over ₹3 lakh"];
 
 export function ContactForm() {
@@ -16,7 +22,8 @@ export function ContactForm() {
 
   // /contact/?need=Website preselects a chip (links from the service pages)
   useEffect(() => {
-    const n = new URLSearchParams(window.location.search).get("need");
+    const q = new URLSearchParams(window.location.search).get("need");
+    const n = q && (ALIAS[q] ?? q);
     if (n && NEEDS.includes(n)) setNeeds([n]);
   }, []);
 

@@ -22,6 +22,11 @@ export default function ContactPage() {
           <p className="lead">
             A few lines is enough. We&apos;ll come back to you with questions, the next steps and a rough price.
           </p>
+          <ol className={styles.next} aria-label="What happens next">
+            <li><span>1</span>You send a few lines, here or on WhatsApp.</li>
+            <li><span>2</span>We reply with any questions we have.</li>
+            <li><span>3</span>You get the next steps and a rough price. Nothing starts until you say yes.</li>
+          </ol>
           <ul className={styles.direct}>
             <li>
               <span>Email</span>

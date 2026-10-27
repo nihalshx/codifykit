@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Icon } from "@/components/ui/Logo";
-import { SERVICES, serviceHref } from "@/lib/content";
+import { ServiceSwitch } from "@/components/ui/ServiceSwitch";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -21,6 +21,11 @@ export default function AboutPage() {
       <section className="container page-hero">
         <p className="label">About</p>
         <h1 className="h-display">Codifykit started in an MCA classroom.</h1>
+        <p className="lead">Today we&apos;re a small studio that builds websites, apps, brands and campaigns, and still helps students with their projects.</p>
+        <div className={styles.btns}>
+          <Link href="/work/" className="btn btn--ghost">See our work</Link>
+          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+        </div>
       </section>
 
       <section className="container section">
@@ -38,19 +43,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="container section">
-        <p className="label">What we do today</p>
-        <ul className={styles.services}>
-          {SERVICES.map((s) => (
-            <li key={s.slug}>
-              <Link href={serviceHref(s)}>
-                <strong>{s.name}</strong>
-                <span>{s.short}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ServiceSwitch title="What we do today" />
 
       <section className={`container section ${styles.teamSection}`}>
         <div>

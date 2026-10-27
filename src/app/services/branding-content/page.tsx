@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContentServicePage() {
   return (
-    <ServiceLanding page={SERVICE_PAGES.content} strip={CAMPAIGNS.flatMap((c) => c.posters)}>
+    <ServiceLanding service="branding-content" page={SERVICE_PAGES.content} strip={CAMPAIGNS.flatMap((c) => c.posters)}>
       <PosterFeed />
     </ServiceLanding>
   );

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function AppsServicePage() {
   return (
-    <ServiceLanding page={SERVICE_PAGES.apps} strip={APPS.map((a) => a.screens[0])}>
+    <ServiceLanding service="apps" page={SERVICE_PAGES.apps} strip={APPS.map((a) => a.screens[0])}>
       <AppShowcase />
     </ServiceLanding>
   );

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function WebServicePage() {
   return (
-    <ServiceLanding page={SERVICE_PAGES.web} strip={WEB_PROJECTS.map((p) => p.screenshot)}>
+    <ServiceLanding service="web" page={SERVICE_PAGES.web} strip={WEB_PROJECTS.map((p) => p.screenshot)}>
       <StackedSites />
       <Websites />
     </ServiceLanding>

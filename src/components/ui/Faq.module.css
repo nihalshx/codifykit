@@ -1,0 +1,9 @@
+.wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(28px, 5vw, 80px); align-items: start; }
+.faq { border-top: 2px solid var(--ck-ink); }
+.faq details { border-bottom: 1px solid var(--ck-line); }
+.faq summary { cursor: pointer; padding: 20px 0; font-size: 18px; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::after { content: "+"; font-size: 24px; line-height: 1; transition: transform var(--dur-fast); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq p { padding: 0 0 20px; color: var(--ck-muted); max-width: 60ch; }
+@media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } .faq summary { font-size: 16px; } }

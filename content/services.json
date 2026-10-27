@@ -22,6 +22,17 @@
         "Business websites, portfolio sites, landing pages",
         "Online stores and booking or enquiry forms",
         "Built to load fast, read well on a phone and bring enquiries in"
+      ],
+      "need": "Website",
+      "faq": [
+        {
+          "q": "Can I change the text and photos myself?",
+          "a": "Yes. We set the site up so you can change your text, prices and photos without calling us."
+        },
+        {
+          "q": "Will it work well on phones?",
+          "a": "Most of your visitors are on a phone, so we design for the phone first and then the bigger screens."
+        }
       ]
     },
     {
@@ -34,6 +45,17 @@
         "Custom Android and iOS apps",
         "Admin dashboards behind them",
         "Products that are easy to use, not just good to look at"
+      ],
+      "need": "Android / iOS app",
+      "faq": [
+        {
+          "q": "Do you build for both Android and iOS?",
+          "a": "Yes. We mainly build in Flutter, so one codebase runs on both and you can launch on both stores together."
+        },
+        {
+          "q": "Can I see the app before you build it?",
+          "a": "Yes. You click through the designed screens first, and we only start building once you're happy with them."
+        }
       ]
     },
     {
@@ -47,7 +69,18 @@
         "Content calendars, copywriting and account management",
         "Realistic AI videos, reels and video editing"
       ],
-      "n": "03"
+      "n": "03",
+      "need": "Branding & content",
+      "faq": [
+        {
+          "q": "Can you make just a logo, or just posters?",
+          "a": "Yes. Pick what you need: a logo, a set of posters, a month of content or a few videos."
+        },
+        {
+          "q": "Do you make AI videos as well as normal reels?",
+          "a": "Yes, both: realistic AI videos, and reels we shoot or edit for you."
+        }
+      ]
     },
     {
       "n": "04",
@@ -58,6 +91,17 @@
         "Custom CRM: lead tracking, sales pipelines, customer records, follow-ups",
         "Custom ERP: operations, inventory, billing, internal workflows",
         "Automation and integration of disconnected tools"
+      ],
+      "need": "Custom CRM or ERP",
+      "faq": [
+        {
+          "q": "Can it connect to the tools we already use?",
+          "a": "Often, yes. Connecting tools that don't talk to each other is part of the job. Tell us what you use and we'll check."
+        },
+        {
+          "q": "Why custom instead of an off-the-shelf CRM?",
+          "a": "Off-the-shelf tools make you work their way. A custom system follows how your team already works. If an existing tool would suit you better, we'll say so."
+        }
       ]
     },
     {
@@ -71,6 +115,17 @@
         "ChatGPT ads",
         "Lead generation",
         "Visibility and reach"
+      ],
+      "need": "Marketing & ads",
+      "faq": [
+        {
+          "q": "Do you also make the ads themselves?",
+          "a": "Yes. The same team makes the posters, creatives and videos, so the ads and the design are planned together."
+        },
+        {
+          "q": "Which platforms do you run ads on?",
+          "a": "Meta (Facebook and Instagram) and ChatGPT ads. Tell us where your customers are and we'll plan around that."
+        }
       ]
     },
     {
@@ -82,6 +137,17 @@
         "Digital strategy that ties every service together",
         "Project planning and consulting",
         "Student mini and main project guidance (where we started)"
+      ],
+      "need": "Strategy & planning",
+      "faq": [
+        {
+          "q": "Is student project help part of this?",
+          "a": "Yes, that's where Codifykit started. See the Students page for how it works."
+        },
+        {
+          "q": "What does strategy actually mean here?",
+          "a": "Working out what you need before anything is built: which pieces, in what order, and how they fit together, so you don't pay for things you won't use."
+        }
       ]
     }
   ],
@@ -114,5 +180,28 @@
   ],
   "_note": "Process lines 02-05 are drafts in the brand voice. Confirm or edit them.",
   "_note_href": "A service with \"href\" has its own landing page (/services/web, /services/apps); the others use /services/<slug>.",
-  "_note_merged": "Social media & content, Video production and Branding & creative were joined into Branding & content (/services/branding-content). Their old addresses forward there."
+  "_note_merged": "Social media & content, Video production and Branding & creative were joined into Branding & content (/services/branding-content). Their old addresses forward there.",
+  "faq": [
+    {
+      "q": "How much will it cost?",
+      "a": "It depends on what you need. Tell us about the project and we'll come back with a rough price before anything starts."
+    },
+    {
+      "q": "How long does it take?",
+      "a": "That depends on the size of the job. You get a timeline together with the price, before any work starts."
+    },
+    {
+      "q": "Can you do just one part, like only the website?",
+      "a": "Yes. Pick one service or several. If you need more later, the same team picks it up."
+    },
+    {
+      "q": "What do you need from me to start?",
+      "a": "A few lines about what you're building and who it's for. A logo, photos or examples you like help, but we can start without them."
+    },
+    {
+      "q": "Do you look after it after launch?",
+      "a": "Yes, we can keep updating and looking after it once it's live. We agree how that works before launch."
+    }
+  ],
+  "_note_faq": "FAQ answers (the shared \"faq\" list and each service's \"faq\") are drafts written from what the site already says. Confirm or edit them."
 }
