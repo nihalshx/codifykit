@@ -1,6 +1,6 @@
 # Codifykit website
 
-The marketing site for Codifykit: a static Next.js site plus one small API (Kitto's AI chat), deployed as a **Cloudflare Worker** with static assets.
+The marketing site for Codifykit: a Next.js site (every page pre-rendered as static HTML) plus one small API, Kitto's AI chat. It deploys to **Vercel** (recommended) or to **Cloudflare**.
 
 ## Run it locally
 
@@ -16,6 +16,19 @@ For the chat to work locally, create `.dev.vars` (never commit it):
 ```
 ANTHROPIC_API_KEY=sk-ant-...
 ```
+
+## Deploy to Vercel (recommended)
+
+1. Go to vercel.com → **Add New… → Project** → import the `codifykit` GitHub repo.
+2. Framework preset: **Next.js** (detected automatically). Leave the build command and output directory on their defaults.
+3. If the repo's default branch isn't the one with the code, pick `claude/clever-cerf-4fh0l0` (or merge it into `main` first).
+4. **Environment Variables**:
+   - `ANTHROPIC_API_KEY`: your Claude API key from console.anthropic.com (Kitto's chat needs it).
+   - `NEXT_PUBLIC_SITE_URL`: your final address, e.g. `https://codifykit.com` (sitemap + social previews).
+   - Optional: `KITTO_MODEL` to use a different Claude model (default `claude-opus-5-5`).
+5. **Deploy**. Every push redeploys, and pull requests get preview links. Add your domain under **Settings → Domains**.
+
+On Vercel the pages are static and Kitto runs as a Next.js route handler (`src/app/api/kitto/route.vercel.ts`). Nothing in `worker/` or `wrangler.jsonc` is used there.
 
 ## Deploy to Cloudflare (Workers)
 
@@ -62,7 +75,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | 3D models + credits | `public/models/` (`manifest.json`, `CREDITS.md`) |
 | Kitto mascot (SVG version) | `src/components/kitto/Kitto.tsx`, `public/kitto/` |
 | Kitto chat UI | `src/components/chat/KittoChat.tsx` |
-| Kitto API (Claude API, rate limit, brief) + Worker entry | `worker/kitto.ts`, `worker/index.ts` |
+| Kitto API (Claude API, rate limit, brief) | `src/lib/kitto-server.ts`; Vercel route `src/app/api/kitto/route.vercel.ts`; Cloudflare entry `worker/index.ts` |
 | Logos | `public/brand/` |
 
 ## 3D models

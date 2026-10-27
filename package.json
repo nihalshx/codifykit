@@ -31,5 +31,8 @@
     "@types/three": "^0.186.0",
     "typescript": "^7.0.2",
     "wrangler": "^4.153.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

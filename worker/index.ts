@@ -1,9 +1,13 @@
 /**
- * Cloudflare Worker for codifykit.
- * The static site (Next.js export in /out) is served as Worker assets; this script only runs
- * for requests that don't match a file, i.e. the Kitto API.
+ * Cloudflare Worker for codifykit (only used when deploying to Cloudflare; Vercel uses
+ * src/app/api/kitto/route.vercel.ts). The static site in /out is served as Worker assets;
+ * this script runs for requests that don't match a file, i.e. the Kitto API.
  */
-import { handleKitto, type Env } from "./kitto";
+import { handleKitto, type KittoEnv } from "../src/lib/kitto-server";
+
+interface Env extends KittoEnv {
+  ASSETS: Fetcher;
+}
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {

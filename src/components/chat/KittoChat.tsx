@@ -74,7 +74,7 @@ export function KittoChat() {
       setBusy(true);
       setMood("thinking");
       try {
-        const res = await fetch("/api/kitto", {
+        const res = await fetch("/api/kitto/", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ messages: history.map(({ role, content }) => ({ role, content })) }),
@@ -130,7 +130,7 @@ export function KittoChat() {
     setBriefBusy(true);
     setBriefErr(null);
     try {
-      const res = await fetch("/api/kitto", {
+      const res = await fetch("/api/kitto/", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({

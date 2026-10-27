@@ -1,22 +1,30 @@
 /**
- * POST /api/kitto — Kitto's chat endpoint (handled by the Worker in worker/index.ts).
+ * POST /api/kitto: Kitto's chat endpoint. Platform-neutral (standard Request/Response):
+ *   - Vercel: src/app/api/kitto/route.vercel.ts
+ *   - Cloudflare Worker: worker/index.ts
  *
  * The API key stays here on the server; the browser never sees it.
  *   { messages }                         -> streams Kitto's reply as plain text
  *   { mode: "brief", messages, name, contact } -> JSON { brief } for the team
  *
- * Secrets / vars (Cloudflare → Workers & Pages → codifykit → Settings → Variables and secrets):
+ * Environment variables (Vercel: Project → Settings → Environment Variables;
+ * Cloudflare: Worker → Settings → Variables and secrets):
  *   ANTHROPIC_API_KEY  (secret, required)
  *   KITTO_MODEL        (optional, defaults to claude-opus-5-5)
- *   RATE_LIMIT         (optional KV namespace binding for rate limiting across all edge locations)
+ *   RATE_LIMIT         (Cloudflare only, optional KV namespace for rate limiting across all locations)
  */
 import Anthropic from "@anthropic-ai/sdk";
 
-export interface Env {
-  ASSETS: Fetcher;
+/** Minimal key-value store (a Cloudflare KV namespace fits this shape). */
+export interface RateStore {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void>;
+}
+
+export interface KittoEnv {
   ANTHROPIC_API_KEY?: string;
   KITTO_MODEL?: string;
-  RATE_LIMIT?: KVNamespace;
+  RATE_LIMIT?: RateStore;
 }
 
 type Turn = { role: "user" | "assistant"; content: string };
@@ -60,7 +68,7 @@ Other notes: ...`;
 // best-effort fallback when no KV namespace is bound (per edge isolate)
 const memory = new Map<string, { n: number; reset: number }>();
 
-async function allow(env: Env, ip: string): Promise<boolean> {
+async function allow(env: KittoEnv, ip: string): Promise<boolean> {
   const now = Math.floor(Date.now() / 1000);
   const key = `rl:${ip}`;
   if (env.RATE_LIMIT) {
@@ -100,10 +108,14 @@ function clean(input: unknown): Turn[] | null {
   return turns;
 }
 
-export async function handleKitto(request: Request, env: Env): Promise<Response> {
+export async function handleKitto(request: Request, env: KittoEnv): Promise<Response> {
   if (!env.ANTHROPIC_API_KEY) return json({ error: "Kitto isn't set up yet." }, 503);
 
-  const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+  const ip =
+    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-real-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+    "unknown";
   if (!(await allow(env, ip))) return json({ error: "Kitto needs a short nap. Try again in a few minutes." }, 429);
 
   let body: { mode?: string; messages?: unknown; name?: unknown; contact?: unknown };
