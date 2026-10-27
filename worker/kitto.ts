@@ -1,18 +1,19 @@
 /**
- * POST /api/kitto — Kitto's chat endpoint (Cloudflare Pages Function).
+ * POST /api/kitto — Kitto's chat endpoint (handled by the Worker in worker/index.ts).
  *
  * The API key stays here on the server; the browser never sees it.
  *   { messages }                         -> streams Kitto's reply as plain text
  *   { mode: "brief", messages, name, contact } -> JSON { brief } for the team
  *
- * Secrets / vars (Cloudflare Pages → Settings → Environment variables):
+ * Secrets / vars (Cloudflare → Workers & Pages → codifykit → Settings → Variables and secrets):
  *   ANTHROPIC_API_KEY  (secret, required)
  *   KITTO_MODEL        (optional, defaults to claude-opus-5-5)
  *   RATE_LIMIT         (optional KV namespace binding for rate limiting across all edge locations)
  */
 import Anthropic from "@anthropic-ai/sdk";
 
-interface Env {
+export interface Env {
+  ASSETS: Fetcher;
   ANTHROPIC_API_KEY?: string;
   KITTO_MODEL?: string;
   RATE_LIMIT?: KVNamespace;
@@ -99,7 +100,7 @@ function clean(input: unknown): Turn[] | null {
   return turns;
 }
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export async function handleKitto(request: Request, env: Env): Promise<Response> {
   if (!env.ANTHROPIC_API_KEY) return json({ error: "Kitto isn't set up yet." }, 503);
 
   const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
@@ -195,7 +196,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       "x-content-type-options": "nosniff",
     },
   });
-};
+}
 
 function apiError(err: unknown) {
   console.error("kitto error", err);

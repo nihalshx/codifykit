@@ -1,0 +1,23 @@
+// Cloudflare Worker config. Cloudflare's Git builds run:
+//   build:  npm run build      (Next.js static export -> ./out)
+//   deploy: npx wrangler deploy
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "codifykit",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "vars": {
+    // Model used by Kitto. Change it in the dashboard if you want a different one.
+    "KITTO_MODEL": "claude-opus-5-5"
+  },
+  "observability": { "enabled": true }
+  // ANTHROPIC_API_KEY is a secret: set it in the dashboard (Settings -> Variables and secrets)
+  // or with: npx wrangler secret put ANTHROPIC_API_KEY
+}

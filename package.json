@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx wrangler pages dev out",
-    "lint": "tsc --noEmit",
+    "start": "npm run build && wrangler dev",
+    "lint": "tsc --noEmit && tsc --noEmit -p worker",
     "placeholders": "node scripts/make-placeholders.mjs",
-    "deploy": "next build && npx wrangler pages deploy out --project-name codifykit"
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

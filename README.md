@@ -1,6 +1,6 @@
 # Codifykit website
 
-The marketing site for Codifykit: a static Next.js site with one small server function (Kitto's AI chat), built to run on **Cloudflare Pages**.
+The marketing site for Codifykit: a static Next.js site plus one small API (Kitto's AI chat), deployed as a **Cloudflare Worker** with static assets.
 
 ## Run it locally
 
@@ -8,7 +8,7 @@ The marketing site for Codifykit: a static Next.js site with one small server fu
 npm install
 npm run dev          # http://localhost:3000 (Kitto's chat needs `npm start`, below)
 npm run build        # writes the static site to /out
-npm start            # serves /out + the Kitto function with Cloudflare's local runtime
+npm start            # builds, then serves /out + the Kitto API with Cloudflare's local runtime
 ```
 
 For the chat to work locally, create `.dev.vars` (never commit it):
@@ -17,35 +17,37 @@ For the chat to work locally, create `.dev.vars` (never commit it):
 ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare (Workers)
 
-### Option A: connect the GitHub repo (recommended)
+The site deploys as a Cloudflare **Worker** with static assets: `wrangler.jsonc` serves `./out` and runs `worker/index.ts` for `/api/kitto`.
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick `codifykit`.
-2. Build settings:
-   - Framework preset: **None**
-   - Build command: `npm run build`
-   - Build output directory: `out`
-   - Environment variable: `NODE_VERSION` = `22`
-3. **Settings → Variables and secrets**:
-   - `ANTHROPIC_API_KEY` (type **Secret**): your Claude API key, from console.anthropic.com.
-   - `NEXT_PUBLIC_SITE_URL` (plain text): your final address, e.g. `https://codifykit.com`. It's used for the sitemap, social previews and SEO tags.
-   - Optional: `KITTO_MODEL` to use a different Claude model. The default is `claude-opus-5-5`.
-4. **Settings → Runtime → Compatibility flags**: add `nodejs_compat`. `wrangler.toml` already sets this.
-5. Deploy. Every push to the branch redeploys.
-6. Add your domain under **Custom domains**.
+### Connected to GitHub (Workers Builds)
 
-### Option B: deploy from your computer
+In Cloudflare → **Workers & Pages** → `codifykit` → **Settings** → **Build**:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/` (leave empty)
+- Build variable: `NODE_VERSION` = `22`
+
+Then in **Settings → Variables and secrets** add:
+
+- `ANTHROPIC_API_KEY` (type **Secret**): your Claude API key from console.anthropic.com.
+- `NEXT_PUBLIC_SITE_URL` (a **build** variable): your final address, e.g. `https://codifykit.com`. It's used for the sitemap and social previews.
+
+Every push to the connected branch rebuilds and redeploys. Add your domain under **Settings → Domains & Routes**.
+
+### From your computer
 
 ```bash
 npx wrangler login
-npm run deploy                                      # builds and uploads /out + /functions
-npx wrangler pages secret put ANTHROPIC_API_KEY --project-name codifykit
+npm run deploy                                   # builds and deploys
+npx wrangler secret put ANTHROPIC_API_KEY
 ```
 
 ### Optional: stronger rate limiting for Kitto
 
-By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cloudflare edge location. To count across all locations, create a KV namespace and bind it as `RATE_LIMIT` (Settings → Bindings → KV namespace).
+By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cloudflare location. To count across all locations, create a KV namespace and add it to `wrangler.jsonc` as `"kv_namespaces": [{ "binding": "RATE_LIMIT", "id": "<id>" }]`.
 
 ## Where things live
 
@@ -60,7 +62,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | 3D models + credits | `public/models/` (`manifest.json`, `CREDITS.md`) |
 | Kitto mascot (SVG version) | `src/components/kitto/Kitto.tsx`, `public/kitto/` |
 | Kitto chat UI | `src/components/chat/KittoChat.tsx` |
-| Kitto server function (Claude API, rate limit, brief) | `functions/api/kitto.ts` |
+| Kitto API (Claude API, rate limit, brief) + Worker entry | `worker/kitto.ts`, `worker/index.ts` |
 | Logos | `public/brand/` |
 
 ## 3D models
