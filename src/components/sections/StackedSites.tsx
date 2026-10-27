@@ -17,7 +17,8 @@ import styles from "./StackedSites.module.css";
 
 const SCROLL_PER_CARD = 65; // % of the screen height scrolled per card
 
-export function StackedSites() {
+/** `onServicePage`: shown on /services/web, so the second button opens the 3D view instead of linking to itself. */
+export function StackedSites({ onServicePage = false }: { onServicePage?: boolean }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const rangeRef = useRef<{ start: number; end: number } | null>(null);
   const [active, setActive] = useState(0);
@@ -132,12 +133,14 @@ export function StackedSites() {
       <div className="container">
         <div className={styles.end}>
           <p className={styles.endTitle}>
-            Didn&apos;t find your format?
-            <span>We&apos;ll build one for your case.</span>
+            Need something different?
+            <span>We&apos;ll plan a site around your business.</span>
           </p>
           <div className={styles.endBtns}>
-            <Link href="/contact/?need=Website" className="btn btn--violet">Discuss the project</Link>
-            <Link href="/services/web/" className="btn btn--ghost">Web development</Link>
+            <Link href="/contact/?need=Website" className="btn btn--violet">Start a website</Link>
+            {onServicePage
+              ? <Link href="/work/web/" className="btn btn--ghost">See them in 3D ↗</Link>
+              : <Link href="/services/web/" className="btn btn--ghost">How we build websites →</Link>}
           </div>
         </div>
       </div>

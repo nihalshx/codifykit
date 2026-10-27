@@ -48,8 +48,8 @@
 .form button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--ck-violet); color: #fff; cursor: pointer; flex: none; display: grid; place-items: center; transition: background var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
 .form button:not(:disabled):hover { background: var(--ck-indigo); transform: translateX(2px); }
 .form button:disabled { opacity: .4; cursor: default; }
-.foot { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 18px 14px; font-size: 13px; color: var(--ck-muted); }
-.foot a { color: var(--ck-ink); font-weight: 500; }
+.foot { display: flex; justify-content: space-between; align-items: center; gap: 4px 12px; flex-wrap: wrap; padding: 4px 18px 6px; font-size: 13px; color: var(--ck-muted); }
+.foot a { display: inline-block; padding: 10px 0; color: var(--ck-ink); font-weight: 500; }
 
 @media (max-width: 900px) {
   .panel { grid-template-columns: 1fr; border-radius: 24px; }

@@ -34,6 +34,8 @@
   transition: background var(--dur-fast);
 }
 .pill:hover { background: #fff; }
+.pillMain { background: var(--ck-violet); color: #fff; }
+.pillMain:hover { background: #fff; color: #1C1C1F; }
 
 @media (max-width: 767px) {
   .intro { height: auto; padding-bottom: 48px; }
@@ -42,6 +44,7 @@
   .phoneA { width: 46vw; left: 8vw; top: 4vw; }
   .phoneB { width: 54vw; left: 38vw; top: 14vw; }
   .introBottom { position: relative; top: auto; flex-direction: column; align-items: flex-start; }
+  .introBottom br { display: none; }
 }
 
 /* B. pinned column grid */

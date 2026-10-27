@@ -27,7 +27,8 @@ const columns = Array.from({ length: COLS }, (_, c) =>
   })
 );
 
-export function AppShowcase() {
+/** `onServicePage`: shown on /services/apps, so the second button opens the 3D view instead of linking to itself. */
+export function AppShowcase({ onServicePage = false }: { onServicePage?: boolean }) {
   const introRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const handRef = useRef<HTMLDivElement>(null);
@@ -129,13 +130,15 @@ export function AppShowcase() {
         </div>
         <div className={`container ${styles.introBottom}`}>
           <p>
-            Making your app outstanding is a science.
+            Android and iOS apps your customers actually use.{" "}
             <br />
-            We take it (a) seriously and (b) creatively.
+            Planned with you, built properly, looked after once live.
           </p>
           <div className={styles.btns}>
-            <Link href="/work/apps/" className={styles.pill}>Check our portfolio</Link>
-            <Link href="/contact/?need=Android%20%2F%20iOS%20app" className={styles.pill}>Get in touch</Link>
+            <Link href="/contact/?need=Android%20%2F%20iOS%20app" className={`${styles.pill} ${styles.pillMain}`}>Start an app</Link>
+            {onServicePage
+              ? <Link href="/work/apps/" className={styles.pill}>See them in 3D ↗</Link>
+              : <Link href="/services/apps/" className={styles.pill}>How we build apps →</Link>}
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@
 .panel > * { flex: none; }
 .panel > .list { flex: 1 1 0; }
 .crumbs { font-size: 14px; color: var(--ck-muted); }
-.crumbs a { color: var(--ck-ink); font-weight: 500; text-decoration: none; }
+.crumbs a { display: inline-block; padding: 8px 0; color: var(--ck-ink); font-weight: 500; text-decoration: none; }
 .crumbs a:hover { text-decoration: underline; }
 .count { font-size: 14px; color: var(--ck-violet); font-weight: 600; margin-top: 8px; }
 .title { font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 2.4vw, 38px); line-height: 1.05; letter-spacing: -.03em; }

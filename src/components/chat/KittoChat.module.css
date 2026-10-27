@@ -21,7 +21,7 @@
 .status span[data-mood="sad"] { background: #C2410C; }
 .status span[data-mood="sleepy"] { background: #B8B8BE; }
 @keyframes pulse { 50% { opacity: .3; } }
-.human { font-size: 14px; font-weight: 500; color: var(--ck-ink); text-decoration: none; padding: 10px 14px; border-radius: var(--r-pill); background: var(--ck-studio); white-space: nowrap; }
+.human { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; font-weight: 500; color: var(--ck-ink); text-decoration: none; padding: 10px 14px; border-radius: var(--r-pill); background: var(--ck-studio); white-space: nowrap; }
 .human:hover { background: var(--ck-ink); color: #fff; }
 
 .list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 20px; background: var(--ck-studio); }
@@ -73,7 +73,8 @@
 .kitto { position: relative; width: 190px !important; height: 304px !important; }
 .card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 20px; background: #fff; font-size: 15px; }
 .card ul { margin: 0; padding-left: 18px; color: var(--ck-muted); display: flex; flex-direction: column; gap: 4px; }
-.card a { color: var(--ck-ink); }
+.card a { color: var(--ck-ink); padding: 6px 0; }
+.card > a { display: block; }
 .cardTitle { font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 
 @media (max-width: 1000px) {

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function WebServicePage() {
   return (
     <ServiceLanding service="web" page={SERVICE_PAGES.web} strip={WEB_PROJECTS.map((p) => p.screenshot)}>
-      <StackedSites />
+      <StackedSites onServicePage />
       <Websites />
     </ServiceLanding>
   );

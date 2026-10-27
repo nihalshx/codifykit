@@ -85,7 +85,7 @@ export function PosterFeed() {
         <h2 id="posters-title" className={styles.title}>Posters that <Brace>stop</Brace> the scroll.</h2>
         <p className={styles.lead}>Offer posters, product creatives and campaign sets, planned so your feed reads as one brand and every post works on its own.</p>
         <div className={styles.btns}>
-          <Link href="/contact/?need=Branding%20%26%20posters" className={styles.primary}>Get posters made</Link>
+          <Link href="/contact/?need=Branding%20%26%20content" className={styles.primary}>Get posters made</Link>
           <Link href="/work/?filter=Posters" className={styles.ghost}>See every poster →</Link>
         </div>
       </div>
