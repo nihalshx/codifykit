@@ -10,36 +10,13 @@
 .intro { position: relative; display: flex; flex-direction: column; gap: 14px; }
 .title { font-size: clamp(34px, 4vw, 58px); line-height: 1.02; letter-spacing: -.035em; font-weight: 400; max-width: 11ch; }
 .lead { font-size: 17px; line-height: 1.5; color: #3E3B5A; max-width: 42ch; }
-/* the hole: a 300 x 300 stage, a circle of radius 115 centred at (150, 170) */
-.kittoStage { position: relative; width: 300px; height: 300px; margin-top: 4px; }
-.hole {
-  position: absolute; left: 35px; top: 55px; width: 230px; height: 230px; border-radius: 50%;
-  background: #fff; box-shadow: inset 0 -14px 30px rgba(26,22,128,.10);
+.kittoStage { position: relative; height: 300px; display: grid; place-items: end start; margin-top: 4px; }
+.blob {
+  position: absolute; left: 10px; bottom: 16px; width: 250px; height: 220px; background: #fff;
+  border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; animation: morph 12s ease-in-out infinite alternate;
 }
-.peekMask {
-  position: absolute; inset: 0;
-  -webkit-mask: radial-gradient(circle 115px at 150px 170px, #000 99%, transparent 100%), linear-gradient(#000, #000) 0 0 / 100% 170px no-repeat;
-  mask: radial-gradient(circle 115px at 150px 170px, #000 99%, transparent 100%), linear-gradient(#000, #000) 0 0 / 100% 170px no-repeat;
-}
-/* Kitto (200 x 320) sits so his head fills the circle; hidden, he is pushed down out of it */
-.peeker { position: absolute; left: 50px; top: 40px; transform: translateY(260px); }
-.kittoStage[data-peek] .peeker { animation: popUp .9s cubic-bezier(.34, 1.56, .64, 1) forwards, peekLoop 9s ease-in-out 1.6s infinite; }
-@keyframes popUp { from { transform: translateY(260px); } to { transform: translateY(0); } }
-/* now and then he ducks down into the hole and pops back up */
-@keyframes peekLoop {
-  0%, 62%, 100% { transform: translateY(0); }
-  68% { transform: translateY(150px); }
-  74% { transform: translateY(150px); }
-  80% { transform: translateY(-14px); }
-  86% { transform: translateY(0); }
-}
-/* say hello: hovering brings him up a little higher */
-.kittoStage:hover .peeker { animation-play-state: paused; }
-.kittoStage:hover .peekMask { transform: translateY(-12px); transition: transform .35s cubic-bezier(.34, 1.56, .64, 1); }
-.peekMask { transition: transform .35s var(--ease-out); }
-/* a thin lip along the bottom of the hole, in front of him */
-.rim { position: absolute; left: 35px; top: 55px; width: 230px; height: 230px; border-radius: 50%; pointer-events: none;
-  box-shadow: inset 0 -3px 0 rgba(26,22,128,.08); }
+@keyframes morph { to { border-radius: 58% 42% 44% 56% / 44% 58% 42% 56%; rotate: 12deg; } }
+.kitto { position: relative; margin-left: 40px; }
 
 /* the chat window */
 .window { position: relative; background: #fff; color: var(--ck-ink); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 70px rgba(26,22,128,.18); }
@@ -76,10 +53,9 @@
 
 @media (max-width: 900px) {
   .panel { grid-template-columns: 1fr; border-radius: 24px; }
-  /* on a phone the hole sits under the words, a little smaller */
-  .kittoStage { margin: -20px auto -40px; scale: .78; }
+  /* on a phone Kitto sits under the words, beside nothing it could cover */
+  .kittoStage { height: 190px; place-items: end center; margin: 0; }
+  .blob { width: 160px; height: 140px; left: 50%; translate: -50% 0; bottom: 8px; }
+  .kitto { width: 116px !important; height: 186px !important; margin-left: 0; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .mine { animation: none; }
-  .kittoStage .peeker, .kittoStage[data-peek] .peeker { animation: none; transform: none; }
-}
+@media (prefers-reduced-motion: reduce) { .blob, .mine { animation: none; } }
