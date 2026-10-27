@@ -1,0 +1,149 @@
+{
+  "_note": "Real projects only. Replace every [PLACEHOLDER]. Leave a field null if you can't share it; the UI hides it. Remove a project entirely if it has no real details. The first 4 with featured: true show on the homepage.",
+  "projects": [
+    {
+      "slug": "placeholder-web-1",
+      "title": "[PLACEHOLDER Website 1]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "Business site",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-1.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-1.svg",
+      "video": null,
+      "featured": true
+    },
+    {
+      "slug": "placeholder-web-2",
+      "title": "[PLACEHOLDER Website 2]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "Landing page",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-2.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-2.svg",
+      "video": null,
+      "featured": true
+    },
+    {
+      "slug": "placeholder-web-3",
+      "title": "[PLACEHOLDER Website 3]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "Portfolio",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-3.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-3.svg",
+      "video": null,
+      "featured": true
+    },
+    {
+      "slug": "placeholder-web-4",
+      "title": "[PLACEHOLDER Website 4]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "Business site",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-4.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-4.svg",
+      "video": null,
+      "featured": true
+    },
+    {
+      "slug": "placeholder-web-5",
+      "title": "[PLACEHOLDER Website 5]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "CRM dashboard",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-5.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-5.svg",
+      "video": null,
+      "featured": false
+    },
+    {
+      "slug": "placeholder-web-6",
+      "title": "[PLACEHOLDER Website 6]",
+      "client": "[PLACEHOLDER Client]",
+      "type": "Student project",
+      "year": "[PLACEHOLDER]",
+      "domain": "placeholder-6.com",
+      "builtWith": [
+        "[PLACEHOLDER]"
+      ],
+      "pages": null,
+      "oneLine": "[PLACEHOLDER What we built, one line]",
+      "facts": [
+        "[PLACEHOLDER]",
+        "[PLACEHOLDER]",
+        "Mobile-first"
+      ],
+      "bigNumber": null,
+      "bigNumberLabel": null,
+      "liveUrl": null,
+      "screenshot": "/work/web/placeholder-web-6.svg",
+      "video": null,
+      "featured": false
+    }
+  ]
+}

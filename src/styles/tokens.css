@@ -1,0 +1,72 @@
+/* Codifykit design tokens — import once in the root layout */
+:root {
+  /* Brand */
+  --ck-navy: #04052B;
+  --ck-indigo: #1A1680;
+  --ck-violet: #6A55C8;
+  --ck-lavender: #B9A8E8;
+  --ck-blue: #3A63B8;
+
+  /* Neutrals */
+  --ck-ink: #1A1A1A;
+  --ck-paper: #F4F4F2;
+  --ck-white: #FFFFFF;
+  --ck-line: #C9C9C5;
+  --ck-muted: #4A4A55;
+  --ck-dark: #111114;
+  --ck-dark-line: #3A3A42;
+  --ck-on-dark: #F2F2F4;
+  --ck-on-dark-muted: #A6A6B0;
+
+  /* Kitto */
+  --kitto-body: #0B0B0F;
+  --kitto-blob: #DDD7F2;
+  --kitto-fx: #B9AEE6;
+
+  /* Gradients */
+  --ck-gradient: linear-gradient(135deg, #04052B 0%, #1A1680 55%, #6A55C8 85%, #B9A8E8 100%);
+  --ck-glow: radial-gradient(ellipse 60% 55% at 55% 48%, #2B2470 0%, #12123F 55%, #04052B 100%);
+
+  /* Type (font families are set by next/font variables) */
+  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  --fs-display: clamp(40px, 5vw, 64px);
+  --fs-h1: clamp(32px, 3.6vw, 48px);
+  --fs-h2: clamp(32px, 3.8vw, 56px);
+  --fs-h3: clamp(20px, 1.8vw, 24px);
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-label: 12px;
+
+  /* Space */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-14: 56px; --space-18: 72px; --space-24: 96px; --space-30: 120px;
+  --section-pad: clamp(64px, 8vw, 96px);
+  --gutter: clamp(16px, 3vw, 40px);
+  --max-w: 1440px;
+
+  /* Radius */
+  --r-chip: 6px; --r-poster: 10px; --r-card: 16px; --r-input: 18px; --r-frame: 28px; --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-strong: cubic-bezier(.5, 0, .15, 1);
+  --dur-fast: 200ms;
+  --dur-med: 450ms;
+  --dur-slow: 900ms;
+}
+
+html { background: var(--ck-paper); color: var(--ck-ink); font-family: var(--font-body); }
+:focus-visible { outline: 2px solid var(--ck-violet); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

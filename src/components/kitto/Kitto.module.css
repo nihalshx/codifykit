@@ -1,0 +1,8 @@
+.kitto { position: relative; flex: none; transform-origin: 50% 96%; }
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.out { animation: fadeOut 120ms linear forwards; }
+@keyframes fadeOut { to { opacity: 0; } }
+.bob { animation: bob 2.2s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.012); } }
+.hop { animation: hop 420ms var(--ease-out); }
+@keyframes hop { 0% { transform: translateY(0) scaleY(.96); } 45% { transform: translateY(-14px) scaleY(1.03); } 100% { transform: none; } }

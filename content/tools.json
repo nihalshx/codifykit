@@ -1,0 +1,11 @@
+{
+  "_note": "Shown on service pages. Only Flutter, Meta ads and ChatGPT ads are confirmed. Fill in the rest.",
+  "groups": [
+    { "n": "01", "name": "Mobile apps", "items": ["Flutter", "Other stacks on request"] },
+    { "n": "02", "name": "Web front end", "items": ["[FILL IN]"] },
+    { "n": "03", "name": "Backend & data", "items": ["[FILL IN]"] },
+    { "n": "04", "name": "CRM & ERP", "items": ["[FILL IN]"] },
+    { "n": "05", "name": "Design & video", "items": ["[FILL IN]"] },
+    { "n": "06", "name": "Ads & marketing", "items": ["Meta ads", "ChatGPT ads", "[FILL IN]"] }
+  ]
+}

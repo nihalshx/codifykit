@@ -1,0 +1,13 @@
+.band { border-top: 1px solid var(--ck-ink); border-bottom: 1px solid var(--ck-ink); overflow: hidden; margin-top: 64px; }
+.track { display: flex; width: max-content; animation: loop 40s linear infinite; }
+.band:hover .track { animation-play-state: paused; }
+.row { display: flex; list-style: none; margin: 0; padding: 0; }
+.row li { font-size: 22px; font-weight: 500; padding: 20px 0; white-space: nowrap; display: flex; align-items: center; }
+.row li::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ck-violet); margin: 0 28px; }
+@keyframes loop { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; width: auto; }
+  .row { flex-wrap: wrap; justify-content: center; padding: 8px 16px; }
+  .row[aria-hidden] { display: none; }
+  .row li { padding: 8px 0; font-size: 18px; }
+}

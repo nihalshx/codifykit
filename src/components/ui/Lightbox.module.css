@@ -1,0 +1,8 @@
+.overlay { position: fixed; inset: 0; z-index: 80; background: rgba(4,5,43,.92); display: grid; place-items: center; padding: 64px 16px; animation: in var(--dur-fast) ease; }
+@keyframes in { from { opacity: 0; } }
+.figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; max-height: 100%; color: #fff; }
+.media { max-width: min(92vw, 900px); max-height: calc(100svh - 160px); width: auto; height: auto; border-radius: var(--r-poster); }
+.figure figcaption { font-size: 14px; opacity: .85; text-align: center; }
+.close { position: absolute; top: 16px; right: 16px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #fff; background: transparent; color: #fff; cursor: pointer; }
+.nav { position: absolute; top: 50%; width: 52px; height: 52px; margin-top: -26px; border-radius: 50%; border: 1.5px solid #fff; background: rgba(255,255,255,.08); color: #fff; font-size: 20px; cursor: pointer; }
+.prev { left: 16px; } .next { right: 16px; }

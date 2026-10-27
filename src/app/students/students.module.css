@@ -1,0 +1,18 @@
+.hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.img { width: 100%; height: auto; border-radius: 24px; border: 2px solid var(--ck-ink); }
+.offer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.offerCard { display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: var(--r-card); background: var(--ck-white); border: 1.5px solid var(--ck-line); }
+.n { font-family: var(--font-mono); font-size: 12px; color: var(--ck-violet); }
+.how { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ck-ink); }
+.how li { display: grid; grid-template-columns: 48px 1fr; padding: 22px 0; border-bottom: 1px solid var(--ck-line); }
+.how li > span { font-family: var(--font-mono); font-size: 12px; color: var(--ck-violet); padding-top: 6px; }
+.how p { margin-top: 6px; }
+.faq { border-top: 2px solid var(--ck-ink); }
+.faq details { border-bottom: 1px solid var(--ck-line); }
+.faq summary { cursor: pointer; padding: 20px 0; font-size: 18px; font-weight: 500; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::after { content: "+"; font-size: 24px; line-height: 1; transition: transform var(--dur-fast); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq p { padding: 0 0 20px; color: var(--ck-muted); max-width: 60ch; }
+@media (max-width: 900px) { .hero, .offer { grid-template-columns: 1fr; } }

@@ -1,0 +1,101 @@
+.frame {
+  position: relative;
+  height: clamp(480px, calc(100svh - 190px), 720px);
+  border-radius: var(--r-frame);
+  overflow: hidden;
+  isolation: isolate;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  background: var(--ck-paper);
+}
+.frame:active { cursor: grabbing; }
+@media (max-width: 767px) { .frame { height: 70svh; min-height: 460px; } }
+
+/* painted sky: brand navy -> indigo -> violet, lavender glow at the horizon */
+.sky {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(120% 70% at 50% 100%, #B9A8E8 0%, #8C78DA 22%, rgba(106,85,200,0) 55%),
+    radial-gradient(60% 50% at 15% 85%, rgba(58,99,184,.75), transparent 70%),
+    linear-gradient(180deg, #04052B 0%, #0E0E55 30%, #1A1680 55%, #4B3BB0 78%, #6A55C8 100%);
+}
+.glowA, .glowB { position: absolute; border-radius: 50%; filter: blur(40px); }
+.glowA { width: 50%; height: 40%; left: 55%; top: 20%; background: rgba(106,85,200,.35); }
+.glowB { width: 35%; height: 30%; left: 5%; top: 30%; background: rgba(58,99,184,.3); }
+.stars {
+  position: absolute; inset: 0 0 45% 0; opacity: .55;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff, transparent),
+    radial-gradient(1px 1px at 28% 8%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 46% 22%, #fff, transparent),
+    radial-gradient(1px 1px at 64% 12%, #fff, transparent),
+    radial-gradient(1.5px 1.5px at 82% 26%, #fff, transparent),
+    radial-gradient(1px 1px at 92% 6%, #fff, transparent),
+    radial-gradient(1px 1px at 6% 40%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 74% 40%, #fff, transparent);
+}
+
+.viewport {
+  position: absolute; inset: 0; z-index: 2;
+  perspective: 1600px; perspective-origin: 50% 30%;
+}
+.stage {
+  position: absolute; left: 50%; top: 56%; width: 0; height: 0;
+  transform-style: preserve-3d; will-change: transform;
+}
+.card {
+  --w: 116px;
+  position: absolute; left: calc(var(--w) / -2); top: calc(var(--w) * -16 / 18);
+  width: var(--w); aspect-ratio: 9 / 16;
+  transform-style: preserve-3d; will-change: transform;
+  border-radius: 14px; text-decoration: none; color: #fff;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.front, .back {
+  position: absolute; inset: 0; border-radius: inherit; overflow: hidden;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: 0 18px 40px rgba(4,5,43,.28), 0 0 0 1px rgba(255,255,255,.12) inset;
+}
+.front img, .preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.preview { opacity: 0; transition: opacity .5s ease; }
+.preview[data-playing] { opacity: 1; }
+.tag {
+  position: absolute; left: 8px; top: 8px; font-family: var(--font-mono); font-size: 9px; letter-spacing: .06em;
+  text-transform: uppercase; background: rgba(4,5,43,.55); padding: 3px 7px; border-radius: 999px; backdrop-filter: blur(4px);
+}
+.back {
+  transform: rotateY(180deg);
+  background: var(--ck-gradient);
+  display: grid; place-items: center; color: #fff;
+}
+
+/* the cloud bank sits in front of the wheel's lower half, fully opaque */
+.clouds {
+  position: absolute; left: -4%; right: -4%; bottom: 0; height: 55%; z-index: 3; pointer-events: none; display: flex; flex-direction: column;
+  transform: translateY(105%); will-change: transform;
+}
+.clouds img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: 50% 100%; }
+.clouds span { display: block; height: 8%; margin-top: -2px; background: linear-gradient(#2043B4, #1A2F9A); }
+
+/* loader */
+.loader { position: absolute; inset: 0; z-index: 1; pointer-events: none; color: var(--ck-ink); }
+.word { position: absolute; left: 24px; top: 20px; font-family: var(--font-display); font-weight: 600; font-size: 22px; letter-spacing: -.02em; }
+.counter {
+  position: absolute; right: 24px; bottom: 64px;
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(64px, 12vw, 160px); line-height: .85; letter-spacing: -.05em;
+  font-variant-numeric: tabular-nums;
+}
+.counter small { font-size: .35em; vertical-align: top; margin-left: 4px; }
+.skip {
+  position: absolute; right: 16px; bottom: 16px; z-index: 4;
+  min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--ck-ink);
+  background: var(--ck-paper); font-size: 13px; cursor: pointer;
+}
+.skip:hover { background: var(--ck-ink); color: #fff; }
+
+@media (max-width: 767px) {
+  .word { font-size: 18px; left: 16px; top: 14px; }
+  .counter { right: 16px; }
+}

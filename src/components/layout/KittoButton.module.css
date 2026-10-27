@@ -1,0 +1,17 @@
+.btn {
+  position: fixed; right: 16px; bottom: 16px; z-index: 40;
+  display: flex; align-items: center; gap: 8px; text-decoration: none;
+}
+:global(html[data-intro="running"]) .btn { opacity: 0; pointer-events: none; }
+.cat {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--kitto-blob);
+  display: grid; place-items: center; overflow: hidden; padding-top: 20px;
+  box-shadow: 0 10px 30px rgba(4,5,43,.18); border: 2px solid #fff;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover .cat { transform: translateY(-3px) rotate(-4deg); }
+.bubble {
+  background: var(--ck-ink); color: #fff; font-size: 13px; padding: 8px 12px; border-radius: var(--r-pill);
+  opacity: 0; transform: translateX(8px); transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover .bubble, .btn:focus-visible .bubble { opacity: 1; transform: none; }

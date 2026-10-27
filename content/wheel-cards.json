@@ -1,0 +1,277 @@
+{
+  "_note": "34 cards for the hero wheel. type: reel | app | poster | ai-video. Mix types so neighbours differ. ai-video cards are labelled 'AI video by Codifykit'. video: a muted 9:16 MP4 (first 6-8s) that plays when the card is near the top. Duplicate real items if you have fewer than 34, but avoid the same item next to itself.",
+  "cards": [
+    {
+      "id": "c01",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-1.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c02",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-1.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c03",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-2.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c04",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-1.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c05",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-2.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c06",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-7.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c07",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-2.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c08",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-2.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c09",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-11.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c10",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-3.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c11",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-3.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c12",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-3.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c13",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-4.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c14",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-4.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c15",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-4.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c16",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-2.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c17",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-5.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c18",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-5.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c19",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-7.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c20",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-1.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c21",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-6.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c22",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-11.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c23",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-2.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c24",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-6.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c25",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-2.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c26",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-3.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c27",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-7.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c28",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-7.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c29",
+      "type": "ai-video",
+      "label": "AI video by Codifykit",
+      "cover": "/work/ai/placeholder-ai-4.svg",
+      "video": null,
+      "href": "/services/video-production"
+    },
+    {
+      "id": "c30",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-8.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c31",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-8.svg",
+      "video": null,
+      "href": "/work/apps"
+    },
+    {
+      "id": "c32",
+      "type": "poster",
+      "label": "[PLACEHOLDER campaign]",
+      "cover": "/work/posters/placeholder-poster-7.svg",
+      "video": null,
+      "href": "/work/posters"
+    },
+    {
+      "id": "c33",
+      "type": "reel",
+      "label": "[PLACEHOLDER reel title]",
+      "cover": "/work/reels/placeholder-reel-1.svg",
+      "video": null,
+      "href": "/work/videos"
+    },
+    {
+      "id": "c34",
+      "type": "app",
+      "label": "[PLACEHOLDER app name]",
+      "cover": "/work/apps/placeholder-app-9.svg",
+      "video": null,
+      "href": "/work/apps"
+    }
+  ]
+}

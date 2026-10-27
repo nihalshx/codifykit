@@ -1,0 +1,25 @@
+.hero { padding: 0 16px; max-width: calc(var(--max-w) + 32px); margin: 0 auto; }
+.under {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 32px;
+  padding: 28px clamp(0px, 2vw, 24px) 0;
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+}
+:global(html[data-intro="running"]) .under { opacity: 0; transform: translateY(16px); }
+.audience {
+  font-family: var(--font-display); font-size: clamp(26px, 3.2vw, 44px); line-height: 1.18; letter-spacing: -.025em;
+  max-width: 26ch;
+}
+.audience a {
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px;
+  text-decoration-color: var(--ck-violet);
+  transition: color var(--dur-fast);
+}
+.audience a:hover { color: var(--ck-violet); }
+.ctas { display: flex; gap: 12px; flex: none; }
+@media (max-width: 900px) {
+  .under { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 480px) {
+  .ctas { width: 100%; }
+  .ctas > * { flex: 1; }
+}

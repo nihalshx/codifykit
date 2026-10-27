@@ -1,0 +1,125 @@
+{
+  "marquee": [
+    "Websites",
+    "Android and iOS apps",
+    "Custom CRM & ERP",
+    "Meta ads",
+    "ChatGPT ads",
+    "AI videos",
+    "Reels",
+    "Posters",
+    "Logos",
+    "Student projects"
+  ],
+  "services": [
+    {
+      "n": "01",
+      "slug": "web-app-development",
+      "name": "Web & App Development",
+      "short": "Websites, landing pages, Android and iOS apps",
+      "includes": [
+        "Business websites, portfolio sites, landing pages",
+        "Custom Android and iOS apps",
+        "Products that convert and are easy to use, not just look good"
+      ]
+    },
+    {
+      "n": "02",
+      "slug": "crm-erp",
+      "name": "Custom CRM & ERP",
+      "short": "Systems built around your workflow",
+      "includes": [
+        "Custom CRM: lead tracking, sales pipelines, customer records, follow-ups",
+        "Custom ERP: operations, inventory, billing, internal workflows",
+        "Automation and integration of disconnected tools"
+      ]
+    },
+    {
+      "n": "03",
+      "slug": "social-media-content",
+      "name": "Social Media & Content",
+      "short": "Planning, writing, managing, growing",
+      "includes": [
+        "Content calendars and planning",
+        "Copywriting and post creation",
+        "Account management and community growth"
+      ]
+    },
+    {
+      "n": "04",
+      "slug": "video-production",
+      "name": "Video Production",
+      "short": "Realistic AI videos, organic videos, editing",
+      "includes": [
+        "Realistic AI videos (ads, product videos, brand stories)",
+        "Organic videos: shooting and editing reels and short-form content",
+        "Video editing for social media and ads"
+      ]
+    },
+    {
+      "n": "05",
+      "slug": "digital-marketing-ads",
+      "name": "Digital Marketing & Ads",
+      "short": "Strategy, Meta ads, ChatGPT ads, leads",
+      "includes": [
+        "Marketing strategy",
+        "Meta ads (Facebook and Instagram)",
+        "ChatGPT ads",
+        "Lead generation",
+        "Visibility and reach"
+      ]
+    },
+    {
+      "n": "06",
+      "slug": "branding-creative",
+      "name": "Branding & Creative",
+      "short": "Logos, posters, product creatives",
+      "includes": [
+        "Logo and identity design",
+        "Posters for social media, offers and events",
+        "Product posters and product creatives",
+        "Brand guidelines",
+        "Campaign creative"
+      ]
+    },
+    {
+      "n": "07",
+      "slug": "strategy",
+      "name": "Strategy & Student Projects",
+      "short": "The thinking behind it all",
+      "includes": [
+        "Digital strategy that ties every service together",
+        "Project planning and consulting",
+        "Student mini and main project guidance (where we started)"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "n": "01",
+      "name": "Ideate",
+      "desc": "We sit with the problem and find out what you actually need."
+    },
+    {
+      "n": "02",
+      "name": "Design",
+      "desc": "We plan the screens, the look and the flow, and check it with you before we build."
+    },
+    {
+      "n": "03",
+      "name": "Build",
+      "desc": "We build it properly: clean code, real content, tested on the phones your customers use."
+    },
+    {
+      "n": "04",
+      "name": "Launch",
+      "desc": "We put it live, set up tracking, and make sure everything works on day one."
+    },
+    {
+      "n": "05",
+      "name": "Grow",
+      "desc": "We run the ads and content, watch what works, and keep improving it with you."
+    }
+  ],
+  "_note": "Process lines 02-05 are drafts in the brand voice. Confirm or edit them."
+}

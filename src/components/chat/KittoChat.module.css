@@ -1,0 +1,54 @@
+.page { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+.top { display: none; }
+.cols { display: grid; grid-template-columns: 300px minmax(0, 1fr) 300px; gap: 32px; padding: 40px 0 24px; align-items: start; }
+.kittoCol { position: sticky; top: 100px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.blob { position: absolute; top: 40px; width: 280px; height: 280px; border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; background: var(--kitto-blob); }
+.kitto { position: relative; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; padding: 8px 14px; border-radius: 999px; background: var(--ck-white); border: 1px solid var(--ck-line); }
+.status span { width: 8px; height: 8px; border-radius: 50%; background: var(--ck-violet); }
+.status span[data-mood="thinking"] { animation: pulse 1s ease-in-out infinite; }
+.status span[data-mood="sad"] { background: #C2410C; }
+@keyframes pulse { 50% { opacity: .3; } }
+
+.chat { display: flex; flex-direction: column; gap: 16px; min-height: 70svh; }
+.list { flex: 1; display: flex; flex-direction: column; gap: 12px; max-height: 58svh; overflow-y: auto; padding: 8px 4px 8px 0; }
+.bot, .user { max-width: 85%; padding: 14px 16px; font-size: 16px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bot { align-self: flex-start; background: var(--ck-white); border: 1.5px solid var(--ck-line); border-radius: 20px 20px 20px 6px; }
+.user { align-self: flex-end; background: var(--ck-ink); color: #fff; border-radius: 20px 20px 6px 20px; }
+.err { border-color: #E8B4A0; background: #FFF6F2; }
+.errLink { display: block; margin-top: 8px; font-weight: 500; }
+.who { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-violet); margin-bottom: 4px; }
+.dots { display: inline-flex; gap: 4px; padding: 6px 0; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--kitto-fx); animation: dot 1s ease-in-out infinite; }
+.dots i:nth-child(2) { animation-delay: .15s; } .dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes dot { 50% { transform: translateY(-5px); opacity: .5; } }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.form { display: flex; align-items: flex-end; gap: 8px; background: var(--ck-ink); border-radius: 28px; padding: 6px 6px 6px 22px; }
+.form:focus-within { outline: 2px solid var(--ck-violet); outline-offset: 3px; }
+.form textarea { flex: 1; min-width: 0; resize: none; background: transparent; border: 0; color: #fff; font: inherit; font-size: 16px; padding: 13px 0; max-height: 160px; outline: none; field-sizing: content; }
+.form textarea::placeholder { color: var(--ck-on-dark-muted); }
+.form button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--ck-lavender); color: var(--ck-navy); font-size: 20px; cursor: pointer; flex: none; }
+.form button:disabled { opacity: .45; cursor: default; }
+.note { font-size: 13px; color: var(--ck-muted); }
+
+.side { display: flex; flex-direction: column; gap: 16px; }
+.card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-card); background: var(--ck-white); border: 1.5px solid var(--ck-line); font-size: 15px; }
+.card ul { margin: 0; padding-left: 18px; color: var(--ck-muted); display: flex; flex-direction: column; gap: 4px; }
+.cardTitle { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+.card .btn { align-self: flex-start; }
+.briefForm { display: flex; flex-direction: column; gap: 10px; }
+.briefForm label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ck-muted); }
+.briefForm input { min-height: 44px; border-radius: 12px; border: 1.5px solid var(--ck-line); padding: 0 12px; font: inherit; color: var(--ck-ink); }
+.briefForm input:focus { outline: 2px solid var(--ck-violet); border-color: transparent; }
+.brief { display: flex; flex-direction: column; gap: 10px; }
+.brief pre { white-space: pre-wrap; font-family: var(--font-mono); font-size: 12px; background: var(--ck-paper); padding: 12px; border-radius: 10px; margin: 0; max-height: 260px; overflow: auto; }
+.errText { color: #B42318; font-size: 14px; }
+
+@media (max-width: 1100px) {
+  .cols { grid-template-columns: 1fr; }
+  .kittoCol { position: relative; top: 0; flex-direction: row; justify-content: center; }
+  .blob { top: 0; width: 140px; height: 140px; left: calc(50% - 150px); }
+  .kitto { width: 110px !important; height: 176px !important; }
+  .chat { min-height: 0; }
+  .list { max-height: none; }
+}

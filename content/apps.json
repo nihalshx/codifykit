@@ -1,0 +1,195 @@
+{
+  "_note": "Real app projects only. Every [PLACEHOLDER] is shown on the site with a dashed 'placeholder' style until you replace it. heroScreens = 3 tall screens for the hand-held phone; the first 9 apps fill the homepage grid.",
+  "heroScreens": [
+    "/work/apps/placeholder-tall-1.svg",
+    "/work/apps/placeholder-tall-2.svg",
+    "/work/apps/placeholder-tall-3.svg"
+  ],
+  "apps": [
+    {
+      "slug": "placeholder-app-1",
+      "title": "[PLACEHOLDER App 1]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-1.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-2",
+      "title": "[PLACEHOLDER App 2]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-2.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-3",
+      "title": "[PLACEHOLDER App 3]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-3.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-4",
+      "title": "[PLACEHOLDER App 4]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-4.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-5",
+      "title": "[PLACEHOLDER App 5]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-5.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-6",
+      "title": "[PLACEHOLDER App 6]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-6.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-7",
+      "title": "[PLACEHOLDER App 7]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-7.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-8",
+      "title": "[PLACEHOLDER App 8]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-8.svg"
+      ],
+      "preview": null
+    },
+    {
+      "slug": "placeholder-app-9",
+      "title": "[PLACEHOLDER App 9]",
+      "client": "[PLACEHOLDER Client]",
+      "platforms": [
+        "Android",
+        "iOS"
+      ],
+      "builtWith": [
+        "Flutter"
+      ],
+      "year": "[PLACEHOLDER]",
+      "oneLine": "[PLACEHOLDER One line on what the app does]",
+      "screens": [
+        "/work/apps/placeholder-app-9.svg"
+      ],
+      "preview": null
+    }
+  ],
+  "platformTech": [
+    {
+      "name": "Android",
+      "items": [
+        "Flutter",
+        "[FILL IN]"
+      ]
+    },
+    {
+      "name": "iOS",
+      "items": [
+        "Flutter",
+        "[FILL IN]"
+      ]
+    },
+    {
+      "name": "Cross-platform",
+      "items": [
+        "Flutter (one codebase)",
+        "Other stacks on request"
+      ]
+    }
+  ]
+}

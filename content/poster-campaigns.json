@@ -1,0 +1,190 @@
+{
+  "_note": "Real campaigns only, with the client's permission. Stats only from real Instagram Insights; otherwise leave stats null and use facts.",
+  "campaigns": [
+    {
+      "slug": "placeholder-campaign-1",
+      "title": "[PLACEHOLDER Campaign 1]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Offer poster",
+      "category": "Posters",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "4:5",
+      "posters": [
+        "/work/posters/placeholder-poster-1.svg",
+        "/work/posters/placeholder-poster-5.svg"
+      ],
+      "tilt": -1.5,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-2",
+      "title": "[PLACEHOLDER Campaign 2]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Product creative",
+      "category": "Product creatives",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "9:16",
+      "posters": [
+        "/work/posters/placeholder-poster-2.svg"
+      ],
+      "tilt": 2,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-3",
+      "title": "[PLACEHOLDER Campaign 3]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Logo launch",
+      "category": "Logos",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "1:1",
+      "posters": [
+        "/work/posters/placeholder-poster-3.svg"
+      ],
+      "tilt": -2.5,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-4",
+      "title": "[PLACEHOLDER Campaign 4]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Campaign",
+      "category": "Campaigns",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "4:5",
+      "posters": [
+        "/work/posters/placeholder-poster-4.svg",
+        "/work/posters/placeholder-poster-8.svg"
+      ],
+      "tilt": 1,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-5",
+      "title": "[PLACEHOLDER Campaign 5]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Offer poster",
+      "category": "Posters",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "4:5",
+      "posters": [
+        "/work/posters/placeholder-poster-5.svg"
+      ],
+      "tilt": -0.5,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-6",
+      "title": "[PLACEHOLDER Campaign 6]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Product creative",
+      "category": "Product creatives",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "1:1",
+      "posters": [
+        "/work/posters/placeholder-poster-6.svg"
+      ],
+      "tilt": 2.5,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-7",
+      "title": "[PLACEHOLDER Campaign 7]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Logo launch",
+      "category": "Logos",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "9:16",
+      "posters": [
+        "/work/posters/placeholder-poster-7.svg",
+        "/work/posters/placeholder-poster-11.svg"
+      ],
+      "tilt": -2,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    },
+    {
+      "slug": "placeholder-campaign-8",
+      "title": "[PLACEHOLDER Campaign 8]",
+      "client": "[PLACEHOLDER Client]",
+      "clientAccount": "placeholder_account",
+      "type": "Campaign",
+      "category": "Campaigns",
+      "date": "[PLACEHOLDER Month Year]",
+      "format": "4:5",
+      "posters": [
+        "/work/posters/placeholder-poster-8.svg"
+      ],
+      "tilt": 1.5,
+      "caption": "[PLACEHOLDER real caption]",
+      "instagramUrl": null,
+      "stats": null,
+      "facts": [
+        "[PLACEHOLDER e.g. 3 POSTERS]",
+        "[PLACEHOLDER e.g. PRODUCT LAUNCH]",
+        "[PLACEHOLDER e.g. MALAYALAM + ENGLISH]"
+      ]
+    }
+  ],
+  "categories": [
+    "All",
+    "Posters",
+    "Product creatives",
+    "Logos"
+  ]
+}
