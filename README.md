@@ -69,7 +69,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
 | Backgrounds: hero ring on the painted cloud sky `public/images/hero-sky.webp` (`HeroReels.module.css`); 3D and service pages on the clean `--ck-studio` grey. The old graph paper is still in `public/images/graph-paper.webp` if wanted | `src/styles/tokens.css` |
-| Homepage sections: hero, marquee, what we do, apps (scroll showcase), websites (stacked cards that tip back in 3D as you scroll; kinds of website in `content/web-projects.json` → `formats`), posters (a dome you drag to turn; click a poster to lift it out), process, students, Kitto | `src/components/sections/` (`AppShowcase`, `StackedSites`, `PosterDome` with `src/components/gallery/DomeGallery.tsx`) |
+| Homepage sections: hero, marquee, what we do, apps (scroll showcase), websites (stacked cards that tip back in 3D as you scroll; kinds of website in `content/web-projects.json` → `formats`), posters (an Instagram profile on a 3D phone that scrolls and opens into reels), process, students, Kitto | `src/components/sections/` (`AppShowcase`, `StackedSites`, `PosterPhone`) |
 | Web and app service pages (`/services/web`, `/services/apps`): one template, text in `content/service-pages.json` | `src/components/landing/ServiceLanding.tsx` |
 | "Start a project" form (`/contact`): opens WhatsApp or email with the message filled in, nothing stored | `src/app/contact/` |
 | Hero: loader + reel cylinder in one CSS 3D scene (Motion). Pose maths + unit tests: `npm test` | `src/components/hero/HeroReels.tsx`, `src/components/hero/reelPose.ts` (+ `.test.ts`) |

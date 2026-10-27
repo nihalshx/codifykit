@@ -1,0 +1,107 @@
+/* the app section's world: dark grey, thin orbit lines */
+.section { position: relative; background: #1C1C1F; color: #E9E9EC; overflow: hidden; }
+.section :global(.label) { color: #A6A6B0; }
+.section :global(.brace) { color: var(--ck-lavender); }
+.orbits { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.orbits ellipse { fill: none; stroke: rgba(255,255,255,.12); stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+.pin { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 96px 0 48px; }
+.layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; width: 100%; }
+
+/* the words */
+.title { font-size: clamp(36px, 4.4vw, 64px); line-height: 1.02; letter-spacing: -.035em; font-weight: 400; max-width: 12ch; }
+.steps { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-width: 46ch; }
+.steps li { display: flex; flex-direction: column; gap: 4px; padding: 14px 18px; border-radius: 16px; color: #8E8E99; transition: background .4s, color .4s; }
+.steps li strong { font-family: var(--font-display); font-size: 20px; font-weight: 500; letter-spacing: -.01em; }
+.steps li span { font-size: 15px; line-height: 1.45; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .5s var(--ease-out), opacity .4s; }
+.steps li[data-on] { background: #26262B; color: #F2F2F4; }
+.steps li[data-on] span { max-height: 80px; opacity: 1; color: #C4C4CC; }
+.btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+.primary, .ghost {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border-radius: var(--r-pill);
+  font-size: 15px; font-weight: 500; text-decoration: none; transition: background var(--dur-fast), color var(--dur-fast);
+}
+.primary { background: #fff; color: #1C1C1F; }
+.primary:hover { background: var(--ck-lavender); }
+.ghost { border: 1.5px solid rgba(255,255,255,.4); color: #fff; }
+.ghost:hover { background: #fff; color: #1C1C1F; }
+
+/* the phone */
+.scene { position: relative; display: grid; place-items: center; perspective: 1600px; height: min(80svh, 720px); }
+.phone {
+  --w: min(330px, calc(80svh * 9 / 19.5), 78vw);
+  position: relative; width: var(--w); aspect-ratio: 9 / 19.5; border-radius: calc(var(--w) * .16); padding: calc(var(--w) * .035);
+  background: linear-gradient(140deg, #4A4A52 0%, #17171A 22%, #0E0E10 60%, #3A3A40 100%);
+  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.18), inset 0 0 0 4px #0B0B0D;
+  transform-style: preserve-3d; transform: rotateY(-14deg) rotateX(6deg); will-change: transform;
+}
+/* the edge you see as it turns: a strip set at right angles to the face */
+.side {
+  position: absolute; top: 6%; bottom: 6%; right: 0; width: 14px; transform-origin: right center; transform: rotateY(90deg);
+  background: linear-gradient(180deg, #2A2A30, #0F0F12 50%, #2A2A30); border-radius: 8px;
+}
+.screen { position: relative; width: 100%; height: 100%; border-radius: calc(var(--w) * .13); overflow: hidden; background: #fff; color: #111; transform: translateZ(1px); }
+.status { position: absolute; top: 0; left: 0; right: 0; height: 9%; z-index: 4; transition: color .3s; display: flex; align-items: center; justify-content: space-between; padding: 0 9% 0 11%; font-size: calc(var(--w) * .042); }
+.status[data-dark] { color: #fff; }
+.status i { position: absolute; left: 50%; top: 22%; translate: -50% 0; width: 32%; height: 34%; border-radius: 999px; background: #0B0B0D; }
+.status span { width: 9%; height: 26%; border-radius: 3px; border: 1.5px solid currentColor; }
+.viewport { position: absolute; inset: 9% 0 0; overflow: hidden; }
+.homeBar { position: absolute; left: 50%; bottom: 1.4%; translate: -50% 0; width: 34%; height: 4px; border-radius: 999px; background: #111; z-index: 5; transition: background .3s; }
+.status[data-dark] ~ .homeBar { background: #fff; }
+
+/* the profile */
+.profileScroll { position: absolute; left: 0; right: 0; top: 0; padding-bottom: 10%; font-size: calc(var(--w) * .04); will-change: transform; }
+.bar { display: flex; align-items: center; justify-content: space-between; padding: 2% 5% 3%; }
+.bar strong { font-size: 1.25em; font-weight: 700; }
+.head { display: flex; align-items: center; gap: 8%; padding: 0 5%; }
+.avatar {
+  flex: none; width: 24%; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; color: #fff;
+  background: #161618; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #B9A8E8;
+}
+.stats { display: flex; gap: 10%; }
+.stats span { display: flex; flex-direction: column; align-items: center; font-size: .95em; }
+.stats b { font-size: 1.2em; }
+.name { padding: 3% 5% 0; font-weight: 700; }
+.bio { padding: 1% 5% 0; color: #333; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 2%; padding: 4% 5%; }
+.actions span { text-align: center; padding: 2.4% 0; border-radius: 8px; background: #EFEFF2; font-weight: 600; }
+.actions span:first-child { background: #6A55C8; color: #fff; }
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #E6E6EA; }
+.tabs span { height: 10px; }
+.tabs span[data-on] { box-shadow: inset 0 1.5px 0 #111; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.grid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #ddd; }
+.tap { position: absolute; left: 50%; top: 58%; width: 70px; height: 70px; margin: -35px; border-radius: 50%; background: rgba(255,255,255,.7); box-shadow: 0 0 0 10px rgba(106,85,200,.3); opacity: 0; z-index: 3; pointer-events: none; }
+
+/* the reels */
+/* starts below the screen; GSAP owns its transform (a CSS translate here would stack with it) */
+.reelView { position: absolute; inset: 0; z-index: 3; background: #000; overflow: hidden; }
+.section:not([data-live]) .reelView { display: none; }
+.reelTrack { position: absolute; left: 0; right: 0; top: 0; will-change: transform; }
+.reel { position: relative; height: calc(100% / 5); }
+.reel img { width: 100%; height: 100%; object-fit: cover; }
+.reelUi { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-between; padding: 6% 5% 11%; background: linear-gradient(transparent 55%, rgba(0,0,0,.6)); color: #fff; font-size: calc(var(--w) * .038); }
+.reelInfo { display: flex; flex-direction: column; gap: 4px; max-width: 78%; }
+.reelUser { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.mini { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: #161618; color: #fff; box-shadow: 0 0 0 1.5px #fff; }
+.reelCap { opacity: .92; line-height: 1.35; }
+.reelSide { display: flex; flex-direction: column; gap: 16px; order: 2; } /* the like, comment and share column sits on the right, as on Instagram */
+.reelSide svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linejoin: round; }
+
+.shadow { position: absolute; left: 50%; bottom: 0; width: 60%; height: 30px; translate: -50% 0; background: radial-gradient(closest-side, rgba(0,0,0,.45), transparent); filter: blur(6px); }
+
+/* without motion: the phone stands on the profile and every step is open */
+.section:not([data-live]) .steps li span { max-height: 80px; opacity: 1; }
+
+@media (max-width: 900px) {
+  .pin { padding: 64px 0 32px; }
+  .layout { grid-template-columns: 1fr; gap: 20px; }
+  .title { font-size: 34px; }
+  .steps { margin-top: 14px; }
+  .steps li { padding: 8px 12px; }
+  .steps li:not([data-on]) { display: none; }
+  .section:not([data-live]) .steps li { display: flex; }
+  .btns { margin-top: 12px; }
+  .scene { height: 58svh; order: -1; }
+  .phone { --w: min(250px, calc(56svh * 9 / 19.5)); }
+}
