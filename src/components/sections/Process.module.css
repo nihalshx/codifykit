@@ -39,8 +39,19 @@
 }
 @keyframes dotIn { from { opacity: 0; } }
 .step { position: absolute; right: 0; bottom: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; color: var(--ck-muted); }
+/* phones: no pinned sphere; the heading, then the five steps as a timeline you read down */
 @media (max-width: 899px) {
+  .wrap { min-height: 0; padding: var(--section-pad) 0; }
   .grid { grid-template-columns: 1fr; }
-  .visual { max-width: 280px; order: -1; } /* room for the orbit labels inside the phone margin */
-  .wrap { min-height: 0; }
+  .visual { display: none; }
+  .steps { margin: 24px 0 24px; }
+  .steps li { position: relative; grid-template-columns: 40px 1fr; gap: 14px; padding: 0 0 22px; border: 0; color: var(--ck-ink); }
+  .steps li:last-child { border: 0; padding-bottom: 4px; }
+  /* the line joining the steps */
+  .steps li:not(:last-child)::before { content: ""; position: absolute; left: 19px; top: 40px; bottom: 0; width: 2px; background: var(--kitto-blob); }
+  .icon { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #1A1680, #6A55C8); color: #fff; }
+  .num { display: none; }
+  .name { font-size: 20px; padding-top: 7px; }
+  .desc { max-height: none; opacity: 1; transform: none; margin-top: 4px; font-size: 15px; }
+  .cta { max-width: none; }
 }

@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Kitto } from "@/components/kitto/Kitto";
+import { KittoFace } from "@/components/kitto/KittoFace";
+import { safeStorage } from "@/lib/useReducedMotion";
 import styles from "./KittoButton.module.css";
 
 /** Small Kitto bottom-right on every page except /talk. Opens the chat. */
@@ -10,6 +11,21 @@ export function KittoButton() {
   const pathname = usePathname();
   const [hover, setHover] = useState(false);
   const [away, setAway] = useState(false);
+  const [peek, setPeek] = useState(false);
+
+  // once per visit, Kitto says hello a few seconds after the first page loads
+  useEffect(() => {
+    if (safeStorage.get("ck-kitto-hello") === "1") return;
+    const show = setTimeout(() => {
+      setPeek(true);
+      safeStorage.set("ck-kitto-hello", "1");
+    }, 5000);
+    const hide = setTimeout(() => setPeek(false), 9500);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, []);
 
   // step aside while the visitor scrolls down (so it never sits on top of what they're reading),
   // come back when they stop, and stay hidden over the footer, which has its own Kitto
@@ -50,9 +66,9 @@ export function KittoButton() {
         onFocus={() => setHover(true)}
         onBlur={() => setHover(false)}
       >
-        <span className={styles.bubble}>Ask Kitto</span>
-        <span className={styles.cat} aria-hidden="true">
-          <Kitto mood={hover ? "happy" : "curious"} size={44} label="" />
+        <span className={styles.bubble} data-peek={peek || undefined}>{peek ? "Hi! Need a hand?" : "Ask Kitto"}</span>
+        <span className={styles.cat} aria-hidden="true" data-peek={peek || undefined}>
+          <KittoFace size={46} happy={hover || peek} />
         </span>
         <span className="sr-only">Chat with Kitto, our AI helper</span>
       </Link>

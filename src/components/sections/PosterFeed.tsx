@@ -4,7 +4,7 @@
  * its own behind a phone fixed in the middle, and whatever passes the phone shows on its screen as an
  * Instagram post (our profile header, the post, the like / comment / share row and the caption).
  * The post inside moves in step with the cards outside, so each poster seems to slide through the
- * phone. Two badges beside the phone name the post in front. Hover or focus pauses it; with reduced
+ * phone. Hover or focus pauses it; with reduced
  * motion it stands still on the first post.
  */
 import Link from "next/link";
@@ -141,15 +141,6 @@ export function PosterFeed() {
           <p className="sr-only" aria-live="polite">Now showing: {cur.c.type} for {isPlaceholder(cur.c.client) ? "a client" : cur.c.client}</p>
         </div>
 
-        {/* badges: what the post in front is (never numbers we don't have) */}
-        <span className={`${styles.badge} ${styles.badgeA}`} aria-hidden="true" key={`a${current}`}>
-          <b>{cur.c.type}</b>
-          <small>{cur.c.category}</small>
-        </span>
-        <span className={`${styles.badge} ${styles.badgeB}`} aria-hidden="true" key={`b${current}`}>
-          <b>{cur.c.format}</b>
-          <small>feed format</small>
-        </span>
       </div>
     </section>
   );

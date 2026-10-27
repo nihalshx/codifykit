@@ -62,23 +62,6 @@
 .nav i:nth-child(3) { border-radius: 6px; }
 .nav i:last-child { border-radius: 50%; }
 
-/* badges beside the phone */
-.badge {
-  position: absolute; z-index: 4; display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border-radius: 14px;
-  background: rgba(255,255,255,.88); backdrop-filter: blur(8px); box-shadow: 0 16px 40px rgba(26,22,128,.16); color: var(--ck-violet);
-  animation: badgeIn .45s var(--ease-out);
-}
-.badge b { font-family: var(--font-display); font-size: 17px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; }
-.badge small { font-size: 12px; color: #6E6E77; }
-.badgeA { left: calc(50% - var(--phone-w) / 2 - 64px); top: 26%; rotate: -4deg; }
-.badgeB { left: calc(50% + var(--phone-w) / 2 - 40px); top: 62%; rotate: 5deg; }
-@keyframes badgeIn { from { opacity: 0; transform: translateY(8px) scale(.94); } }
-
 @media (max-width: 767px) {
   .section { --pitch: 128px; --phone-w: 210px; }
-  /* one badge on a phone, low on the right, clear of the profile name */
-  .badgeA { display: none; }
-  .badgeB { left: auto; right: 6px; top: 70%; }
-  .badge b { font-size: 15px; }
 }
-@media (prefers-reduced-motion: reduce) { .badge { animation: none; } }

@@ -1,30 +1,30 @@
-/* one dark panel in the app section's world: Kitto and the words on the left, a chat window on the right */
+/* Kitto's own colours: a lavender panel and a white blob, so the black cat stands out */
 .panel {
   position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr minmax(0, 520px); gap: clamp(28px, 4vw, 64px); align-items: center;
-  background: #1C1C1F; color: #E9E9EC; border-radius: 32px; padding: clamp(28px, 4vw, 56px);
+  background: var(--kitto-blob); color: var(--ck-ink); border-radius: 32px; padding: clamp(28px, 4vw, 56px);
 }
 .orbits { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.orbits ellipse { fill: none; stroke: rgba(255,255,255,.1); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.panel :global(.brace) { color: var(--ck-lavender); }
+.orbits ellipse { fill: none; stroke: rgba(26,22,128,.14); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.panel :global(.brace) { color: var(--ck-indigo); }
 
 .intro { position: relative; display: flex; flex-direction: column; gap: 14px; }
 .title { font-size: clamp(34px, 4vw, 58px); line-height: 1.02; letter-spacing: -.035em; font-weight: 400; max-width: 11ch; }
-.lead { font-size: 17px; line-height: 1.5; color: #C4C4CC; max-width: 42ch; }
+.lead { font-size: 17px; line-height: 1.5; color: #3E3B5A; max-width: 42ch; }
 .kittoStage { position: relative; height: 300px; display: grid; place-items: end start; margin-top: 4px; }
 .blob {
-  position: absolute; left: 10px; bottom: 16px; width: 250px; height: 220px; background: #2E2A48;
+  position: absolute; left: 10px; bottom: 16px; width: 250px; height: 220px; background: #fff;
   border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; animation: morph 12s ease-in-out infinite alternate;
 }
 @keyframes morph { to { border-radius: 58% 42% 44% 56% / 44% 58% 42% 56%; rotate: 12deg; } }
 .kitto { position: relative; margin-left: 40px; }
 
 /* the chat window */
-.window { position: relative; background: #fff; color: var(--ck-ink); border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,.35); }
+.window { position: relative; background: #fff; color: var(--ck-ink); border-radius: 24px; overflow: hidden; box-shadow: 0 30px 70px rgba(26,22,128,.18); }
 .winHead { display: flex; align-items: center; gap: 12px; padding: 14px 18px; box-shadow: 0 1px 0 #EEEFF3; }
 .winHead strong { display: block; font-family: var(--font-display); font-size: 17px; }
 .online { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ck-muted); }
 .online i { width: 8px; height: 8px; border-radius: 50%; background: #2BB673; }
-.avatar, .avatarSm { flex: none; border-radius: 50%; background: var(--kitto-blob) url("/kitto/emotions/kitto_curious.svg") 50% 14% / 210% auto no-repeat; }
+.avatar, .avatarSm { flex: none; border-radius: 50%; background: #EEEBFA url("/kitto/emotions/kitto_curious.svg") 50% 14% / 210% auto no-repeat; }
 .avatar { width: 42px; height: 42px; }
 .avatarSm { width: 30px; height: 30px; }
 .msgs { display: flex; flex-direction: column; gap: 10px; padding: 18px; background: var(--ck-studio); min-height: 230px; }

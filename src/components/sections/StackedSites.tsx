@@ -129,14 +129,16 @@ export function StackedSites() {
         </ol>
       </div>
 
-      <div className={`container ${styles.end}`}>
-        <p className={styles.endTitle}>
-          Didn&apos;t find your format?
-          <span>We&apos;ll build one for your case.</span>
-        </p>
-        <div className={styles.endBtns}>
-          <Link href="/contact/?need=Website" className="btn btn--violet">Discuss the project</Link>
-          <Link href="/services/web/" className="btn btn--ghost">Web development</Link>
+      <div className="container">
+        <div className={styles.end}>
+          <p className={styles.endTitle}>
+            Didn&apos;t find your format?
+            <span>We&apos;ll build one for your case.</span>
+          </p>
+          <div className={styles.endBtns}>
+            <Link href="/contact/?need=Website" className="btn btn--violet">Discuss the project</Link>
+            <Link href="/services/web/" className="btn btn--ghost">Web development</Link>
+          </div>
         </div>
       </div>
     </section>
