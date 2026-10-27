@@ -32,8 +32,14 @@ h1, h2, h3, h4 {
   font-weight: 500;
   letter-spacing: -0.02em;
   margin: 0;
+  text-wrap: balance;
 }
-p { margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+li { text-wrap: pretty; }
+/* the homepage showcases keep their original line breaks */
+:is(#apps, #web, #posters) :is(h2, h3, p, li) { text-wrap: wrap; }
+/* placeholders dark enough to read (WCAG AA on the light field fill) */
+::placeholder { color: #5E5E68; opacity: 1; }
 
 .sr-only {
   position: absolute !important;

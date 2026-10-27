@@ -36,7 +36,6 @@ export default function StudentsPage() {
     <>
       <section className={`container page-hero ${styles.hero}`}>
         <div>
-          <p className="label">Students</p>
           <h1 className="h-display">Stuck on your college project?</h1>
           <p className="lead">
             Codifykit started in an MCA classroom, helping classmates and juniors get their projects done right. We still do: from picking the idea to the final demo.

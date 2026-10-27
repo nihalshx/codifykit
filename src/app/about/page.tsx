@@ -19,7 +19,6 @@ export default function AboutPage() {
   return (
     <>
       <section className="container page-hero">
-        <p className="label">About</p>
         <h1 className="h-display">Codifykit started in an MCA classroom.</h1>
         <p className="lead">Today we&apos;re a small studio that builds websites, apps, brands and campaigns, and still helps students with their projects.</p>
         <div className={styles.btns}>

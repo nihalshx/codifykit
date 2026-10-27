@@ -13,7 +13,7 @@
 .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
 .story h2 { margin-bottom: 10px; }
 .facts { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.facts li { font-family: var(--font-mono); font-size: 12px; padding: 6px 12px; border-radius: 999px; background: var(--ck-white); border: 1px solid var(--ck-line); }
+.facts li { font-family: var(--font-mono); font-size: 13px; padding: 6px 12px; border-radius: 999px; background: var(--ck-white); border: 1px solid var(--ck-line); }
 .gallery { display: grid; gap: 24px; }
 .gallery img { width: 100%; height: auto; border-radius: var(--r-card); background: #EAEAEE; }
 .gallery[data-kind="Websites"] img { max-height: 1200px; object-fit: cover; object-position: top; }

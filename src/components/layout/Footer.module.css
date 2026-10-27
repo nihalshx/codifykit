@@ -7,6 +7,11 @@
   content: ""; position: absolute; left: 0; bottom: 0; width: 55%; height: 70%;
   background: radial-gradient(closest-side, rgba(58,99,184,.45), transparent); pointer-events: none;
 }
+/* darkens the light violet corner so the bottom line stays readable */
+.footer::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(to top, rgba(4,5,43,.6), rgba(4,5,43,0) 32%);
+}
 .kitto { position: absolute; top: -122px; right: clamp(24px, 10vw, 160px); z-index: 1; cursor: default; }
 .inner { position: relative; z-index: 1; padding-top: clamp(64px, 8vw, 110px); padding-bottom: 32px; }
 .tagline { font-family: var(--font-display); font-size: clamp(36px, 6vw, 84px); line-height: 1.02; letter-spacing: -.03em; max-width: 13ch; }
