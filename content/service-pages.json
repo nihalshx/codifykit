@@ -10,7 +10,7 @@
     "pill": "Websites · Landing pages · Portfolios · Online stores",
     "showcaseLink": {
       "href": "/work/web/",
-      "label": "View them in 3D ↗"
+      "label": "See them on a laptop ↗"
     },
     "promises": [
       {
@@ -84,7 +84,7 @@
     "pill": "Android · iOS · Cross-platform · Admin dashboards",
     "showcaseLink": {
       "href": "/work/apps/",
-      "label": "View them in 3D ↗"
+      "label": "See them on a phone ↗"
     },
     "promises": [
       {
@@ -145,80 +145,6 @@
       },
       {
         "name": "Backend & data",
-        "items": [
-          "[FILL IN]"
-        ]
-      }
-    ]
-  },
-  "content": {
-    "need": "Branding & posters",
-    "label": "Branding & content",
-    "titleBefore": "A brand people",
-    "brace": "remember",
-    "titleAfter": "post after post.",
-    "lead": "Logos, posters, social media and video, planned together so every post, reel and ad looks and sounds like the same brand.",
-    "pill": "Logos · Posters · Social media · Reels · AI videos",
-    "showcaseLink": {
-      "href": "/work/?filter=Videos",
-      "label": "Watch the reels ↗"
-    },
-    "promises": [
-      {
-        "title": "One look",
-        "text": "A logo, colours and type that hold every post together."
-      },
-      {
-        "title": "Planned, not random",
-        "text": "A content calendar, so you always know what goes out next."
-      },
-      {
-        "title": "Made to stop the thumb",
-        "text": "Posters and reels designed for the feed they live in."
-      },
-      {
-        "title": "Words included",
-        "text": "Captions and copy written in your voice, not just pictures."
-      }
-    ],
-    "servicesTitleBefore": "Branding & content we",
-    "servicesBrace": "provide",
-    "services": [
-      "Logo and identity",
-      "Brand guidelines",
-      "Offer posters",
-      "Product creatives",
-      "Campaign sets",
-      "Content calendars",
-      "Copywriting and captions",
-      "Account management",
-      "Reels",
-      "Realistic AI videos",
-      "Video editing",
-      "Community growth"
-    ],
-    "stackFor": "Branding & content",
-    "stack": [
-      {
-        "name": "Design",
-        "items": [
-          "[FILL IN]"
-        ]
-      },
-      {
-        "name": "Video",
-        "items": [
-          "[FILL IN]"
-        ]
-      },
-      {
-        "name": "Planning",
-        "items": [
-          "[FILL IN]"
-        ]
-      },
-      {
-        "name": "Publishing",
         "items": [
           "[FILL IN]"
         ]

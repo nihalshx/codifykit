@@ -36,5 +36,3 @@
   .next[data-next] { text-align: left; align-items: flex-start; border-top: 0; }
   .table div { grid-template-columns: 110px 1fr; }
 }
-.service { flex-basis: 100%; font-size: 15px; color: var(--ck-muted); }
-.service a { color: var(--ck-ink); font-weight: 500; }

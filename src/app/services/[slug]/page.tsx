@@ -10,12 +10,18 @@ import s2 from "./service.module.css";
 
 const RELATED: Record<string, ("Apps" | "Websites" | "Posters")[]> = {
   "crm-erp": ["Apps", "Websites"],
+  "social-media-content": ["Posters"],
+  "video-production": ["Posters"],
   "digital-marketing-ads": ["Posters", "Websites"],
+  "branding-creative": ["Posters"],
   strategy: ["Websites", "Apps", "Posters"],
 };
 const TOOL_GROUPS: Record<string, string[]> = {
   "crm-erp": ["CRM & ERP", "Backend & data", "Web front end"],
+  "social-media-content": ["Design & video", "Ads & marketing"],
+  "video-production": ["Design & video"],
   "digital-marketing-ads": ["Ads & marketing", "Design & video"],
+  "branding-creative": ["Design & video"],
   strategy: ["Mobile apps", "Web front end", "Backend & data", "CRM & ERP", "Design & video", "Ads & marketing"],
 };
 

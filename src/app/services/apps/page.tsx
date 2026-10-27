@@ -4,7 +4,7 @@ import { AppShowcase } from "@/components/sections/AppShowcase";
 import { APPS, SERVICE_PAGES } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Android & iOS apps",
+  title: "App development",
   description: "Android and iOS apps from Codifykit, designed to be used: planned with you, built properly and looked after once they're live.",
 };
 

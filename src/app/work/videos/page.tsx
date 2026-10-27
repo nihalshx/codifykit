@@ -1,8 +1,22 @@
 import type { Metadata } from "next";
-import { Moved } from "@/components/pages/Moved";
+import { VideoWheel } from "@/components/pages/VideoWheel";
+import { KittoCta } from "@/components/ui/KittoCta";
 
-export const metadata: Metadata = { title: "Reels and AI videos", robots: { index: false } };
+export const metadata: Metadata = {
+  title: "Reels and AI videos",
+  description: "Organic reels and realistic AI videos made by Codifykit.",
+};
 
-export default function OldVideosPage() {
-  return <Moved to="/work/?filter=Videos" title="Reels and videos now live with the rest of our work." links={[{ href: "/work/?filter=Videos", label: "Watch the reels →" }]} />;
+export default function VideosPage() {
+  return (
+    <>
+      <section className="container page-hero" style={{ paddingBottom: 32 }}>
+        <p className="label">Videos</p>
+        <h1 className="h-display">Reels and AI videos.</h1>
+        <p className="lead">Drag or swipe to turn the wheel. Tap a card to watch.</p>
+      </section>
+      <VideoWheel />
+      <KittoCta title="Need video that people actually watch?" />
+    </>
+  );
 }

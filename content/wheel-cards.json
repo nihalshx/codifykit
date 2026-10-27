@@ -7,7 +7,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-1.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c02",
@@ -15,7 +15,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-1.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c03",
@@ -23,7 +23,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-2.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c04",
@@ -31,7 +31,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-1.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c05",
@@ -39,7 +39,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-2.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c06",
@@ -47,7 +47,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-7.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c07",
@@ -55,7 +55,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-2.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c08",
@@ -63,7 +63,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-2.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c09",
@@ -71,7 +71,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-11.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c10",
@@ -79,7 +79,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-3.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c11",
@@ -87,7 +87,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-3.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c12",
@@ -95,7 +95,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-3.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c13",
@@ -103,7 +103,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-4.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c14",
@@ -111,7 +111,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-4.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c15",
@@ -119,7 +119,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-4.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c16",
@@ -127,7 +127,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-2.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c17",
@@ -135,7 +135,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-5.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c18",
@@ -143,7 +143,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-5.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c19",
@@ -151,7 +151,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-7.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c20",
@@ -159,7 +159,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-1.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c21",
@@ -167,7 +167,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-6.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c22",
@@ -175,7 +175,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-11.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c23",
@@ -183,7 +183,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-2.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c24",
@@ -191,7 +191,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-6.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c25",
@@ -199,7 +199,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-2.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c26",
@@ -207,7 +207,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-3.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c27",
@@ -215,7 +215,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-7.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c28",
@@ -223,7 +223,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-7.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c29",
@@ -231,7 +231,7 @@
       "label": "AI video by Codifykit",
       "cover": "/work/ai/placeholder-ai-4.svg",
       "video": null,
-      "href": "/services/branding-content/"
+      "href": "/services/video-production"
     },
     {
       "id": "c30",
@@ -239,7 +239,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-8.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c31",
@@ -247,7 +247,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-8.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     },
     {
       "id": "c32",
@@ -255,7 +255,7 @@
       "label": "[PLACEHOLDER campaign]",
       "cover": "/work/posters/placeholder-poster-7.svg",
       "video": null,
-      "href": "/work/?filter=Posters"
+      "href": "/work/posters"
     },
     {
       "id": "c33",
@@ -263,7 +263,7 @@
       "label": "[PLACEHOLDER reel title]",
       "cover": "/work/reels/placeholder-reel-1.svg",
       "video": null,
-      "href": "/work/?filter=Videos"
+      "href": "/work/videos"
     },
     {
       "id": "c34",
@@ -271,7 +271,7 @@
       "label": "[PLACEHOLDER app name]",
       "cover": "/work/apps/placeholder-app-9.svg",
       "video": null,
-      "href": "/work/apps/"
+      "href": "/work/apps"
     }
   ]
 }

@@ -37,20 +37,7 @@
       ]
     },
     {
-      "slug": "branding-content",
-      "href": "/services/branding-content/",
-      "name": "Branding & content",
-      "short": "Logos, posters, social media and video",
-      "includes": [
-        "Logo and identity design, brand guidelines",
-        "Posters, product creatives and campaign sets",
-        "Content calendars, copywriting and account management",
-        "Realistic AI videos, reels and video editing"
-      ],
-      "n": "03"
-    },
-    {
-      "n": "04",
+      "n": "03",
       "slug": "crm-erp",
       "name": "Custom CRM & ERP",
       "short": "Systems built around your workflow",
@@ -61,9 +48,31 @@
       ]
     },
     {
+      "n": "04",
+      "slug": "social-media-content",
+      "name": "Social Media & Content",
+      "short": "Planning, writing, managing, growing",
+      "includes": [
+        "Content calendars and planning",
+        "Copywriting and post creation",
+        "Account management and community growth"
+      ]
+    },
+    {
       "n": "05",
+      "slug": "video-production",
+      "name": "Video Production",
+      "short": "Realistic AI videos, organic videos, editing",
+      "includes": [
+        "Realistic AI videos (ads, product videos, brand stories)",
+        "Organic videos: shooting and editing reels and short-form content",
+        "Video editing for social media and ads"
+      ]
+    },
+    {
+      "n": "06",
       "slug": "digital-marketing-ads",
-      "name": "Marketing & ads",
+      "name": "Digital Marketing & Ads",
       "short": "Strategy, Meta ads, ChatGPT ads, leads",
       "includes": [
         "Marketing strategy",
@@ -74,7 +83,20 @@
       ]
     },
     {
-      "n": "06",
+      "n": "07",
+      "slug": "branding-creative",
+      "name": "Branding & Creative",
+      "short": "Logos, posters, product creatives",
+      "includes": [
+        "Logo and identity design",
+        "Posters for social media, offers and events",
+        "Product posters and product creatives",
+        "Brand guidelines",
+        "Campaign creative"
+      ]
+    },
+    {
+      "n": "08",
       "slug": "strategy",
       "name": "Strategy & Student Projects",
       "short": "The thinking behind it all",
@@ -113,6 +135,5 @@
     }
   ],
   "_note": "Process lines 02-05 are drafts in the brand voice. Confirm or edit them.",
-  "_note_href": "A service with \"href\" has its own landing page (/services/web, /services/apps); the others use /services/<slug>.",
-  "_note_merged": "Social media & content, Video production and Branding & creative were joined into Branding & content (/services/branding-content). Their old addresses forward there."
+  "_note_href": "A service with \"href\" has its own landing page (/services/web, /services/apps); the others use /services/<slug>."
 }
