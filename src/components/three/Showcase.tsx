@@ -4,7 +4,7 @@
  * Specs: prompts/floating-laptops-web-prompt.md and prompts/floating-phones-posters-prompt.md.
  *
  * The devices are modelled in code (no GLB needed). When licensed GLB models arrive, swap
- * buildLaptop / buildPhone for a loader; everything else (strip, controls, intro, loop) stays.
+ * buildLaptop / buildPhone for a loader; everything else (strip, controls, intro) stays.
  */
 import { useEffect, useRef, useState } from "react";
 import type * as THREE_NS from "three";
@@ -268,26 +268,6 @@ function drawApp(ctx: CanvasRenderingContext2D, imgs: HTMLImageElement[], st: Ap
   }
 }
 
-// ---------------------------------------------------------------- marker loop (hover)
-function markerPath(cx: number, cy: number, ax: number, ay: number, seed: number, start: number) {
-  let s = seed;
-  const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-  const passes = 2 + (rnd() > 0.5 ? 1 : 0);
-  const pts: string[] = [];
-  const steps = 28;
-  for (let p = 0; p < passes; p++) {
-    const jx = 1 + (rnd() - 0.5) * 0.12, jy = 1 + (rnd() - 0.5) * 0.12;
-    for (let i = 0; i <= steps; i++) {
-      const a = start + (i / steps) * Math.PI * 2 + p * 0.3;
-      const wob = 1 + (rnd() - 0.5) * 0.06;
-      const x = cx + Math.cos(a) * ax * jx * wob;
-      const y = cy + Math.sin(a) * ay * jy * wob;
-      pts.push(`${pts.length ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`);
-    }
-  }
-  return pts.join(" ");
-}
-
 // ---------------------------------------------------------------- component
 export function Showcase({
   kind,
@@ -303,7 +283,6 @@ export function Showcase({
   primaryLabel: string; // "Visit live site ↗" / "Open case study →"
 }) {
   const mountRef = useRef<HTMLDivElement>(null);
-  const loopRef = useRef<SVGPathElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const api = useRef<{ go: (i: number) => void; toggle: () => void; skip: () => void }>({ go: () => {}, toggle: () => {}, skip: () => {} });
   const [current, setCurrent] = useState(0);
@@ -622,7 +601,6 @@ export function Showcase({
       // ---- loop
       let raf = 0, last = performance.now(), running = true;
       const v3 = new T3.Vector3();
-      const v3b = new T3.Vector3();
       let midState: AppState = { ...APP_IDLE };
       let midClock = 0, midIndex = -1, scrollClock = 0;
       const midScreenOffsets = screens.map(() => 0);
@@ -792,27 +770,6 @@ export function Showcase({
           }
         }
 
-        // ---- marker loop around the hovered device
-        const path = loopRef.current;
-        if (path) {
-          if (hovered >= 0 && phase === "done") {
-            const d = devices[hovered];
-            d.root.getWorldPosition(v3);
-            const r = renderer.domElement.getBoundingClientRect();
-            const project = (p: THREE_NS.Vector3) => {
-              v3b.copy(p).project(camera);
-              return [((v3b.x + 1) / 2) * r.width, ((1 - v3b.y) / 2) * r.height];
-            };
-            const [cx, cy] = project(v3);
-            const half = d.size.clone().multiplyScalar(0.5 * d.root.scale.x);
-            const [rx] = project(v3.clone().add(new T3.Vector3(half.x * 1.25, 0, 0)));
-            const [, ry] = project(v3.clone().add(new T3.Vector3(0, half.y * 1.2, 0)));
-            const boil = Math.floor(now / 85);
-            path.setAttribute("d", markerPath(cx, cy, Math.abs(rx - cx), Math.abs(ry - cy), boil * 7919 + 13, now / 4000));
-            path.style.opacity = "1";
-          } else path.style.opacity = "0";
-        }
-
         renderer.render(scene, camera);
       };
       raf = requestAnimationFrame(tick);
@@ -869,9 +826,6 @@ export function Showcase({
       <div className={styles.stage}>
         <div className={styles.backdrop} aria-hidden="true" />
         <div ref={mountRef} className={styles.canvas} />
-        <svg className={styles.loopSvg} aria-hidden="true">
-          <path ref={loopRef} pathLength={1} />
-        </svg>
         <div className={styles.controls}>
           <button type="button" className={styles.arrow} aria-label={`Previous ${noun}`} onClick={() => api.current.go(current - 1)}>
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
