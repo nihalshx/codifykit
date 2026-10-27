@@ -64,6 +64,8 @@ type Props = {
   imageBorderRadius?: string;
   openedImageBorderRadius?: string;
   grayscale?: boolean;
+  /** slow turn on its own, in degrees per second (0 = off); pauses while dragging, gliding or open */
+  autoRotateSpeed?: number;
 };
 
 export function DomeGallery({
@@ -83,6 +85,7 @@ export function DomeGallery({
   imageBorderRadius = "30px",
   openedImageBorderRadius = "30px",
   grayscale = true,
+  autoRotateSpeed = 0,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
@@ -418,6 +421,44 @@ export function DomeGallery({
   };
 
   useEffect(() => () => document.body.classList.remove("dg-scroll-lock"), []);
+
+  // a press that never became a drag must not leave the dome thinking it is still being dragged
+  useEffect(() => {
+    const release = () => setTimeout(() => (draggingRef.current = false), 0);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    return () => {
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+    };
+  }, []);
+
+  // the slow turn: only while the dome is on screen and nobody is dragging, gliding or looking at a poster
+  useEffect(() => {
+    if (!autoRotateSpeed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const root = rootRef.current;
+    if (!root) return;
+    let visible = false;
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.1 });
+    io.observe(root);
+    let raf = 0;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(64, now - last) / 1000;
+      last = now;
+      if (visible && !draggingRef.current && !inertiaRAF.current && !focusedElRef.current && !openingRef.current) {
+        const y = wrapAngleSigned(rotationRef.current.y + autoRotateSpeed * dt);
+        rotationRef.current = { ...rotationRef.current, y };
+        applyTransform(rotationRef.current.x, y);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
+  }, [autoRotateSpeed]);
 
   return (
     <div
