@@ -7,3 +7,7 @@
 .more { margin-top: auto; padding-top: 10px; font-weight: 500; }
 @media (max-width: 1000px) { .grid { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+.cardDark { background: #161618; border-color: #161618; color: #F2F2F4; justify-content: flex-end; }
+.cardDark p { color: #C4C4CC; }
+.cardDark:hover { border-color: var(--ck-violet); }
+.cardSoft { background: var(--kitto-blob); border-color: var(--kitto-blob); justify-content: flex-end; }

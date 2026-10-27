@@ -41,6 +41,21 @@ export default function ServicesPage() {
               </Link>
             </Reveal>
           ))}
+          {/* two ways in, so the last row is never one lonely card */}
+          <Reveal delay={80}>
+            <Link href="/contact/" className={`${styles.card} ${styles.cardDark}`}>
+              <h2 className={styles.name}>Not sure which one?</h2>
+              <p>Tell us what you&apos;re working on and we&apos;ll tell you what it needs.</p>
+              <span className={styles.more}>Start a project →</span>
+            </Link>
+          </Reveal>
+          <Reveal delay={160}>
+            <Link href="/talk/" className={`${styles.card} ${styles.cardSoft}`}>
+              <h2 className={styles.name}>Ask Kitto first</h2>
+              <p>Our AI helper can shape the idea with you, then pass it to the team.</p>
+              <span className={styles.more}>Chat with Kitto →</span>
+            </Link>
+          </Reveal>
         </div>
       </section>
       <Process />

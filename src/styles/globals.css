@@ -56,7 +56,7 @@ p { margin: 0; }
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.section { padding: var(--section-pad) 0; }
+.section { padding-block: var(--section-pad); } /* block only: "container section" keeps the container's side gutter */
 
 .h-display { font-size: var(--fs-display); line-height: 1.02; }
 .h1 { font-size: var(--fs-h1); line-height: 1.15; }

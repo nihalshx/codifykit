@@ -35,8 +35,7 @@ export function ServiceLanding({
           <div>
             <p className="label">{page.label}</p>
             <h1 id="landing-title" className={styles.title}>
-              {page.titleBefore} <Brace>{page.brace}</Brace>
-              <br /> {page.titleAfter}
+              {page.titleBefore} <Brace>{page.brace}</Brace> {page.titleAfter}
             </h1>
           </div>
           <div className={styles.introSide}>
@@ -109,7 +108,7 @@ export function ServiceLanding({
         <section className="container section" aria-labelledby="stack-title">
           <div className={styles.stackHead}>
             <h2 id="stack-title" className={styles.stackTitle}>
-              Tools &amp; technologies we use for <span>{page.stackFor}</span>
+              Tools we use for <span>{page.stackFor.toLowerCase()}</span>
             </h2>
             <p className="muted">
               We mainly build apps in Flutter, so one codebase runs on Android and iOS. If your project needs another stack, we work in that too.

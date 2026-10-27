@@ -29,7 +29,7 @@
 .form textarea::placeholder { color: var(--ck-on-dark-muted); }
 .form button { width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--ck-lavender); color: var(--ck-navy); font-size: 20px; cursor: pointer; flex: none; }
 .form button:disabled { opacity: .45; cursor: default; }
-.note { font-size: 13px; color: var(--ck-muted); }
+.note { font-size: 14px; color: var(--ck-muted); max-width: 62ch; }
 
 .side { display: flex; flex-direction: column; gap: 16px; }
 .card { display: flex; flex-direction: column; gap: 10px; padding: 20px; border-radius: var(--r-card); background: var(--ck-white); border: 1.5px solid var(--ck-line); font-size: 15px; }
@@ -37,7 +37,7 @@
 .cardTitle { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
 .card .btn { align-self: flex-start; }
 .briefForm { display: flex; flex-direction: column; gap: 10px; }
-.briefForm label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ck-muted); }
+.briefForm label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ck-muted); }
 .briefForm input { min-height: 44px; border-radius: 12px; border: 1.5px solid var(--ck-line); padding: 0 12px; font: inherit; color: var(--ck-ink); }
 .briefForm input:focus { outline: 2px solid var(--ck-violet); border-color: transparent; }
 .brief { display: flex; flex-direction: column; gap: 10px; }

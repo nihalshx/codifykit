@@ -48,32 +48,29 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
-      <section className="container page-hero">
-        <p className="label">Service {s.n}</p>
-        <h1 className="h-display">{s.name}</h1>
-        <p className="lead">{s.short}.</p>
-        <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
-          {s.slug === "web-app-development" ? (
-            <>
-              <Link href="/services/web/" className="btn btn--ghost">Websites →</Link>
-              <Link href="/services/apps/" className="btn btn--ghost">Android &amp; iOS apps →</Link>
-            </>
-          ) : (
-            <Link href="/work/" className="btn btn--ghost">See our work</Link>
-          )}
-        </div>
-      </section>
-
-      <section className="container section">
-        <div className="grid-2">
-          <div>
-            <p className="label">What&apos;s included</p>
-            <h2 className="h2">What we do for you.</h2>
+      {/* the opening screen: the service on the left, what's included on the right (no empty half) */}
+      <section className={`container page-hero ${s2.hero}`}>
+        <div>
+          <p className="label">Service {s.n}</p>
+          <h1 className="h-display">{s.name}</h1>
+          <p className="lead">{s.short}.</p>
+          <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+            <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+            {s.slug === "web-app-development" ? (
+              <>
+                <Link href="/services/web/" className="btn btn--ghost">Websites →</Link>
+                <Link href="/services/apps/" className="btn btn--ghost">Android &amp; iOS apps →</Link>
+              </>
+            ) : (
+              <Link href="/work/" className="btn btn--ghost">See our work</Link>
+            )}
           </div>
+        </div>
+        <div className={s2.includedBox}>
+          <h2 className={s2.includedTitle}>What we do for you</h2>
           <ul className={s2.included}>
-            {s.includes.map((x, i) => (
-              <li key={x}><span>{String(i + 1).padStart(2, "0")}</span>{x}</li>
+            {s.includes.map((x) => (
+              <li key={x}>{x}</li>
             ))}
           </ul>
         </div>
@@ -142,7 +139,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <KittoCta title={`Thinking about ${s.name.toLowerCase().replace("&", "and")}?`} />
+      <KittoCta title={`Thinking about ${s.name.replace("&", "and")}?`} />
     </>
   );
 }

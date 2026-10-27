@@ -1,3 +1,10 @@
+.hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(28px, 4vw, 64px); align-items: center; }
+.cover { margin: 0; border-radius: var(--r-frame); overflow: hidden; background: #EAEAEE; max-height: 72svh; }
+.cover img { width: 100%; height: 100%; max-height: 72svh; object-fit: cover; object-position: top; }
+.cover[data-kind="Apps"] { background: var(--ck-dark); padding: clamp(20px, 3vw, 40px) 22% 0; }
+.cover[data-kind="Apps"] img { border-radius: 24px 24px 0 0; }
+.cover[data-kind="Posters"] { max-width: 460px; justify-self: center; }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .cover { max-height: 60svh; } }
 .top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 40px; }
 .table { margin: 0; flex: 1; max-width: 720px; border-top: 2px solid var(--ck-ink); }
 .table div { display: grid; grid-template-columns: 160px 1fr; padding: 12px 0; border-bottom: 1px solid var(--ck-line); }

@@ -40,24 +40,31 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <>
-      <section className="container page-hero">
-        <nav aria-label="Breadcrumb" className={styles.crumbs}>
-          <Link href="/work/">← All work</Link>
-          <span aria-hidden="true">/</span>
-          <Link href={`/work/?filter=${c.kind}`}>{c.kind}</Link>
-        </nav>
-        <h1 className="h-display"><T>{c.title}</T></h1>
-        <div className={styles.top}>
-          <dl className={styles.table}>
-            {rows.filter(([, v]) => v).map(([k, v]) => (
-              <div key={k}><dt>{k}</dt><dd><T>{v}</T></dd></div>
-            ))}
-          </dl>
-          <div className={styles.actions}>
-            {c.liveUrl && <a href={c.liveUrl} target="_blank" rel="noopener" className="btn btn--ghost">Visit live site ↗</a>}
-            <Link href={`/contact/?need=${encodeURIComponent(need)}`} className="btn btn--violet">Start a project like this</Link>
+      {/* the opening screen: the facts on the left, the work itself on the right */}
+      <section className={`container page-hero ${styles.hero}`}>
+        <div>
+          <nav aria-label="Breadcrumb" className={styles.crumbs}>
+            <Link href="/work/">← All work</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/work/?filter=${c.kind}`}>{c.kind}</Link>
+          </nav>
+          <h1 className="h-display"><T>{c.title}</T></h1>
+          <div className={styles.top}>
+            <dl className={styles.table}>
+              {rows.filter(([, v]) => v).map(([k, v]) => (
+                <div key={k}><dt>{k}</dt><dd><T>{v}</T></dd></div>
+              ))}
+            </dl>
+            <div className={styles.actions}>
+              {c.liveUrl && <a href={c.liveUrl} target="_blank" rel="noopener" className="btn btn--ghost">Visit live site ↗</a>}
+              <Link href={`/contact/?need=${encodeURIComponent(need)}`} className="btn btn--violet">Start a project like this</Link>
+            </div>
           </div>
         </div>
+        <figure className={styles.cover} data-kind={c.kind}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={c.images[0]} alt={`${c.kind === "Websites" ? "Screenshot" : c.kind === "Apps" ? "App screen" : "Poster"} 1`} />
+        </figure>
       </section>
 
       {story.length > 0 && (
@@ -76,14 +83,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </section>
       )}
 
-      <section className="container">
-        <div className={styles.gallery} data-kind={c.kind}>
-          {c.images.map((src, k) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={k} src={src} alt={`${c.kind === "Websites" ? "Screenshot" : c.kind === "Apps" ? "App screen" : "Poster"} ${k + 1}`} loading={k ? "lazy" : "eager"} />
-          ))}
-        </div>
-      </section>
+      {c.images.length > 1 && (
+        <section className="container">
+          <div className={styles.gallery} data-kind={c.kind}>
+            {c.images.slice(1).map((src, k) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={k} src={src} alt={`${c.kind === "Websites" ? "Screenshot" : c.kind === "Apps" ? "App screen" : "Poster"} ${k + 2}`} loading="lazy" />
+            ))}
+          </div>
+        </section>
+      )}
 
       <nav className={`container section ${styles.pager}`} aria-label="More projects">
         <Link href={`/work/${prev.slug}/`} className={styles.next}>

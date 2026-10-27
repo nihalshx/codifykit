@@ -52,9 +52,12 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      <section className="container section">
-        <p className="label">Team</p>
-        <h2 className="h2">The people behind it.</h2>
+      <section className={`container section ${styles.teamSection}`}>
+        <div>
+          <p className="label">Team</p>
+          <h2 className="h2">The people behind it.</h2>
+          <p className="lead" style={{ marginTop: 16 }}>A small team that started with student projects and still sits with every client the same way.</p>
+        </div>
         <div className={styles.team}>
           {TEAM.map((t) => (
             <figure key={t.name} className={styles.person}>

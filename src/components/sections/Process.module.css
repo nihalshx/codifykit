@@ -41,6 +41,6 @@
 .step { position: absolute; right: 0; bottom: 0; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; color: var(--ck-muted); }
 @media (max-width: 899px) {
   .grid { grid-template-columns: 1fr; }
-  .visual { max-width: 320px; order: -1; }
+  .visual { max-width: 280px; order: -1; } /* room for the orbit labels inside the phone margin */
   .wrap { min-height: 0; }
 }

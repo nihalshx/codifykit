@@ -508,7 +508,8 @@ export function Showcase({
         if (overlayRef.current) overlayRef.current.style.opacity = "0";
         setIntro(false);
       };
-      if (reduced) endIntro();
+      // with reduced motion there is no intro: phase starts "done", so endIntro() would return early
+      if (reduced) setIntro(false);
 
       // ---- controls
       // the strip loops, so there are always devices ahead and behind
