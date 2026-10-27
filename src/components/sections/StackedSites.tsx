@@ -3,7 +3,7 @@
  * Websites as stacked cards, rebuilt from the reference: one dark card per kind of website (title,
  * one line, and one of our sites in a browser window). The stack holds still while you scroll; each
  * new card rises from below over the last one, which tips back in 3D, shrinks and slides up behind it.
- * A "Discuss the project" pill stays at the foot of the stack. GSAP ScrollTrigger drives it.
+ * GSAP ScrollTrigger drives it.
  * Without motion (reduced motion or no script) the cards simply sit one under another.
  */
 import Link from "next/link";
@@ -94,7 +94,6 @@ export function StackedSites() {
             </li>
           ))}
         </ol>
-        <Link href="/contact/?need=Website" className={styles.discuss}>Discuss the project</Link>
       </div>
 
       <div className={`container ${styles.end}`}>
