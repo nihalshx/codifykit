@@ -4,12 +4,11 @@ import { notFound } from "next/navigation";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { WorkCard } from "@/components/pages/WorkCard";
 import { T } from "@/components/ui/T";
-import { CASE_STUDIES, PLATFORM_TECH, SERVICES, TOOLS, real, serviceBySlug } from "@/lib/content";
+import { CASE_STUDIES, DETAIL_SERVICES, SERVICES, TOOLS, real, serviceBySlug, serviceHref } from "@/lib/content";
 import styles from "../services.module.css";
 import s2 from "./service.module.css";
 
 const RELATED: Record<string, ("Apps" | "Websites" | "Posters")[]> = {
-  "web-app-development": ["Websites", "Apps"],
   "crm-erp": ["Apps", "Websites"],
   "social-media-content": ["Posters"],
   "video-production": ["Posters"],
@@ -18,7 +17,6 @@ const RELATED: Record<string, ("Apps" | "Websites" | "Posters")[]> = {
   strategy: ["Websites", "Apps", "Posters"],
 };
 const TOOL_GROUPS: Record<string, string[]> = {
-  "web-app-development": ["Mobile apps", "Web front end", "Backend & data"],
   "crm-erp": ["CRM & ERP", "Backend & data", "Web front end"],
   "social-media-content": ["Design & video", "Ads & marketing"],
   "video-production": ["Design & video"],
@@ -28,7 +26,7 @@ const TOOL_GROUPS: Record<string, string[]> = {
 };
 
 export function generateStaticParams() {
-  return SERVICES.map((s) => ({ slug: s.slug }));
+  return DETAIL_SERVICES.map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -43,7 +41,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const tools = TOOLS.filter((g) => TOOL_GROUPS[s.slug].includes(g.name))
     .map((g) => ({ ...g, items: real(g.items) }))
     .filter((g) => g.items.length);
-  const platforms = PLATFORM_TECH.map((p) => ({ ...p, items: real(p.items) }));
   const others = SERVICES.filter((o) => o.slug !== s.slug);
 
   return (
@@ -56,14 +53,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <p className="lead">{s.short}.</p>
           <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
             <Link href="/contact/" className="btn btn--violet">Start a project</Link>
-            {s.slug === "web-app-development" ? (
-              <>
-                <Link href="/services/web/" className="btn btn--ghost">Websites →</Link>
-                <Link href="/services/apps/" className="btn btn--ghost">Android &amp; iOS apps →</Link>
-              </>
-            ) : (
-              <Link href="/work/" className="btn btn--ghost">See our work</Link>
-            )}
+            <Link href="/work/" className="btn btn--ghost">See our work</Link>
           </div>
         </div>
         <div className={s2.includedBox}>
@@ -76,23 +66,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {s.slug === "web-app-development" && (
-        <section className="container section">
-          <p className="label">Platforms</p>
-          <h2 className="h2">Android and iOS apps, from one team.</h2>
-          <p className="lead" style={{ marginTop: 16 }}>
-            We mainly build apps in Flutter, so one codebase runs on both Android and iOS. If your project needs another stack, we can work in that too.
-          </p>
-          <div className={s2.platforms}>
-            {platforms.map((p) => (
-              <div key={p.name} className={s2.platform}>
-                <h3 className="h3">{p.name}</h3>
-                <ul>{p.items.map((i) => <li key={i}><T>{i}</T></li>)}</ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       {related.length > 0 && (
         <section className="container section">
@@ -130,7 +103,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <p className="label">Other services</p>
         <div className={styles.grid}>
           {others.map((o) => (
-            <Link key={o.slug} href={`/services/${o.slug}/`} className={styles.card}>
+            <Link key={o.slug} href={serviceHref(o)} className={styles.card}>
               <span className={styles.n}>{o.n}</span>
               <h3 className={styles.name}>{o.name}</h3>
               <p className="muted">{o.short}</p>

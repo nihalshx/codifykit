@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Process } from "@/components/sections/Process";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Reveal } from "@/components/ui/Reveal";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, serviceHref } from "@/lib/content";
 import styles from "./services.module.css";
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function ServicesPage() {
         <div className={styles.grid}>
           {SERVICES.map((s, i) => (
             <Reveal key={s.slug} delay={(i % 3) * 80}>
-              <Link href={`/services/${s.slug}/`} className={styles.card}>
+              <Link href={serviceHref(s)} className={styles.card}>
                 <span className={styles.n}>{s.n}</span>
                 <h2 className={styles.name}>{s.name}</h2>
                 <p className="muted">{s.short}</p>
@@ -41,19 +41,12 @@ export default function ServicesPage() {
               </Link>
             </Reveal>
           ))}
-          {/* two ways in, so the last row is never one lonely card */}
+          {/* eight services and one way in: three full rows */}
           <Reveal delay={80}>
             <Link href="/contact/" className={`${styles.card} ${styles.cardDark}`}>
               <h2 className={styles.name}>Not sure which one?</h2>
-              <p>Tell us what you&apos;re working on and we&apos;ll tell you what it needs.</p>
+              <p>Tell us what you&apos;re working on and we&apos;ll tell you what it needs. Or ask Kitto, our AI helper, first.</p>
               <span className={styles.more}>Start a project →</span>
-            </Link>
-          </Reveal>
-          <Reveal delay={160}>
-            <Link href="/talk/" className={`${styles.card} ${styles.cardSoft}`}>
-              <h2 className={styles.name}>Ask Kitto first</h2>
-              <p>Our AI helper can shape the idea with you, then pass it to the team.</p>
-              <span className={styles.more}>Chat with Kitto →</span>
             </Link>
           </Reveal>
         </div>

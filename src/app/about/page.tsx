@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Icon } from "@/components/ui/Logo";
-import { SERVICES } from "@/lib/content";
+import { SERVICES, serviceHref } from "@/lib/content";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default function AboutPage() {
         <ul className={styles.services}>
           {SERVICES.map((s) => (
             <li key={s.slug}>
-              <Link href={`/services/${s.slug}/`}>
+              <Link href={serviceHref(s)}>
                 <strong>{s.name}</strong>
                 <span>{s.short}</span>
               </Link>

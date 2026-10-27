@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Brace } from "@/components/ui/Brace";
-import { APPS, SERVICES, WEB_PROJECTS } from "@/lib/content";
+import { APPS, SERVICES, WEB_PROJECTS, serviceHref } from "@/lib/content";
 import styles from "./WhatWeDo.module.css";
 
 // the four things people come for, each with its own page
@@ -44,7 +44,7 @@ export function WhatWeDo() {
       <div className={`container ${styles.more}`}>
         <span>Also:</span>
         {MORE.map((s) => (
-          <Link key={s.slug} href={`/services/${s.slug}/`} className="chip">{s.name}</Link>
+          <Link key={s.slug} href={serviceHref(s)} className="chip">{s.name}</Link>
         ))}
         <Link href="/services/" className="link-arrow">All services →</Link>
       </div>

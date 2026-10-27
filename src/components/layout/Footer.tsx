@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Logo } from "@/components/ui/Logo";
 import { Kitto } from "@/components/kitto/Kitto";
-import { CONTACT, SERVICES, SITE } from "@/lib/content";
+import { CONTACT, SERVICES, SITE, serviceHref } from "@/lib/content";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -35,10 +35,8 @@ export function Footer() {
           </div>
           <div>
             <h2 className={styles.colHead}>Services</h2>
-            <Link href="/services/web/">Web development</Link>
-            <Link href="/services/apps/">App development</Link>
-            {SERVICES.filter((s) => s.slug !== "web-app-development").map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}/`}>{s.name}</Link>
+            {SERVICES.map((s) => (
+              <Link key={s.slug} href={serviceHref(s)}>{s.name}</Link>
             ))}
           </div>
           <div>

@@ -48,7 +48,12 @@ export const isPlaceholder = (v: unknown) =>
 /** Drops the values the owner hasn't filled in yet (used where an empty slot would look broken). */
 export const real = (items: string[]) => items.filter((v) => !isPlaceholder(v));
 
-export const serviceBySlug = (slug: string) => SERVICES.find((s) => s.slug === slug);
+/** Where a service lives: its own landing page when it has one, otherwise /services/<slug>. */
+export const serviceHref = (s: Service) => (s as { href?: string }).href ?? `/services/${s.slug}/`;
+/** Services rendered by /services/[slug] (the ones without their own landing page). */
+export const DETAIL_SERVICES = SERVICES.filter((s) => !(s as { href?: string }).href);
+
+export const serviceBySlug = (slug: string) => DETAIL_SERVICES.find((s) => s.slug === slug);
 
 /** Every case study, across apps, websites and poster campaigns. */
 export type CaseStudy = {
