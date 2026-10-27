@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { KittoFace } from "@/components/kitto/KittoFace";
+import { Kitto } from "@/components/kitto/Kitto";
 import { safeStorage } from "@/lib/useReducedMotion";
 import styles from "./KittoButton.module.css";
 
@@ -67,8 +67,9 @@ export function KittoButton() {
         onBlur={() => setHover(false)}
       >
         <span className={styles.bubble} data-peek={peek || undefined}>{peek ? "Hi! Need a hand?" : "Ask Kitto"}</span>
+        {/* Kitto himself (same drawing and animation as everywhere), cropped to his face */}
         <span className={styles.cat} aria-hidden="true" data-peek={peek || undefined}>
-          <KittoFace size={46} happy={hover || peek} />
+          <Kitto mood={hover || peek ? "happy" : "curious"} size={110} label="" className={styles.kitto} />
         </span>
         <span className="sr-only">Chat with Kitto, our AI helper</span>
       </Link>

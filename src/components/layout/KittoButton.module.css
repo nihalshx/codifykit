@@ -5,12 +5,15 @@
 }
 .btn[data-away] { transform: translateY(120%); opacity: 0; pointer-events: none; }
 :global(html[data-intro="running"]) .btn { opacity: 0; pointer-events: none; }
+/* the face of the Kitto drawing (viewBox 500 x 800: ears from y 40, chin at about y 330); no circle behind it.
+   Only the top and bottom are clipped, so the whiskers can reach out past the sides. */
 .cat {
-  width: 64px; height: 64px; border-radius: 50%; background: var(--kitto-blob);
-  display: grid; place-items: center; padding-top: 6px;
-  box-shadow: 0 10px 30px rgba(4,5,43,.18); border: 2px solid #fff;
+  position: relative; width: 76px; height: 76px; flex: none;
+  clip-path: inset(0 -40px 0 -40px);
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,.95)) drop-shadow(0 8px 14px rgba(4,5,43,.28));
   transition: transform .3s var(--ease-out);
 }
+.kitto { position: absolute; left: -17px; top: -4px; }
 .btn:hover .cat { transform: translateY(-4px) scale(1.06); }
 .btn:active .cat { transform: scale(.94); }
 /* the hello: a little hop */
@@ -23,7 +26,6 @@
 .btn:hover .bubble, .btn:focus-visible .bubble, .bubble[data-peek] { opacity: 1; transform: none; }
 @media (max-width: 767px) {
   .btn { right: 12px; bottom: 12px; }
-  .cat { width: 54px; height: 54px; padding-top: 4px; }
-  .cat :global(svg) { width: 40px; height: 40px; }
+  .cat { scale: .82; transform-origin: 100% 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .cat[data-peek] { animation: none; } }
