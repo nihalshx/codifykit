@@ -24,7 +24,7 @@
   --kitto-fx: #B9AEE6;
 
   /* Crumpled graph paper (public/images/graph-paper.webp, made by scripts/make-graph-paper.py),
-     used only behind the hero ring */
+     no longer used on the site; kept for the paper texture if it's wanted again */
   --ck-graph-paper: #F7F8FA url("/images/graph-paper.webp") center / cover no-repeat;
   --ck-pen: #1A1680; /* hand-drawn marks on the paper */
 
