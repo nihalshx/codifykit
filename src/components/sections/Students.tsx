@@ -1,3 +1,4 @@
+import { Brace } from "@/components/ui/Brace";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./Students.module.css";
@@ -9,7 +10,7 @@ export function Students() {
         <Reveal className={styles.card}>
           <div className={styles.copy}>
             <p className="label">Students</p>
-            <h2 id="students-title" className="h2">Stuck on your college project?</h2>
+            <h2 id="students-title" className="h2">Stuck on your <Brace>college</Brace> project?</h2>
             <p className="lead">
               We started by helping students with their mini and main projects. We still do: from picking the idea to the final demo.
             </p>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { Brace } from "@/components/ui/Brace";
 import { SERVICES } from "@/lib/content";
 import styles from "./Services.module.css";
 
@@ -21,12 +22,29 @@ export function Services() {
   const [hover, setHover] = useState<string | null>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
+  const chips = SERVICES.flatMap((sv) => sv.includes.map((x) => x.split(/[:(,]/)[0].trim()));
+  const rowA = chips.filter((_, i) => i % 2 === 0);
+  const rowB = chips.filter((_, i) => i % 2 === 1);
   return (
     <section className="section" aria-labelledby="services-title">
+      <div className="container">
+        <div className={styles.band} aria-hidden="true">
+          <p className={styles.bandTitle}>Everything we <Brace>build</Brace> and run</p>
+          {[rowA, rowB].map((row, r) => (
+            <div key={r} className={styles.chipRow} data-reverse={r === 1 || undefined}>
+              <div className={styles.chipTrack}>
+                {[...row, ...row].map((c, i) => (
+                  <span key={i} className={styles.chipItem}><i />{c}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className={`container ${styles.grid}`}>
         <Reveal>
           <p className="label">Services</p>
-          <h2 id="services-title" className="h2">One team, the whole job.</h2>
+          <h2 id="services-title" className="h2">One team, the <Brace>whole</Brace> job.</h2>
           <p className="lead" style={{ marginTop: 20 }}>
             Website, app, systems, ads, video and design, without five different vendors.
           </p>

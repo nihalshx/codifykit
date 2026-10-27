@@ -1,0 +1,5 @@
+{
+  "_note": "Device models for the 3D showcases. Put a GLB in this folder and point to it here. The phone's screen material must be named 'screen' or 'display'.",
+  "laptop": "/models/laptop.glb",
+  "phone": null
+}

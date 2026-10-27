@@ -1,0 +1,61 @@
+.root { position: absolute; inset: 0; }
+/* during the intro the scene covers the whole screen; the parent keeps its height in the page flow */
+.root[data-phase="intro"][data-intro] { position: fixed; z-index: 70; background: var(--ck-paper); }
+
+.frame { position: absolute; inset: 0; overflow: hidden; isolation: isolate; will-change: clip-path; }
+.canvas { position: absolute; inset: 0; z-index: 2; touch-action: pan-y; }
+.canvas canvas { width: 100% !important; height: 100% !important; cursor: grab; }
+.canvas canvas:active { cursor: grabbing; }
+
+/* painted sky in brand colours: deep navy above, violet and lavender at the horizon */
+.sky {
+  position: absolute; inset: 0; z-index: 1; opacity: 0;
+  background:
+    radial-gradient(70% 45% at 50% 78%, rgba(185,168,232,.95) 0%, rgba(140,120,218,.6) 30%, rgba(106,85,200,0) 65%),
+    radial-gradient(50% 40% at 12% 70%, rgba(58,99,184,.7), transparent 70%),
+    radial-gradient(40% 30% at 85% 30%, rgba(106,85,200,.45), transparent 70%),
+    linear-gradient(180deg, #04052B 0%, #10106A 28%, #2A2398 52%, #5B48BE 74%, #9C88E0 100%);
+}
+.sun { position: absolute; left: 50%; top: 62%; width: 26vw; height: 26vw; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.55), rgba(221,215,242,.25) 45%, transparent); filter: blur(10px); }
+.stars {
+  position: absolute; inset: 0 0 50% 0; opacity: .7;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 14%, #fff, transparent), radial-gradient(1px 1px at 22% 6%, #fff, transparent),
+    radial-gradient(1.2px 1.2px at 37% 20%, #fff, transparent), radial-gradient(1px 1px at 55% 9%, #fff, transparent),
+    radial-gradient(1.4px 1.4px at 71% 24%, #fff, transparent), radial-gradient(1px 1px at 88% 12%, #fff, transparent),
+    radial-gradient(1px 1px at 95% 34%, #fff, transparent), radial-gradient(1.2px 1.2px at 3% 38%, #fff, transparent);
+}
+
+.clouds { position: absolute; left: -6%; right: -6%; z-index: 3; pointer-events: none; opacity: 0; height: 30%; display: flex; }
+.clouds img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+
+.petals { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
+.root[data-phase="intro"] .petals { opacity: 0; }
+.petals i {
+  position: absolute; top: -4%; left: var(--x); width: 9px; height: 5px; border-radius: 60% 40% 60% 40%;
+  background: linear-gradient(90deg, #DDD7F2, #B9A8E8); opacity: .85; scale: var(--s);
+  animation: fall var(--t) linear var(--d) infinite;
+}
+.petals i:nth-child(3n) { background: #fff; }
+.petals i:nth-child(4n) { background: #9FB6F0; }
+@keyframes fall {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(6vw, 55vh) rotate(220deg); }
+  100% { transform: translate(-2vw, 110vh) rotate(420deg); }
+}
+@media (prefers-reduced-motion: reduce) { .petals { display: none; } }
+
+.hoverTag {
+  position: absolute; left: 50%; top: 96px; translate: -50% 0; z-index: 5; pointer-events: none;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  background: rgba(4,5,43,.7); color: #fff; padding: 6px 12px; border-radius: 999px; backdrop-filter: blur(6px);
+}
+
+/* loader */
+.loader { position: absolute; inset: 0; z-index: 6; pointer-events: none; color: var(--ck-ink); }
+.word { position: absolute; left: clamp(16px, 3vw, 40px); top: clamp(12px, 2.4vw, 28px); font-family: var(--font-display); font-weight: 600; font-size: clamp(44px, 7vw, 96px); letter-spacing: -.045em; line-height: 1; }
+.loadLabel { position: absolute; right: clamp(16px, 3vw, 40px); bottom: calc(clamp(16px, 3vw, 40px) + clamp(72px, 11vw, 150px)); font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ck-muted); }
+.counter { position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 40px); display: flex; align-items: flex-start; font-family: var(--font-mono); font-weight: 500; font-size: clamp(72px, 11vw, 150px); line-height: .9; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.counter small { font-size: .16em; letter-spacing: 0; margin: .4em 0 0 .3em; }
+.skip { position: absolute; left: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 40px); z-index: 7; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--ck-ink); background: transparent; font-size: 13px; cursor: pointer; }
+.skip:hover { background: var(--ck-ink); color: #fff; }

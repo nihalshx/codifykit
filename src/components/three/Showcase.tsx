@@ -99,66 +99,129 @@ function drawTitleCard(ctx: CanvasRenderingContext2D, w: number, h: number, titl
 type Device = {
   root: THREE_NS.Group; // positioned on the strip
   body: THREE_NS.Group; // rotated (tilt / facing / turn)
-  lid?: THREE_NS.Group; // laptop hinge
+  setLid?: (openDeg: number) => void; // laptop hinge: 0 closed, 110 open
   screen: THREE_NS.Mesh;
   hit: THREE_NS.Mesh; // invisible box for hover/click
   size: THREE_NS.Vector3;
   bob: number;
 };
 
-const LAPTOP = { w: 3.2, d: 2.2, baseH: 0.11, lidH: 2.1, lidT: 0.07, screenW: 2.98, screenH: 1.86 };
+/**
+ * Laptop: the real model in public/models/laptop.glb (from pmndrs/examples, MIT).
+ * Node "screenflip" is the hinge; the mesh whose material is "screen" is the display (UVs 0..1).
+ */
+const MAC_W = 8.8; // model units
+const LAPTOP_SCALE = 3.2 / MAC_W;
+const LAPTOP = { screenW: 8.3 * LAPTOP_SCALE, screenH: 5.373 * LAPTOP_SCALE };
+const hinge = (deg: number) => 1.575 - (deg / 110) * 2.0;
+
 const PHONE = { w: 1.02, h: 2.12, t: 0.1, screenW: 0.94, screenH: 2.03 };
 
-async function makeRounded(T3: THREE) {
+/** public/models/manifest.json lists which device models exist, e.g. { "laptop": "/models/laptop.glb", "phone": null } */
+async function loadGLB(kind: "laptop" | "phone") {
+  const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js");
+  try {
+    const manifest = (await (await fetch("/models/manifest.json")).json()) as Record<string, string | null>;
+    const url = manifest[kind];
+    if (!url) return null;
+    return (await new GLTFLoader().loadAsync(url)).scene;
+  } catch {
+    return null;
+  }
+}
+
+async function makeRounded() {
   const { RoundedBoxGeometry } = await import("three/examples/jsm/geometries/RoundedBoxGeometry.js");
   return (w: number, h: number, d: number, r: number) => new RoundedBoxGeometry(w, h, d, 4, r) as THREE_NS.BufferGeometry;
 }
 
-function buildLaptop(T3: THREE, rounded: (w: number, h: number, d: number, r: number) => THREE_NS.BufferGeometry, mats: Record<string, THREE_NS.Material>): Device {
+function findScreen(model: THREE_NS.Object3D) {
+  let screen: THREE_NS.Mesh | null = null;
+  model.traverse((o) => {
+    const m = o as THREE_NS.Mesh;
+    if (!screen && m.isMesh && /screen|display/i.test((m.material as THREE_NS.Material).name)) screen = m;
+  });
+  return screen as THREE_NS.Mesh | null;
+}
+
+function buildLaptop(T3: THREE, template: THREE_NS.Object3D): Device {
   const root = new T3.Group();
   const body = new T3.Group();
   root.add(body);
-  const base = new T3.Mesh(rounded(LAPTOP.w, LAPTOP.baseH, LAPTOP.d, 0.05), mats.shell);
-  body.add(base);
-  const deck = new T3.Mesh(new T3.PlaneGeometry(LAPTOP.w * 0.86, LAPTOP.d * 0.5), mats.deck);
-  deck.rotation.x = -Math.PI / 2;
-  deck.position.set(0, LAPTOP.baseH / 2 + 0.002, -0.2);
-  body.add(deck);
-  const pad = new T3.Mesh(new T3.PlaneGeometry(LAPTOP.w * 0.3, LAPTOP.d * 0.26), mats.deck);
-  pad.rotation.x = -Math.PI / 2;
-  pad.position.set(0, LAPTOP.baseH / 2 + 0.002, 0.7);
-  body.add(pad);
-  const lid = new T3.Group();
-  lid.position.set(0, LAPTOP.baseH / 2, -LAPTOP.d / 2 + 0.04);
-  body.add(lid);
-  const lidMesh = new T3.Mesh(rounded(LAPTOP.w, LAPTOP.lidH, LAPTOP.lidT, 0.05), mats.shell);
-  lidMesh.position.set(0, LAPTOP.lidH / 2, 0);
-  lid.add(lidMesh);
-  const screen = new T3.Mesh(new T3.PlaneGeometry(LAPTOP.screenW, LAPTOP.screenH), new T3.MeshBasicMaterial({ color: 0x0d0d14, toneMapped: false }));
-  screen.position.set(0, LAPTOP.lidH / 2 + 0.03, LAPTOP.lidT / 2 + 0.002);
-  lid.add(screen);
-  // centre the whole laptop on its own middle
-  body.position.set(0, -0.6, 0);
-  const hit = new T3.Mesh(new T3.BoxGeometry(LAPTOP.w * 1.05, 2.6, LAPTOP.d), new T3.MeshBasicMaterial({ visible: false }));
-  hit.position.y = 0.3;
+  const model = template.clone(true);
+  model.scale.setScalar(LAPTOP_SCALE);
+  // centre it: the base spans z 0.4..6.4 and the lid rises ~6 units from the hinge
+  model.position.set(0, -0.75, -3.4 * LAPTOP_SCALE);
+  body.add(model);
+  const flip = model.getObjectByName("screenflip")!;
+  const screen = findScreen(model)!;
+  screen.material = new T3.MeshBasicMaterial({ color: 0x0d0d14, toneMapped: false });
+  const hit = new T3.Mesh(new T3.BoxGeometry(3.4, 2.6, 2.4), new T3.MeshBasicMaterial({ visible: false }));
+  hit.position.y = 0.2;
   root.add(hit);
-  return { root, body, lid, screen, hit, size: new T3.Vector3(LAPTOP.w, 2.4, LAPTOP.d), bob: Math.random() * Math.PI * 2 };
+  return {
+    root, body, screen, hit,
+    setLid: (deg) => (flip.rotation.x = hinge(deg)),
+    size: new T3.Vector3(3.2, 2.4, 2.2),
+    bob: Math.random() * Math.PI * 2,
+  };
 }
 
+/** Phone: public/models/phone.glb when it exists (any GLB whose screen material is named "screen"/"display"). */
+function buildPhoneFromModel(T3: THREE, template: THREE_NS.Object3D): Device | null {
+  const root = new T3.Group();
+  const body = new T3.Group();
+  root.add(body);
+  const model = template.clone(true);
+  const box = new T3.Box3().setFromObject(model);
+  const size = box.getSize(new T3.Vector3());
+  const k = PHONE.h / Math.max(size.y, 1e-6);
+  model.scale.setScalar(k);
+  model.position.copy(box.getCenter(new T3.Vector3()).multiplyScalar(-k));
+  body.add(model);
+  const screen = findScreen(model);
+  if (!screen) return null;
+  screen.material = new T3.MeshBasicMaterial({ color: 0x0d0d14, toneMapped: false });
+  const hit = new T3.Mesh(new T3.BoxGeometry(PHONE.w * 1.1, PHONE.h * 1.05, 0.4), new T3.MeshBasicMaterial({ visible: false }));
+  root.add(hit);
+  return { root, body, screen, hit, size: new T3.Vector3(PHONE.w, PHONE.h, PHONE.t), bob: Math.random() * Math.PI * 2 };
+}
+
+/** Phone fallback, modelled in code, used until a phone GLB is supplied. */
 function buildPhone(T3: THREE, rounded: (w: number, h: number, d: number, r: number) => THREE_NS.BufferGeometry, mats: Record<string, THREE_NS.Material>): Device {
   const root = new T3.Group();
   const body = new T3.Group();
   root.add(body);
-  const shell = new T3.Mesh(rounded(PHONE.w, PHONE.h, PHONE.t, 0.12), mats.shell);
+  const shell = new T3.Mesh(rounded(PHONE.w, PHONE.h, PHONE.t, 0.13), mats.shell);
   body.add(shell);
+  const bezel = new T3.Mesh(rounded(PHONE.w - 0.02, PHONE.h - 0.02, PHONE.t + 0.004, 0.12), mats.bezel);
+  bezel.scale.z = 0.5;
+  bezel.position.z = PHONE.t * 0.26;
+  body.add(bezel);
   const screen = new T3.Mesh(new T3.PlaneGeometry(PHONE.screenW, PHONE.screenH), new T3.MeshBasicMaterial({ color: 0x0d0d14, toneMapped: false }));
-  screen.position.z = PHONE.t / 2 + 0.002;
+  screen.position.z = PHONE.t / 2 + 0.004;
   body.add(screen);
-  const cam = new T3.Mesh(rounded(0.36, 0.36, 0.06, 0.08), mats.deck);
-  cam.position.set(-0.24, 0.76, -PHONE.t / 2 - 0.02);
-  body.add(cam);
-  const logo = new T3.Mesh(new T3.PlaneGeometry(0.26, 0.26), mats.logo);
-  logo.position.set(0, 0, -PHONE.t / 2 - 0.002);
+  // camera plateau with three lenses
+  const plate = new T3.Mesh(rounded(0.46, 0.46, 0.05, 0.1), mats.shell);
+  plate.position.set(-0.22, 0.73, -PHONE.t / 2 - 0.02);
+  body.add(plate);
+  [[-0.32, 0.83], [-0.32, 0.63], [-0.13, 0.73]].forEach(([x, y]) => {
+    const ring = new T3.Mesh(new T3.CylinderGeometry(0.075, 0.075, 0.05, 32), mats.lensRing);
+    ring.rotation.x = Math.PI / 2;
+    ring.position.set(x, y, -PHONE.t / 2 - 0.06);
+    const glass = new T3.Mesh(new T3.CircleGeometry(0.055, 32), mats.lens);
+    glass.position.set(x, y, -PHONE.t / 2 - 0.086);
+    glass.rotation.y = Math.PI;
+    body.add(ring, glass);
+  });
+  // side buttons
+  [[PHONE.w / 2 + 0.006, 0.42, 0.22], [-PHONE.w / 2 - 0.006, 0.5, 0.12], [-PHONE.w / 2 - 0.006, 0.3, 0.16]].forEach(([x, y, h]) => {
+    const b = new T3.Mesh(rounded(0.02, h, 0.04, 0.008), mats.shell);
+    b.position.set(x, y, 0);
+    body.add(b);
+  });
+  const logo = new T3.Mesh(new T3.PlaneGeometry(0.24, 0.24), mats.logo);
+  logo.position.set(0, -0.05, -PHONE.t / 2 - 0.002);
   logo.rotation.y = Math.PI;
   body.add(logo);
   const hit = new T3.Mesh(new T3.BoxGeometry(PHONE.w * 1.1, PHONE.h * 1.05, 0.4), new T3.MeshBasicMaterial({ visible: false }));
@@ -345,6 +408,7 @@ export function Showcase({
   const [current, setCurrent] = useState(0);
   const [intro, setIntro] = useState(true);
   const [ready, setReady] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [box, setBox] = useState<number | null>(null);
   const [boxIdx, setBoxIdx] = useState(0);
   const [failed, setFailed] = useState(false);
@@ -353,6 +417,7 @@ export function Showcase({
   useEffect(() => {
     let disposed = false;
     let cleanup = () => {};
+    document.documentElement.dataset.dark = "1";
     (async () => {
       let T3: THREE;
       try {
@@ -379,7 +444,7 @@ export function Showcase({
 
       const scene = new T3.Scene();
       const camera = new T3.PerspectiveCamera(32, 1, 0.1, 200);
-      const CAM_Z = (kind === "laptop" ? 12.5 : 8.2) * (mobile ? 0.8 : 1);
+      const CAM_Z = (kind === "laptop" ? 10.5 : 7.4) * (mobile ? 0.85 : 1);
       camera.position.set(0, 0, CAM_Z);
 
       scene.add(new T3.HemisphereLight(0xdcd6ff, 0x1a1680, 1.4));
@@ -390,28 +455,49 @@ export function Showcase({
       rim.position.set(6, -2, -6);
       scene.add(rim);
 
-      const rounded = await makeRounded(T3);
+      // studio lighting so metal reads as metal
+      const { RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js");
+      const pmrem = new T3.PMREMGenerator(renderer);
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      const rounded = await makeRounded();
       const logoCanvas = document.createElement("canvas");
       logoCanvas.width = logoCanvas.height = 256;
       drawIcon(logoCanvas.getContext("2d")!, 28, 28, 200, "rgba(255,255,255,.85)");
       const mats = {
-        shell: new T3.MeshStandardMaterial({ color: kind === "laptop" ? 0x26243a : 0xb9a8e8, metalness: 0.55, roughness: 0.38 }),
-        deck: new T3.MeshStandardMaterial({ color: kind === "laptop" ? 0x17162a : 0x8f7fd0, metalness: 0.4, roughness: 0.5 }),
+        shell: new T3.MeshStandardMaterial({ color: 0xc9bfe8, metalness: 0.75, roughness: 0.28 }),
+        bezel: new T3.MeshStandardMaterial({ color: 0x0b0b0f, metalness: 0.2, roughness: 0.4 }),
+        lensRing: new T3.MeshStandardMaterial({ color: 0xd9d2f0, metalness: 0.9, roughness: 0.2 }),
+        lens: new T3.MeshStandardMaterial({ color: 0x0a0a12, metalness: 0.4, roughness: 0.05 }),
         logo: new T3.MeshBasicMaterial({ map: new T3.CanvasTexture(logoCanvas), transparent: true }),
       };
       (mats.logo.map as THREE_NS.Texture).colorSpace = T3.SRGBColorSpace;
-      const build = kind === "laptop" ? buildLaptop : buildPhone;
+      const template = await loadGLB(kind);
+      if (disposed) return;
+      if (kind === "laptop" && !template) {
+        setFailed(true);
+        return;
+      }
+      // a GLB screen uses glTF UVs (textures not flipped); the coded phone uses a plain plane
+      const gltfScreen = kind === "laptop" || !!(template && findScreen(template));
+      const build = (): Device =>
+        kind === "laptop"
+          ? buildLaptop(T3, template!)
+          : (template && buildPhoneFromModel(T3, template)) || buildPhone(T3, rounded, mats);
 
       // ---- devices
       const devices = items.map(() => {
-        const d = build(T3, rounded, mats);
+        const d = build();
         scene.add(d.root);
         return d;
       });
 
       // ---- screen content
       await document.fonts.ready;
-      const images = await Promise.all(items.map((it) => Promise.all((kind === "laptop" ? it.images.slice(0, 1) : it.images).map(loadImg))));
+      const total = items.reduce((n, it) => n + (kind === "laptop" ? 1 : it.images.length), 0);
+      let done = 0;
+      const tracked = (src: string) => loadImg(src).then((img) => (setProgress(Math.round((++done / total) * 100)), img));
+      const images = await Promise.all(items.map((it) => Promise.all((kind === "laptop" ? it.images.slice(0, 1) : it.images).map(tracked))));
       if (disposed) return;
 
       type Screen = { tex: THREE_NS.Texture; frac: number; canvas?: HTMLCanvasElement; ctx?: CanvasRenderingContext2D };
@@ -420,13 +506,14 @@ export function Showcase({
           const img = images[i][0];
           const tex = new T3.Texture(img);
           tex.colorSpace = T3.SRGBColorSpace;
-          tex.anisotropy = 4;
+          tex.anisotropy = 8;
+          tex.flipY = false; // glTF UVs: v = 0 is the top of the image
           tex.needsUpdate = true;
           const screenAspect = LAPTOP.screenH / LAPTOP.screenW;
           const imgAspect = img.height && img.width ? img.height / img.width : 3;
           const frac = Math.min(1, screenAspect / imgAspect); // like object-fit: cover across the width
           tex.repeat.set(1, frac);
-          tex.offset.set(0, 1 - frac); // top of the site
+          tex.offset.set(0, 0); // top of the site
           return { tex, frac };
         }
         const canvas = document.createElement("canvas");
@@ -435,6 +522,7 @@ export function Showcase({
         const ctx = canvas.getContext("2d")!;
         drawPost(ctx, it, images[i], { slide: 0, push: 0, heart: 0, story: 0 });
         const tex = new T3.CanvasTexture(canvas);
+        tex.flipY = !gltfScreen;
         tex.colorSpace = T3.SRGBColorSpace;
         return { tex, frac: 1, canvas, ctx };
       });
@@ -450,13 +538,35 @@ export function Showcase({
       titleCanvas.width = tw;
       titleCanvas.height = th;
       const tctx = titleCanvas.getContext("2d")!;
-      drawTitleCard(tctx, tw, th, title, 0);
+      // phones turn sideways for the title card, so draw it landscape and rotate it onto the portrait screen
+      const landCanvas = document.createElement("canvas");
+      landCanvas.width = th;
+      landCanvas.height = tw;
+      const lctx = landCanvas.getContext("2d")!;
+      const paintTitle = (t: number) => {
+        if (kind === "laptop") return drawTitleCard(tctx, tw, th, title, t);
+        drawTitleCard(lctx, th, tw, title, t);
+        tctx.save();
+        tctx.setTransform(1, 0, 0, 1, 0, 0);
+        tctx.translate(0, th);
+        tctx.rotate(-Math.PI / 2);
+        tctx.drawImage(landCanvas, 0, 0);
+        tctx.restore();
+      };
+      paintTitle(0);
       const titleTex = new T3.CanvasTexture(titleCanvas);
+      titleTex.flipY = !gltfScreen;
       titleTex.colorSpace = T3.SRGBColorSpace;
-      const hero = build(T3, rounded, mats);
+      const hero = build();
       hero.screen.material = new T3.MeshBasicMaterial({ map: titleTex, toneMapped: false });
       scene.add(hero.root);
-      if (overlayRef.current) overlayRef.current.style.backgroundImage = `url(${titleCanvas.toDataURL("image/jpeg", 0.85)})`;
+      if (overlayRef.current) {
+        if (kind !== "laptop") paintTitle(1);
+        const src = kind === "laptop" ? titleCanvas : landCanvas;
+        if (kind === "laptop") drawTitleCard(tctx, tw, th, title, 1);
+        overlayRef.current.style.backgroundImage = `url(${src.toDataURL("image/jpeg", 0.85)})`;
+        paintTitle(0);
+      }
 
       // ---- layout
       const STEP = kind === "laptop" ? new T3.Vector3(4.1, 1.1, 0.8) : new T3.Vector3(1.75, 0.7, 0.55);
@@ -600,7 +710,7 @@ export function Showcase({
       const v3b = new T3.Vector3();
       let midState = { slide: 0, push: 0, heart: 0, story: 0 };
       let midClock = 0, midIndex = -1, scrollClock = 0;
-      const midScreenOffsets = screens.map((s) => 1 - s.frac);
+      const midScreenOffsets = screens.map(() => 0);
 
       const placeDevice = (d: Device, dist: number, i: number, now: number) => {
         // position along the diagonal; laptops more than a step behind shrink away from the credits
@@ -628,11 +738,11 @@ export function Showcase({
           }
         }
         d.body.quaternion.copy(q);
-        if (d.lid) {
+        if (d.setLid) {
           const a = Math.abs(dist);
           let open = a < 1 ? lerp(110, 60, a) : a < 2 ? lerp(60, 15, a - 1) : 15;
-          if (i === Math.round(pos)) open = lerp(8, open, lidToggleVal);
-          d.lid.rotation.x = T3.MathUtils.degToRad(90 - open);
+          if (i === Math.round(pos)) open = lerp(2, open, lidToggleVal);
+          d.setLid(open);
         }
       };
 
@@ -658,21 +768,23 @@ export function Showcase({
           hero.root.position.set(0, Math.sin(now / 600) * 0.08, 0);
           if (kind === "laptop") {
             const open = easeOut(clamp01((t - 300) / INTRO_OPEN)) * 110;
-            hero.lid!.rotation.x = T3.MathUtils.degToRad(90 - open);
+            hero.setLid!(open);
             hero.body.quaternion.setFromEuler(new T3.Euler(0.32 - 0.1 * clamp01(t / INTRO_OPEN), Math.sin(now / 900) * 0.08 * (1 - clamp01(t / INTRO_OPEN)), 0));
           } else {
             // start from the back; one half-turn to face you
             const turn = easeOut(clamp01((t - 300) / INTRO_OPEN));
-            hero.body.quaternion.setFromEuler(new T3.Euler(0, Math.PI * (1 - turn) + Math.sin(now / 900) * 0.06 * (1 - turn), 0));
+            const land = inOut(clamp01((t - 300 - INTRO_OPEN * 0.85) / 650));
+            hero.body.quaternion.setFromEuler(new T3.Euler(0, Math.PI * (1 - turn) + Math.sin(now / 900) * 0.06 * (1 - turn), -Math.PI / 2 * land));
           }
-          drawTitleCard(tctx, tw, th, title, clamp01((t - INTRO_OPEN * 0.6) / INTRO_TITLE));
+          paintTitle(clamp01((t - INTRO_OPEN * 0.6) / INTRO_TITLE));
           titleTex.needsUpdate = true;
           const zt = clamp01((t - INTRO_OPEN - INTRO_TITLE) / Math.max(1, INTRO_ZOOM));
           if (INTRO_ZOOM && zt > 0) {
             // fly at the middle of the screen, speeding up, until it covers the view
             hero.screen.getWorldPosition(v3);
-            const sw = kind === "laptop" ? LAPTOP.screenW : PHONE.screenW;
-            const sh = kind === "laptop" ? LAPTOP.screenH : PHONE.screenH;
+            // the phone is landscape by now, so its screen is wide
+            const sw = kind === "laptop" ? LAPTOP.screenW : PHONE.screenH;
+            const sh = kind === "laptop" ? LAPTOP.screenH : PHONE.screenW;
             const fov = T3.MathUtils.degToRad(camera.fov);
             const near = Math.min(sh, sw / camera.aspect) / (2 * Math.tan(fov / 2));
             const k = zt * zt;
@@ -743,7 +855,7 @@ export function Showcase({
               else if (scrollClock < 1.2 + dur) k = inOut((scrollClock - 1.2) / dur);
               else if (scrollClock < 2.4 + dur) k = 1;
               else k = 1 - inOut((scrollClock - 2.4 - dur) / dur);
-              s.tex.offset.y = travel * (1 - k);
+              s.tex.offset.y = travel * k;
             } else {
               const it = items[mid];
               const imgs = images[mid];
@@ -829,14 +941,18 @@ export function Showcase({
     return () => {
       disposed = true;
       cleanup();
+      delete document.documentElement.dataset.dark;
     };
   }, [items, kind, title]);
 
   const big = item?.bigNumber && !isPlaceholder(item.bigNumber) ? item.bigNumber : item?.fallbackBig;
   const bigLabel = item?.bigNumber && !isPlaceholder(item.bigNumber) ? item.bigLabel : kind === "laptop" ? "Year" : "Date";
 
+  const year = new Date().getFullYear();
+  const noun = kind === "laptop" ? "laptop" : "phone";
+
   return (
-    <div className={styles.wrap} data-kind={kind}>
+    <div className={styles.wrap} data-kind={kind} data-intro={intro || undefined}>
       <div className={styles.backdrop} aria-hidden="true" />
       <div ref={mountRef} className={styles.canvas} />
 
@@ -844,11 +960,11 @@ export function Showcase({
         <path ref={loopRef} pathLength={1} />
       </svg>
 
+      <p className={styles.crumbs}>Codifykit <span>/</span> Work <span>/</span> {kind === "laptop" ? "Websites" : "Posters"}</p>
+
       {/* credits, top-left */}
       <div className={styles.credits}>
-        <p className={styles.count}>
-          {String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-        </p>
+        <p className={styles.count}>N° {String(current + 1).padStart(2, "0")} of {String(items.length).padStart(2, "0")}</p>
         <h1 className={styles.title}><T>{item?.title}</T></h1>
         <dl className={styles.table}>
           {item?.rows.filter(([, v]) => v).map(([k, v]) => (
@@ -866,39 +982,45 @@ export function Showcase({
         </ol>
       </div>
 
+      <div className={styles.topRight}>
+        <div className={styles.pager}>
+          <button type="button" aria-label="Previous" onClick={() => api.current.go(current - 1)} disabled={current === 0}>‹</button>
+          <span>{String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
+          <button type="button" aria-label="Next" onClick={() => api.current.go(current + 1)} disabled={current === items.length - 1}>›</button>
+        </div>
+        <button type="button" className={styles.turn} onClick={() => api.current.toggle()}>
+          ↻ {kind === "laptop" ? "Open / close" : "Turn it around"}
+        </button>
+      </div>
+
       <div className={styles.big}>
         <span className={styles.bigLabel}>{bigLabel}</span>
         <span className={styles.bigNum} data-ph={isPlaceholder(big) || undefined}><T>{big}</T></span>
+        <a href="/talk/" className={styles.small}>Start a project ↗</a>
       </div>
 
       <ul className={styles.facts}>
         {item?.facts.map((f, i) => <li key={i}><T>{f}</T></li>)}
       </ul>
-
-      <div className={styles.topRight}>
-        <button type="button" className="btn btn--sm btn--outline-light" onClick={() => api.current.toggle()}>
-          {kind === "laptop" ? "Open / close" : "Turn it around"}
-        </button>
-        {item?.href ? (
-          <a href={item.href} target="_blank" rel="noopener" className="btn btn--sm btn--light">{primaryLabel}</a>
-        ) : (
-          <span className={styles.disabled}>{primaryLabel.replace(" ↗", "")}: coming soon</span>
-        )}
-      </div>
+      <p className={styles.hint}>Scroll, drag or click a {noun}</p>
 
       <div className={styles.bottomRight}>
-        <div className={styles.arrows}>
-          <button type="button" aria-label="Previous" onClick={() => api.current.go(current - 1)} disabled={current === 0}>←</button>
-          <button type="button" aria-label="Next" onClick={() => api.current.go(current + 1)} disabled={current === items.length - 1}>→</button>
-        </div>
-        <a href="/talk/" className="btn btn--sm btn--light">Start a project ↗</a>
+        {item?.href ? (
+          <a href={item.href} target="_blank" rel="noopener" className={styles.small}>{primaryLabel}</a>
+        ) : (
+          <span className={styles.small} data-off>{primaryLabel.replace(" ↗", "")}: coming soon</span>
+        )}
       </div>
 
       <div ref={overlayRef} className={styles.overlay} aria-hidden="true" />
       {intro && !failed && (
-        <button type="button" className={styles.skip} onClick={() => api.current.skip()}>Skip intro</button>
+        <div className={styles.introUi} aria-hidden={!intro}>
+          <span className={styles.introLeft}>Codifykit</span>
+          <span className={styles.introRight}>{kind === "laptop" ? "Websites" : "Posters"}, {year}</span>
+          <span className={styles.introLoad}><small>Loading</small>{String(progress).padStart(3, "0")}</span>
+          <button type="button" className={styles.skip} onClick={() => api.current.skip()}>Skip intro</button>
+        </div>
       )}
-      {!ready && !failed && <p className={styles.loading}>Loading…</p>}
       {failed && <p className={styles.loading}>3D view isn&apos;t available on this device. The full list is below.</p>}
 
       {box !== null && (

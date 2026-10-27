@@ -6,7 +6,7 @@ import postersData from "@content/poster-campaigns.json";
 import wheelData from "@content/wheel-cards.json";
 import toolsData from "@content/tools.json";
 
-export type AudienceSegment = { text: string; href?: string };
+export type AudienceSegment = { text: string; href?: string; preview?: string; kitto?: boolean };
 export type Service = (typeof servicesData.services)[number];
 export type App = (typeof appsData.apps)[number];
 export type WebProject = (typeof webData.projects)[number];

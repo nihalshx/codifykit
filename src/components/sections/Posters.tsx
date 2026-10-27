@@ -1,4 +1,5 @@
 "use client";
+import { Brace } from "@/components/ui/Brace";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { T } from "@/components/ui/T";
@@ -47,7 +48,7 @@ export function Posters({ heading = true }: { heading?: boolean }) {
           <div className={styles.head}>
             <div>
               <p className="label">Posters &amp; brand</p>
-              <h2 className="h2">Posters that stop the scroll.</h2>
+              <h2 className="h2">Posters that <Brace>stop</Brace> the scroll.</h2>
             </div>
             <Link href="/work/posters/" className="btn btn--ghost">Enter the 3D poster showcase ↗</Link>
           </div>

@@ -1,4 +1,5 @@
 "use client";
+import { Brace } from "@/components/ui/Brace";
 import Link from "next/link";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
@@ -16,7 +17,7 @@ export function Story() {
       <div className={`container ${styles.grid}`}>
         <Reveal className={styles.copy}>
           <p className="label">Story</p>
-          <h2 id="story-title" className="h2">Codifykit started in an MCA classroom.</h2>
+          <h2 id="story-title" className="h2">Codifykit started in an <Brace>MCA</Brace> classroom.</h2>
           <p className="lead">
             Word spread, businesses started asking, and we grew into one team for the tech, the creative and the marketing.
           </p>

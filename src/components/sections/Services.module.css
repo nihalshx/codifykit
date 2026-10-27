@@ -23,3 +23,19 @@
   .preview { display: none; }
 }
 @media (hover: none) { .preview { display: none; } }
+
+/* chips band: two rows sliding in opposite directions */
+.band {
+  position: relative; overflow: hidden; border-radius: var(--r-frame); margin-bottom: clamp(48px, 7vw, 96px);
+  padding: clamp(28px, 4vw, 48px) 0; display: flex; flex-direction: column; gap: 14px;
+  background: radial-gradient(60% 90% at 80% 20%, #fff, transparent 60%), linear-gradient(135deg, #E9E7F4, #DDD7F2 50%, #CBD6F2);
+}
+.bandTitle { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 48px); letter-spacing: -.03em; padding: 0 clamp(20px, 3vw, 40px) 12px; color: var(--ck-navy); }
+.chipRow { overflow: hidden; }
+.chipTrack { display: flex; gap: 10px; width: max-content; animation: chips 50s linear infinite; }
+.chipRow[data-reverse] .chipTrack { animation-direction: reverse; animation-duration: 60s; }
+.band:hover .chipTrack { animation-play-state: paused; }
+.chipItem { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; padding: 12px 18px; border-radius: 14px; background: rgba(255,255,255,.85); box-shadow: 0 6px 20px rgba(4,5,43,.06); font-size: 14px; font-weight: 500; }
+.chipItem i { width: 22px; height: 22px; border-radius: 7px; background: linear-gradient(135deg, #1A1680, #6A55C8); }
+@keyframes chips { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .chipTrack { animation: none; flex-wrap: wrap; width: auto; padding: 0 24px; } }

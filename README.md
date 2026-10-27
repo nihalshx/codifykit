@@ -54,13 +54,24 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
 | Homepage sections | `src/components/sections/` |
-| Hero card wheel (deal → lift → drift) | `src/components/wheel/CardWheel.tsx` |
-| Hand-held phone app showcase | `src/components/sections/AppShowcase.tsx` |
+| Hero ring (loader ring → fly-in → inside the ring), Three.js + GSAP | `src/components/hero/HeroRing.tsx` |
+| Apps: tilted phones intro + pinned parallax columns with the hand-held phone (GSAP ScrollTrigger) | `src/components/sections/AppShowcase.tsx` |
 | 3D laptops / phones (`/work/web`, `/work/posters`) | `src/components/three/Showcase.tsx` |
+| 3D models + credits | `public/models/` (`manifest.json`, `CREDITS.md`) |
 | Kitto mascot (SVG version) | `src/components/kitto/Kitto.tsx`, `public/kitto/` |
 | Kitto chat UI | `src/components/chat/KittoChat.tsx` |
 | Kitto server function (Claude API, rate limit, brief) | `functions/api/kitto.ts` |
 | Logos | `public/brand/` |
+
+## 3D models
+
+`/work/web` uses a real MacBook model (`public/models/laptop.glb`, from the MIT-licensed pmndrs/examples repo; see `public/models/CREDITS.md`).
+`/work/posters` uses a phone modelled in code until you add a real one:
+
+1. Get a phone GLB you're allowed to use commercially (CC0, CC-BY with credit, or bought), ideally without brand logos.
+2. Make sure the screen's material is named `screen` or `display` (rename it in Blender if needed).
+3. Save it as `public/models/phone.glb` and set `"phone": "/models/phone.glb"` in `public/models/manifest.json`.
+4. Add a line to `public/models/CREDITS.md`.
 
 ## Replacing placeholders with real work
 

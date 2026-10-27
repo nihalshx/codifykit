@@ -9,28 +9,40 @@
       },
       {
         "text": "apps for founders",
-        "href": "#apps"
+        "href": "#apps",
+        "preview": "/work/apps/placeholder-app-3.svg"
       },
       {
         "text": ", "
       },
       {
         "text": "campaigns for brands",
-        "href": "#posters"
+        "href": "#posters",
+        "preview": "/work/posters/placeholder-poster-1.svg"
       },
       {
         "text": ", "
       },
       {
         "text": "websites that convert",
-        "href": "#web"
+        "href": "#web",
+        "preview": "/work/web/placeholder-web-2.svg"
       },
       {
         "text": " and "
       },
       {
         "text": "projects with students",
-        "href": "#students"
+        "href": "#students",
+        "preview": "/images/students-desk.webp"
+      },
+      {
+        "text": ". Or just "
+      },
+      {
+        "text": "talk to Kitto",
+        "href": "/talk/",
+        "kitto": true
       },
       {
         "text": "."
@@ -42,21 +54,32 @@
       },
       {
         "text": "pick an idea",
-        "href": "#students"
+        "href": "#students",
+        "preview": "/images/students-desk.webp"
       },
       {
         "text": ", "
       },
       {
         "text": "build the project",
-        "href": "#students"
+        "href": "#students",
+        "preview": "/images/students-desk.webp"
       },
       {
         "text": " and "
       },
       {
         "text": "present it with confidence",
-        "href": "#students"
+        "href": "#students",
+        "preview": "/images/students-desk.webp"
+      },
+      {
+        "text": ". Or just "
+      },
+      {
+        "text": "talk to Kitto",
+        "href": "/talk/",
+        "kitto": true
       },
       {
         "text": "."

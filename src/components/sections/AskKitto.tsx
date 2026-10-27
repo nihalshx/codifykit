@@ -1,4 +1,5 @@
 "use client";
+import { Brace } from "@/components/ui/Brace";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Kitto, type Mood } from "@/components/kitto/Kitto";
@@ -52,7 +53,7 @@ export function AskKitto() {
         </div>
         <div className={styles.chat}>
           <p className="label">Ask Kitto</p>
-          <h2 id="ask-title" className="h2">What are you working on?</h2>
+          <h2 id="ask-title" className="h2">What are you <Brace>working</Brace> on?</h2>
           <p className="lead">
             Tell Kitto about your website, app, campaign or college project. Kitto helps you shape the idea, then passes it to our team.
           </p>
