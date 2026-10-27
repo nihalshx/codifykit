@@ -11,18 +11,6 @@ type Item = { href: string; label: string; note?: string };
 type Group = { key: string; label: string; href: string; items: Item[] };
 
 // The site map in one place: the header, its dropdowns and the phone menu all read from it.
-const WORK: Group = {
-  key: "work",
-  label: "Work",
-  href: "/work/",
-  items: [
-    { href: "/work/", label: "All work", note: "Every app, website and campaign" },
-    { href: "/work/web/", label: "Websites in 3D", note: "Our sites on floating laptops" },
-    { href: "/work/apps/", label: "Apps in 3D", note: "Our apps on floating phones" },
-    { href: "/work/posters/", label: "Posters & creatives", note: "Flip through the deck" },
-    { href: "/work/videos/", label: "Reels & AI videos", note: "The video wheel" },
-  ],
-};
 const SERVICE_GROUP: Group = {
   key: "services",
   label: "Services",
@@ -32,8 +20,9 @@ const SERVICE_GROUP: Group = {
     { href: "/services/", label: "All services", note: "One team, the whole job" },
   ],
 };
-const GROUPS = [WORK, SERVICE_GROUP];
+const GROUPS = [SERVICE_GROUP];
 const LINKS: Item[] = [
+  { href: "/work/", label: "Work" },
   { href: "/students/", label: "Students" },
   { href: "/about/", label: "About" },
 ];

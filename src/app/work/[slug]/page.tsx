@@ -26,6 +26,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const next = CASE_STUDIES[(i + 1) % CASE_STUDIES.length];
   const prev = CASE_STUDIES[(i - 1 + CASE_STUDIES.length) % CASE_STUDIES.length];
   const need = c.kind === "Apps" ? "Android / iOS app" : c.kind === "Websites" ? "Website" : "Branding & posters";
+  const service =
+    c.kind === "Apps" ? { href: "/services/apps/", label: "Android & iOS apps" }
+    : c.kind === "Websites" ? { href: "/services/web/", label: "Websites" }
+    : { href: "/services/branding-content/", label: "Branding & content" };
   const story = [
     ["The problem", c.problem],
     ["What we built", c.oneLine],
@@ -59,6 +63,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               {c.liveUrl && <a href={c.liveUrl} target="_blank" rel="noopener" className="btn btn--ghost">Visit live site ↗</a>}
               <Link href={`/contact/?need=${encodeURIComponent(need)}`} className="btn btn--violet">Start a project like this</Link>
             </div>
+            <p className={styles.service}>Part of our <Link href={service.href}>{service.label} service →</Link></p>
           </div>
         </div>
         <figure className={styles.cover} data-kind={c.kind}>

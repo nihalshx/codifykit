@@ -846,7 +846,7 @@ export function Showcase({
       {/* the project: what it is, the facts, the way in */}
       <aside className={styles.panel} aria-label="Project details">
         <nav aria-label="Breadcrumb" className={styles.crumbs}>
-          <a href="/work/">Work</a> <span aria-hidden="true">/</span> {section}
+          <a href="/work/">Work</a> <span aria-hidden="true">/</span> <a href={`/work/?filter=${section}`}>{section}</a> <span aria-hidden="true">/</span> 3D
         </nav>
         <p className={styles.count}>Project {current + 1} of {items.length}</p>
         <h1 className={styles.title}><T>{item?.title}</T></h1>
@@ -873,7 +873,7 @@ export function Showcase({
             </li>
           ))}
         </ol>
-        <a href="/contact/" className={styles.start}>Want one like this? Start a project →</a>
+        <a href={kind === "laptop" ? "/services/web/" : "/services/apps/"} className={styles.start}>About our {section.toLowerCase()} service →</a>
       </aside>
 
       <div ref={overlayRef} className={styles.overlay} aria-hidden="true" />
