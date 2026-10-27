@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import type * as THREE_NS from "three";
 import { T } from "@/components/ui/T";
 import { ICON_PATH } from "@/components/ui/Logo";
-import { isPlaceholder } from "@/lib/content";
 import styles from "./Showcase.module.css";
 
 type THREE = typeof THREE_NS;
@@ -23,7 +22,9 @@ export type ShowcaseItem = {
   bigNumber?: string | null;
   bigLabel?: string | null;
   fallbackBig: string; // the year/date when there's no real number
-  href?: string | null; // live site / instagram
+  href?: string | null; // live site (laptops) — opens in a new tab
+  caseHref: string; // the project's case study on this site
+  line?: string | null; // one line on what we built
   images: string[]; // site screenshot (laptop) or app screens (phone)
 };
 
@@ -342,7 +343,8 @@ export function Showcase({
 
       const scene = new T3.Scene();
       const camera = new T3.PerspectiveCamera(32, 1, 0.1, 200);
-      const CAM_Z = (kind === "laptop" ? 10.5 : 7.4) * (mobile ? 0.85 : 1);
+      // on phones the stage is a short band above the details, so the camera comes closer
+      const CAM_Z = (kind === "laptop" ? 10.5 : 7.4) * (mobile ? (kind === "laptop" ? 0.78 : 0.6) : 1);
       camera.position.set(0, 0, CAM_Z);
 
       scene.add(new T3.HemisphereLight(0xdcd6ff, 0x1a1680, 1.4));
@@ -535,9 +537,12 @@ export function Showcase({
       let wheel = 0, wheelAt = 0, locked = false, lastDelta = 0;
       const onWheel = (e: WheelEvent) => {
         if (phase !== "done") return;
+        // vertical wheel scrolls the page (the strip loops forever, so catching it would trap the visitor);
+        // a sideways swipe on a trackpad steps through the projects
+        if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
         e.preventDefault();
         const now = performance.now();
-        const amount = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        const amount = e.deltaX;
         if (now - wheelAt > 160) { wheel = 0; locked = false; }
         if (locked && Math.abs(amount) > lastDelta * 2 + 8) locked = false;
         wheelAt = now;
@@ -854,72 +859,68 @@ export function Showcase({
     };
   }, [items, kind, title]);
 
-  const big = item?.bigNumber && !isPlaceholder(item.bigNumber) ? item.bigNumber : item?.fallbackBig;
-  const bigLabel = item?.bigNumber && !isPlaceholder(item.bigNumber) ? item.bigLabel : kind === "laptop" ? "Year" : "Date";
 
   const year = new Date().getFullYear();
   const noun = kind === "laptop" ? "laptop" : "phone";
 
   return (
     <div className={styles.wrap} data-kind={kind} data-intro={intro || undefined}>
-      <div className={styles.backdrop} aria-hidden="true" />
-      <div ref={mountRef} className={styles.canvas} />
+      {/* the stage: the devices live here and never cross the text */}
+      <div className={styles.stage}>
+        <div className={styles.backdrop} aria-hidden="true" />
+        <div ref={mountRef} className={styles.canvas} />
+        <svg className={styles.loopSvg} aria-hidden="true">
+          <path ref={loopRef} pathLength={1} />
+        </svg>
+        <div className={styles.controls}>
+          <button type="button" className={styles.arrow} aria-label={`Previous ${noun}`} onClick={() => api.current.go(current - 1)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
+          <span className={styles.counter} aria-live="polite">
+            {current + 1} <span>/ {items.length}</span>
+          </span>
+          <button type="button" className={styles.arrow} aria-label={`Next ${noun}`} onClick={() => api.current.go(current + 1)}>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </button>
+          <button type="button" className={styles.turn} onClick={() => api.current.toggle()}>
+            {kind === "laptop" ? "Open / close the lid" : "Turn it around"}
+          </button>
+        </div>
+        <p className={styles.hint}>Drag, swipe or use the arrow keys · click a {noun} to bring it forward</p>
+      </div>
 
-      <svg className={styles.loopSvg} aria-hidden="true">
-        <path ref={loopRef} pathLength={1} />
-      </svg>
-
-      <p className={styles.crumbs}>Codifykit <span>/</span> Work <span>/</span> {section}</p>
-
-      {/* credits, top-left */}
-      <div className={styles.credits}>
-        <p className={styles.count}>N° {String(current + 1).padStart(2, "0")} of {String(items.length).padStart(2, "0")}</p>
+      {/* the project: what it is, the facts, the way in */}
+      <aside className={styles.panel} aria-label="Project details">
+        <nav aria-label="Breadcrumb" className={styles.crumbs}>
+          <a href="/work/">Work</a> <span aria-hidden="true">/</span> {section}
+        </nav>
+        <p className={styles.count}>Project {current + 1} of {items.length}</p>
         <h1 className={styles.title}><T>{item?.title}</T></h1>
+        {item?.line && <p className={styles.line}><T>{item.line}</T></p>}
         <dl className={styles.table}>
           {item?.rows.filter(([, v]) => v).map(([k, v]) => (
             <div key={k}><dt>{k}</dt><dd><T>{v}</T></dd></div>
           ))}
         </dl>
-        <ol className={styles.list}>
+        <div className={styles.actions}>
+          {item && <a href={item.caseHref} className="btn btn--violet btn--sm">Case study →</a>}
+          {item?.href ? (
+            <a href={item.href} target="_blank" rel="noopener" className="btn btn--ghost btn--sm">{primaryLabel}</a>
+          ) : kind === "laptop" ? (
+            <span className={styles.soon}>Live site: coming soon</span>
+          ) : null}
+        </div>
+        <ol className={styles.list} aria-label={`All ${section.toLowerCase()}`}>
           {items.map((it, i) => (
             <li key={it.slug}>
               <button type="button" aria-current={i === current || undefined} onClick={() => api.current.go(i)}>
-                <span>{String(i + 1).padStart(2, "0")}</span> <T>{it.title}</T>
+                <T>{it.title}</T>
               </button>
             </li>
           ))}
         </ol>
-      </div>
-
-      <div className={styles.topRight}>
-        <div className={styles.pager}>
-          <button type="button" aria-label="Previous" onClick={() => api.current.go(current - 1)}>‹</button>
-          <span>{String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
-          <button type="button" aria-label="Next" onClick={() => api.current.go(current + 1)}>›</button>
-        </div>
-        <button type="button" className={styles.turn} onClick={() => api.current.toggle()}>
-          ↻ {kind === "laptop" ? "Open / close" : "Turn it around"}
-        </button>
-      </div>
-
-      <div className={styles.big}>
-        <span className={styles.bigLabel}>{bigLabel}</span>
-        <span className={styles.bigNum} data-ph={isPlaceholder(big) || undefined}><T>{big}</T></span>
-        <a href="/contact/" className={styles.small}>Start a project ↗</a>
-      </div>
-
-      <ul className={styles.facts}>
-        {item?.facts.map((f, i) => <li key={i}><T>{f}</T></li>)}
-      </ul>
-      <p className={styles.hint}>Scroll, drag or click a {noun}</p>
-
-      <div className={styles.bottomRight}>
-        {item?.href ? (
-          <a href={item.href} {...(kind === "laptop" ? { target: "_blank", rel: "noopener" } : {})} className={styles.small}>{primaryLabel}</a>
-        ) : (
-          <span className={styles.small} data-off>{primaryLabel.replace(" ↗", "")}: coming soon</span>
-        )}
-      </div>
+        <a href="/contact/" className={styles.start}>Want one like this? Start a project →</a>
+      </aside>
 
       <div ref={overlayRef} className={styles.overlay} aria-hidden="true" />
       {intro && !failed && (

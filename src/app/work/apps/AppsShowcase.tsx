@@ -16,7 +16,9 @@ const ITEMS: ShowcaseItem[] = APPS.map((a) => ({
   bigNumber: null,
   bigLabel: null,
   fallbackBig: a.year,
-  href: `/work/${a.slug}/`,
+  href: null,
+  caseHref: `/work/${a.slug}/`,
+  line: a.oneLine,
   images: a.screens,
 }));
 

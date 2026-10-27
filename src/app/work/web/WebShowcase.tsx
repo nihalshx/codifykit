@@ -17,6 +17,8 @@ const ITEMS: ShowcaseItem[] = WEB_PROJECTS.map((p) => ({
   bigLabel: p.bigNumberLabel,
   fallbackBig: p.year,
   href: p.liveUrl,
+  caseHref: `/work/${p.slug}/`,
+  line: p.oneLine,
   images: [p.screenshot],
 }));
 
