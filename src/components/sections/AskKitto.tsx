@@ -15,13 +15,27 @@ export function AskKitto() {
   const [mood, setMood] = useState<Mood>("curious");
   const idle = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  // wave when the section scrolls in
+  const [peek, setPeek] = useState(false);
+
+  // when the section scrolls in, Kitto pops his head out of the hole, then waves
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setWave((w) => w + 1), { threshold: 0.4 });
+    let t: ReturnType<typeof setTimeout>;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        setPeek(true);
+        t = setTimeout(() => setWave((w) => w + 1), 900);
+        io.disconnect();
+      },
+      { threshold: 0.35 }
+    );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      clearTimeout(t);
+    };
   }, []);
 
   // face follows the input
@@ -54,9 +68,16 @@ export function AskKitto() {
           <div className={styles.intro}>
             <h2 id="ask-title" className={styles.title}>What are you <Brace>working</Brace> on?</h2>
             <p className={styles.lead}>Tell Kitto, our AI helper, about your website, app, campaign or college project. Kitto helps you shape the idea, then passes it to our team.</p>
-            <div className={styles.kittoStage}>
-              <div className={styles.blob} aria-hidden="true" />
-              <Kitto mood={mood} size={200} wave={wave} className={styles.kitto} />
+            {/* Kitto peeks out of a round hole: everything below the hole's middle is masked away,
+                so only what is inside the circle (and his ears above it) can be seen */}
+            <div className={styles.kittoStage} data-peek={peek || undefined}>
+              <div className={styles.hole} aria-hidden="true" />
+              <div className={styles.peekMask}>
+                <div className={styles.peeker}>
+                  <Kitto mood={mood} size={200} wave={wave} />
+                </div>
+              </div>
+              <div className={styles.rim} aria-hidden="true" />
             </div>
           </div>
 
