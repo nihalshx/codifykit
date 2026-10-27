@@ -152,27 +152,53 @@
       {
         "name": "Landing page",
         "line": "One page for one offer: people read it to the end and leave an enquiry.",
-        "project": "placeholder-web-2"
+        "project": "placeholder-web-2",
+        "goodFor": [
+          "A launch",
+          "An offer",
+          "An ad campaign"
+        ]
       },
       {
         "name": "Business website",
         "line": "For when customers look you up before they call: your services, your team and your work, so they arrive already sure.",
-        "project": "placeholder-web-1"
+        "project": "placeholder-web-1",
+        "goodFor": [
+          "Your services",
+          "Your team",
+          "Your work"
+        ]
       },
       {
         "name": "Portfolio",
         "line": "Your work, shown big and in order, so the right people get in touch.",
-        "project": "placeholder-web-3"
+        "project": "placeholder-web-3",
+        "goodFor": [
+          "Designers",
+          "Photographers",
+          "Studios"
+        ]
       },
       {
         "name": "Web app & dashboard",
         "line": "Leads, orders and customers in one place your team actually opens every morning.",
-        "project": "placeholder-web-5"
+        "project": "placeholder-web-5",
+        "goodFor": [
+          "Leads",
+          "Orders",
+          "Bookings",
+          "Reports"
+        ]
       },
       {
         "name": "Student project",
         "line": "A clean, working site for your mini or main project, ready for the demo and the questions.",
-        "project": "placeholder-web-6"
+        "project": "placeholder-web-6",
+        "goodFor": [
+          "Mini project",
+          "Main project",
+          "Demo day"
+        ]
       }
     ]
   }

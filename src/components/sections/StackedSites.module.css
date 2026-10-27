@@ -1,6 +1,14 @@
 .section { background: var(--ck-studio); padding: var(--section-pad) 0; }
-.head { text-align: center; margin-bottom: clamp(24px, 3vw, 40px); }
-.title { font-size: clamp(32px, 3.6vw, 56px); line-height: 1.05; letter-spacing: -.03em; font-weight: 400; max-width: 16ch; margin: 0 auto; }
+/* heading on the left, the kinds of website as pills on the right: the index of the stack below */
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: clamp(20px, 2.4vw, 32px); }
+.title { font-size: clamp(30px, 3.2vw, 50px); line-height: 1.05; letter-spacing: -.03em; font-weight: 400; max-width: 15ch; }
+.pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.pills button {
+  min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); border: 0; cursor: pointer; font-size: 15px; font-weight: 500;
+  background: #fff; color: #4A4A55; transition: background var(--dur-fast), color var(--dur-fast);
+}
+.pills button:hover { color: var(--ck-ink); }
+.pills button[aria-current] { background: #161618; color: #fff; }
 
 /* the stage: without motion the cards sit one under another */
 .stage { position: relative; }
@@ -12,8 +20,12 @@
   box-shadow: 0 -20px 50px rgba(20,20,40,.18);
 }
 .cardHead { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding: 4px 6px 0; }
+.cardInfo { display: flex; flex-direction: column; gap: 10px; max-width: 40ch; }
 .cardHead h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.4vw, 36px); letter-spacing: -.025em; line-height: 1.05; }
-.cardHead p { max-width: 36ch; font-size: 14px; line-height: 1.45; color: #B4B4BE; text-align: left; }
+.cardHead p { font-size: 15px; line-height: 1.45; color: #C4C4CC; text-align: left; }
+.good { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.good span { font-size: 13px; color: #9C9CA8; margin-right: 2px; }
+.good i { font-style: normal; font-size: 13px; padding: 4px 10px; border-radius: var(--r-pill); background: #26262B; color: #E4E4EA; }
 
 /* our site inside a browser window */
 .browser { position: relative; display: flex; flex-direction: column; flex: 1; min-height: 0; border-radius: 12px; overflow: hidden; background: #fff; text-decoration: none; color: inherit; }
@@ -37,9 +49,10 @@
 /* stacked: the stage holds the screen and the cards lie on top of one another */
 .stage[data-stacked] { height: 100svh; perspective: 1600px; overflow: hidden; }
 .stage[data-stacked] .cards { display: block; position: absolute; inset: 0; padding: 0; }
+.stage[data-stacked] .head { position: absolute; left: 0; right: 0; top: 0; padding-top: 3svh; margin: 0; z-index: 60; }
 .stage[data-stacked] .card {
   /* centred with margins, not translate: GSAP owns the transform */
-  position: absolute; left: 0; right: 0; margin: 0 auto; top: 9svh; width: min(1060px, calc(100vw - 2 * var(--gutter))); height: 84svh;
+  position: absolute; left: 0; right: 0; margin: 0 auto; top: 19svh; width: min(1060px, calc(100vw - 2 * var(--gutter))); height: 78svh;
 }
 .stage[data-stacked] .shot { aspect-ratio: auto; }
 
@@ -50,9 +63,18 @@
 .endBtns { display: flex; gap: 12px; flex-wrap: wrap; }
 .endBtns :global(.btn--violet:hover) { background: var(--ck-indigo); border-color: var(--ck-indigo); }
 
+@media (max-width: 900px) {
+  /* stacked under each other, the close is centred so it never leaves half the width empty */
+  .end { flex-direction: column; align-items: center; text-align: center; }
+  .endBtns { justify-content: center; }
+}
 @media (max-width: 767px) {
   .cardHead { flex-direction: column; gap: 8px; }
-  .cardHead p { font-size: 13px; }
-  .stage[data-stacked] .card { top: 7svh; height: 76svh; }
+  .cardHead p { font-size: 14px; }
+  .good i, .good span { font-size: 12.5px; }
+  /* on a phone the heading gets the full width (two lines); each card already names itself */
+  .stage[data-stacked] .pills { display: none; }
+  .stage[data-stacked] .title { font-size: 26px; max-width: none; }
+  .stage[data-stacked] .card { top: 15svh; height: 80svh; }
   .stage[data-stacked] .shot img { object-position: top center; }
 }

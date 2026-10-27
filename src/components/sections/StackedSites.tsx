@@ -1,21 +1,26 @@
 "use client";
 /**
  * Websites as stacked cards, rebuilt from the reference: one dark card per kind of website (title,
- * one line, and one of our sites in a browser window). The stack holds still while you scroll; each
- * new card rises from below over the last one, which tips back in 3D, shrinks and slides up behind it.
- * GSAP ScrollTrigger drives it.
+ * one line, what it is good for, and one of our sites in a browser window). The heading and a row of
+ * pills (one per kind) hold the top of the screen with the stack; each new card rises from below over
+ * the last one, which tips back in 3D, shrinks and slides up behind it. The pill of the card in front
+ * lights up, and clicking a pill scrolls to that card. GSAP ScrollTrigger drives it.
  * Without motion (reduced motion or no script) the cards simply sit one under another.
  */
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Brace } from "@/components/ui/Brace";
 import { T } from "@/components/ui/T";
 import { IconLock } from "@/components/ui/Icons";
 import { WEB_FORMATS } from "@/lib/content";
 import styles from "./StackedSites.module.css";
 
+const SCROLL_PER_CARD = 65; // % of the screen height scrolled per card
+
 export function StackedSites() {
   const stageRef = useRef<HTMLDivElement>(null);
+  const rangeRef = useRef<{ start: number; end: number } | null>(null);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -36,10 +41,12 @@ export function StackedSites() {
           scrollTrigger: {
             trigger: stage,
             start: "top top",
-            end: `+=${(cards.length - 1) * 90}%`,
+            end: `+=${(cards.length - 1) * SCROLL_PER_CARD}%`,
             pin: true,
             scrub: 0.6,
             anticipatePin: 1,
+            onRefresh: (self) => (rangeRef.current = { start: self.start, end: self.end }),
+            onUpdate: (self) => setActive(Math.round(self.progress * (cards.length - 1))),
           },
         });
         cards.forEach((card, i) => {
@@ -64,21 +71,47 @@ export function StackedSites() {
     };
   }, []);
 
+  // a pill scrolls to its card: inside the stack, to that card's moment; without it, to the card itself
+  const goTo = (i: number) => {
+    const range = rangeRef.current;
+    if (range && stageRef.current?.dataset.stacked !== undefined) {
+      const top = range.start + ((range.end - range.start) * i) / Math.max(1, WEB_FORMATS.length - 1);
+      window.scrollTo({ top: top + 2, behavior: "smooth" });
+    } else {
+      stageRef.current?.querySelectorAll(`.${styles.card}`)[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <section id="web" className={styles.section} aria-labelledby="web-title">
-      <div className={`container ${styles.head}`}>
-        <h2 id="web-title" className={styles.title}>
-          What kind of <Brace>website</Brace> do you need?
-        </h2>
-      </div>
-
       <div ref={stageRef} className={styles.stage}>
+        <div className={`container ${styles.head}`}>
+          <h2 id="web-title" className={styles.title}>
+            What kind of <Brace>website</Brace> do you need?
+          </h2>
+          <ol className={styles.pills} aria-label="Kinds of website">
+            {WEB_FORMATS.map((f, i) => (
+              <li key={f.name}>
+                <button type="button" aria-current={i === active ? "step" : undefined} onClick={() => goTo(i)}>
+                  {f.name}
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
+
         <ol className={styles.cards}>
           {WEB_FORMATS.map((f) => (
             <li key={f.name} className={styles.card}>
               <div className={styles.cardHead}>
                 <h3>{f.name}</h3>
-                <p>{f.line}</p>
+                <div className={styles.cardInfo}>
+                  <p>{f.line}</p>
+                  <p className={styles.good}>
+                    <span>Good for</span>
+                    {f.goodFor.map((g) => <i key={g}>{g}</i>)}
+                  </p>
+                </div>
               </div>
               <Link href={`/work/${f.project!.slug}/`} className={styles.browser} aria-label={`${f.name}: open the case study`}>
                 <span className={styles.chrome} aria-hidden="true">

@@ -17,7 +17,7 @@
   opacity: 0; transform: translateY(8px); transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-out);
 }
 .tile:hover .caption, .tile:focus-visible .caption { opacity: 1; transform: none; }
-.type { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-muted); }
+.type { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-muted); }
 .name { font-size: 14px; font-weight: 500; }
 @media (max-width: 900px) {
   .head { grid-template-columns: 1fr; }

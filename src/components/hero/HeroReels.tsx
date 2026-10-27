@@ -331,6 +331,7 @@ export function HeroReels({
           if (v) {
             v.pause();
             v.removeAttribute("data-playing");
+            v.poster = card.cover; // never a blank frame before the clip plays
             if (card.video) v.src = card.video;
             else v.removeAttribute("src");
           }
@@ -473,6 +474,7 @@ export function HeroReels({
                       }}
                       className={styles.preview}
                       src={card.video ?? undefined}
+                      poster={card.cover}
                       muted
                       loop
                       playsInline

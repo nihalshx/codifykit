@@ -35,7 +35,7 @@
 .card[data-hover] { box-shadow: 0 0 0 3px #fff, 0 30px 70px rgba(26, 22, 128, .45); }
 .card:focus-visible { outline: 4px solid #fff; outline-offset: 4px; }
 .tag {
-  position: absolute; left: 12px; top: 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  position: absolute; left: 12px; top: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
   background: rgba(4, 5, 43, .55); padding: 4px 9px; border-radius: 999px; backdrop-filter: blur(4px);
 }
 .hoverTag {
@@ -49,7 +49,7 @@
 .backdrop { position: absolute; inset: 0; z-index: 1; background: var(--ck-paper); pointer-events: none; }
 .loader { position: absolute; inset: 0; z-index: 75; pointer-events: none; color: var(--ck-ink); }
 .label { position: absolute; right: clamp(16px, 3vw, 40px); bottom: calc(clamp(16px, 3vw, 40px) + clamp(84px, 12vw, 168px)); }
-.caption { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ck-muted); }
+.caption { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ck-muted); }
 .counter {
   position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 40px); display: flex; align-items: flex-start;
   font-family: var(--font-mono); font-weight: 500; font-size: clamp(80px, 12vw, 168px); line-height: 1; letter-spacing: -.06em;
