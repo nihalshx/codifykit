@@ -1,0 +1,25 @@
+.section { background: #0E0C26; color: var(--ck-on-dark); padding: var(--section-pad) 0 calc(var(--section-pad) * .6); }
+.section :global(.label) { color: var(--ck-on-dark-muted); }
+.section :global(.brace) { color: var(--ck-lavender); }
+.head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; position: relative; z-index: 2; }
+.side { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  min-height: 44px; padding: 0 16px; border-radius: var(--r-pill); cursor: pointer; font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,.28); background: transparent; color: inherit;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+.chip:hover { border-color: #fff; }
+.chip[aria-pressed="true"] { background: #fff; border-color: #fff; color: var(--ck-navy); }
+.all {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: var(--r-pill);
+  border: 1.5px solid currentColor; color: inherit; text-decoration: none; font-size: 14px; font-weight: 500;
+}
+.all:hover { background: #fff; color: var(--ck-navy); border-color: #fff; }
+/* the dome runs edge to edge */
+.dome { position: relative; height: clamp(520px, 88svh, 900px); margin-top: 8px; }
+.empty { display: grid; place-items: center; height: 100%; opacity: .75; }
+.hint { text-align: center; font-size: 13px; opacity: .7; margin-top: 8px; }
+@media (max-width: 767px) {
+  .dome { height: 78svh; }
+}

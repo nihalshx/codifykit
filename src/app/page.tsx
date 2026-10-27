@@ -3,13 +3,13 @@ import { Marquee } from "@/components/sections/Marquee";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
 import { AppShowcase } from "@/components/sections/AppShowcase";
 import { StackedSites } from "@/components/sections/StackedSites";
-import { PosterDeck } from "@/components/sections/PosterDeck";
+import { PosterDome } from "@/components/sections/PosterDome";
 import { Process } from "@/components/sections/Process";
 import { Students } from "@/components/sections/Students";
 import { AskKitto } from "@/components/sections/AskKitto";
 
 // What we do first (so people can jump to what they came for), then one interactive showcase per
-// kind of work: apps (scroll), websites (stacked cards that tip back as you scroll), posters (a deck you flip through).
+// kind of work: apps (scroll), websites (stacked cards that tip back as you scroll), posters (a dome you drag around).
 export default function Home() {
   return (
     <>
@@ -18,7 +18,7 @@ export default function Home() {
       <WhatWeDo />
       <AppShowcase />
       <StackedSites />
-      <PosterDeck />
+      <PosterDome />
       <Process />
       <Students />
       <AskKitto />
