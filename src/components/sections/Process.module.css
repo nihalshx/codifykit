@@ -1,4 +1,4 @@
-.wrap { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 96px 0 48px; background: var(--ck-paper); }
+.wrap { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 96px 0 48px; background: var(--process-bg, var(--ck-paper)); }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
 .left { display: flex; flex-direction: column; }
 .steps { list-style: none; padding: 0; margin: 32px 0 28px; }

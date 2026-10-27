@@ -24,9 +24,14 @@
   --kitto-fx: #B9AEE6;
 
   /* Crumpled graph paper (public/images/graph-paper.webp, made by scripts/make-graph-paper.py),
-     used behind the hero ring and the 3D showcases */
+     used only behind the hero ring */
   --ck-graph-paper: #F7F8FA url("/images/graph-paper.webp") center / cover no-repeat;
   --ck-pen: #1A1680; /* hand-drawn marks on the paper */
+
+  /* Clean studio light: the calm grey-lavender of the service pages and the 3D showcases */
+  --ck-studio: #EEEFF3;
+  --ck-studio-2: #E4E5EC;
+  --ck-studio-glow: radial-gradient(46% 52% at 52% 56%, #FFFFFF 0%, rgba(255,255,255,.55) 45%, rgba(255,255,255,0) 75%);
 
   /* Gradients */
   --ck-gradient: linear-gradient(135deg, #04052B 0%, #1A1680 55%, #6A55C8 85%, #B9A8E8 100%);

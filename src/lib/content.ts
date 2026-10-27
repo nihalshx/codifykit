@@ -5,6 +5,7 @@ import webData from "@content/web-projects.json";
 import postersData from "@content/poster-campaigns.json";
 import wheelData from "@content/wheel-cards.json";
 import toolsData from "@content/tools.json";
+import servicePagesData from "@content/service-pages.json";
 
 export type AudienceSegment = { text: string; href?: string; preview?: string; kitto?: boolean };
 export type Service = (typeof servicesData.services)[number];
@@ -33,10 +34,15 @@ export const CAMPAIGNS = postersData.campaigns;
 export const POSTER_CATEGORIES = postersData.categories;
 export const WHEEL_CARDS = wheelData.cards as WheelCard[];
 export const TOOLS = toolsData.groups;
+export const SERVICE_PAGES = { web: servicePagesData.web, apps: servicePagesData.apps };
+export type ServicePage = typeof servicePagesData.web;
 
 /** True for any content value the owner still has to replace. */
 export const isPlaceholder = (v: unknown) =>
   typeof v === "string" && /^\[(PLACEHOLDER|FILL IN)/i.test(v.trim());
+
+/** Drops the values the owner hasn't filled in yet (used where an empty slot would look broken). */
+export const real = (items: string[]) => items.filter((v) => !isPlaceholder(v));
 
 export const serviceBySlug = (slug: string) => SERVICES.find((s) => s.slug === slug);
 

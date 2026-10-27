@@ -335,7 +335,8 @@ export function Showcase({
         setFailed(true);
         return;
       }
-      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+      // phones: a lower pixel ratio keeps the 3D smooth and the battery cool
+      renderer.setPixelRatio(Math.min(mobile ? 1.5 : 2, window.devicePixelRatio));
       renderer.outputColorSpace = T3.SRGBColorSpace;
       mount.appendChild(renderer.domElement);
 
@@ -903,7 +904,7 @@ export function Showcase({
       <div className={styles.big}>
         <span className={styles.bigLabel}>{bigLabel}</span>
         <span className={styles.bigNum} data-ph={isPlaceholder(big) || undefined}><T>{big}</T></span>
-        <a href="/talk/" className={styles.small}>Start a project ↗</a>
+        <a href="/contact/" className={styles.small}>Start a project ↗</a>
       </div>
 
       <ul className={styles.facts}>

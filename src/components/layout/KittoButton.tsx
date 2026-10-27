@@ -9,8 +9,8 @@ import styles from "./KittoButton.module.css";
 export function KittoButton() {
   const pathname = usePathname();
   const [hover, setHover] = useState(false);
-  // not on /talk (it is the chat) or on the 3D showcases (their corner has "Start a project")
-  if (pathname.startsWith("/talk") || pathname.startsWith("/work/web") || pathname.startsWith("/work/apps")) return null;
+  // not on /talk (it is the chat), /contact (the form has its own buttons) or the 3D showcases
+  if (["/talk", "/contact", "/work/web", "/work/apps"].some((p) => pathname.startsWith(p))) return null;
   return (
     <Link
       href="/talk/"

@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/ui/Logo";
-import { useAudience, type Audience } from "./Audience";
 import { CONTACT } from "@/lib/content";
 import styles from "./Header.module.css";
 
@@ -16,9 +15,7 @@ const NAV = [
 
 export function Header() {
   const pathname = usePathname();
-  const router = useRouter();
   const isHome = pathname === "/";
-  const { audience, setAudience } = useAudience();
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const sheetRef = useRef<HTMLDivElement>(null);
@@ -64,24 +61,6 @@ export function Header() {
 
   useEffect(() => setOpen(false), [pathname]);
 
-  const choose = (a: Audience) => {
-    setAudience(a);
-    if (a !== "students") return;
-    if (isHome) document.getElementById("students")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    else router.push("/students/");
-  };
-
-  const Switch = (
-    <div className={styles.switch} role="group" aria-label="Who is this for?">
-      <button type="button" aria-pressed={audience === "business"} onClick={() => choose("business")}>
-        For businesses
-      </button>
-      <button type="button" aria-pressed={audience === "students"} onClick={() => choose("students")}>
-        For students
-      </button>
-    </div>
-  );
-
   return (
     <header className={styles.header} data-hidden={hidden && !open} data-home={isHome}>
       <div className={styles.row}>
@@ -96,9 +75,8 @@ export function Header() {
           ))}
         </nav>
         <div className={styles.right}>
-          <div className={styles.desktopOnly}>{Switch}</div>
-          <Link href={isHome ? "#ask" : "/talk/"} className="btn btn--sm">
-            Talk to us
+          <Link href="/contact/" className={`btn btn--sm btn--violet ${styles.cta}`}>
+            Start a project
           </Link>
           <button
             ref={menuBtnRef}
@@ -129,7 +107,7 @@ export function Header() {
             ))}
             <Link href="/talk/">Talk to Kitto</Link>
           </nav>
-          {Switch}
+          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
           <div className={styles.sheetContact}>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
             <a href={CONTACT.whatsapp} target="_blank" rel="noopener">WhatsApp {CONTACT.phone}</a>

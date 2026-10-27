@@ -21,7 +21,8 @@
 .name { font-size: 14px; font-weight: 500; }
 @media (max-width: 900px) {
   .head { grid-template-columns: 1fr; }
-  .wall { grid-template-columns: repeat(2, 1fr); height: 110svh; gap: 10px; padding: 0 10px; }
-  .col:nth-child(n+3) { display: none; }
-  .col { gap: 10px; }
+  /* phones: every tile in a plain two-column grid (no parallax), so the wall has no empty black gaps */
+  .wall { grid-template-columns: repeat(2, 1fr); height: auto; gap: 10px; padding: 10px; }
+  .col { display: contents; }
+  .tile[data-tall] { aspect-ratio: 16 / 10; }
 }

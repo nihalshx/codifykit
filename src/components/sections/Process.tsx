@@ -20,7 +20,7 @@ const ORBIT: string[][] = [
 ];
 const ICONS = ["◎", "✎", "⌘", "↗", "↻"];
 
-export function Process({ ctaHref = "#ask" }: { ctaHref?: string }) {
+export function Process({ ctaHref = "/contact/" }: { ctaHref?: string }) {
   const wrapRef = useRef<HTMLElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);

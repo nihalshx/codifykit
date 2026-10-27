@@ -69,7 +69,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Process ctaHref="/talk/" />
+      <Process />
       <KittoCta title={SITE.tagline} line="Tell us what you're working on. We'll sit with it, then tell you honestly how we'd build it." />
     </>
   );

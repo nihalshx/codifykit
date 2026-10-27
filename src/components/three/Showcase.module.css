@@ -1,11 +1,13 @@
 .wrap {
   position: relative; height: 100svh; min-height: 600px; margin-top: -80px; overflow: hidden; color: var(--ck-ink); user-select: none;
-  background: var(--ck-graph-paper);
+  background: linear-gradient(180deg, var(--ck-studio) 0%, var(--ck-studio) 62%, var(--ck-studio-2) 100%);
 }
 .backdrop {
   position: absolute; inset: 0; pointer-events: none;
-  /* a little light on the paper behind the middle device */
-  background: radial-gradient(40% 44% at 54% 56%, rgba(255,255,255,.55), transparent 70%);
+  /* soft studio light behind the middle device, and a faint floor shadow under it */
+  background:
+    radial-gradient(22% 4% at 52% 80%, rgba(20,20,40,.10), transparent 70%),
+    var(--ck-studio-glow);
 }
 .canvas { position: absolute; inset: 0; touch-action: pan-y; }
 .canvas canvas { width: 100% !important; height: 100% !important; cursor: grab; }
@@ -26,10 +28,10 @@
 }
 .table { margin: 0; border-top: 1px solid rgba(26,26,26,.7); font-size: 11.5px; }
 .table div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(26,26,26,.14); }
-.table dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; padding-top: 2px; }
+.table dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; padding-top: 2px; }
 .table dd { margin: 0; text-align: right; }
 .list { list-style: none; padding: 0; margin: 16px 0 0; max-height: 32vh; overflow-y: auto; }
-.list button { background: none; border: 0; padding: 2px 0; color: rgba(26,26,26,.5); font-size: 11.5px; cursor: pointer; text-align: left; min-height: 24px; }
+.list button { background: none; border: 0; padding: 2px 0; color: rgba(26,26,26,.62); font-size: 12.5px; cursor: pointer; text-align: left; min-height: 24px; }
 .list button span { font-family: var(--font-mono); font-size: 10px; margin-right: 8px; }
 .list button[aria-current] { color: var(--ck-ink); font-weight: 600; }
 .list button:hover { color: var(--ck-ink); }
@@ -42,13 +44,13 @@
 .turn:hover { background: #fff; }
 
 .big { position: absolute; left: 24px; bottom: 22px; display: flex; flex-direction: column; gap: 2px; }
-.bigLabel { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
+.bigLabel { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
 .bigNum { font-family: var(--font-display); font-weight: 500; font-size: clamp(48px, 6vw, 88px); line-height: .95; letter-spacing: -.05em; }
 .bigNum[data-ph] { font-size: 16px; letter-spacing: 0; margin: 6px 0; }
 .small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-ink); text-decoration: none; opacity: .85; }
 .small[data-off] { opacity: .45; }
 .facts { position: absolute; left: 50%; bottom: 44px; translate: -50% 0; display: flex; gap: clamp(20px, 4vw, 64px); list-style: none; margin: 0; padding: 0; text-align: center; font-family: var(--font-display); font-size: 15px; line-height: 1.05; text-transform: uppercase; letter-spacing: -.01em; }
-.hint { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .5; white-space: nowrap; }
+.hint { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .65; white-space: nowrap; }
 .bottomRight { position: absolute; right: 24px; bottom: 22px; }
 
 /* intro */

@@ -17,17 +17,8 @@
 .nav a { text-decoration: none; font-size: 15px; font-weight: 500; padding: 8px 0; border-bottom: 1.5px solid transparent; }
 .nav a:hover, .nav a[aria-current="page"] { border-color: var(--ck-ink); }
 .right { display: flex; align-items: center; gap: 12px; }
+.cta:hover { background: var(--ck-indigo); border-color: var(--ck-indigo); }
 
-.switch {
-  display: inline-flex; padding: 3px; border-radius: var(--r-pill);
-  border: 1.5px solid var(--ck-line); background: var(--ck-white);
-}
-.switch button {
-  border: 0; background: transparent; border-radius: var(--r-pill);
-  min-height: 38px; padding: 0 14px; font-size: 13.5px; cursor: pointer; color: var(--ck-muted);
-  transition: background var(--dur-fast), color var(--dur-fast);
-}
-.switch button[aria-pressed="true"] { background: var(--ck-ink); color: #fff; }
 
 .menuBtn {
   display: none; width: 44px; height: 44px; border-radius: 50%;
@@ -54,7 +45,6 @@
 
 @media (max-width: 1080px) {
   .nav { display: none; }
-  .desktopOnly { display: none; }
   .menuBtn { display: inline-block; }
   .right { margin-left: auto; }
 }

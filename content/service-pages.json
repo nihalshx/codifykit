@@ -1,0 +1,154 @@
+{
+  "_note": "The two service landing pages (/services/web and /services/apps), laid out like the reference. Anything starting with [FILL IN] is hidden on the site until you replace it.",
+  "web": {
+    "need": "Website",
+    "label": "Web development",
+    "titleBefore": "Websites that",
+    "brace": "work",
+    "titleAfter": "as hard as you do.",
+    "lead": "Business websites, landing pages and portfolios, planned around what you sell and built to load fast, read well on a phone and turn visitors into enquiries.",
+    "pill": "Websites · Landing pages · Portfolios · Online stores",
+    "showcaseLink": {
+      "href": "/work/web/",
+      "label": "See them on a laptop ↗"
+    },
+    "promises": [
+      {
+        "title": "Mobile first",
+        "text": "Most of your visitors are on a phone, so we design for it first."
+      },
+      {
+        "title": "Built to convert",
+        "text": "Clear offers, fast pages and an obvious next step on every screen."
+      },
+      {
+        "title": "Easy to update",
+        "text": "Change your text, prices and photos without calling us."
+      },
+      {
+        "title": "One team",
+        "text": "The same people can run your ads, content and posters."
+      }
+    ],
+    "servicesTitleBefore": "Web services we",
+    "servicesBrace": "provide",
+    "services": [
+      "Business websites",
+      "Landing pages",
+      "Portfolio sites",
+      "Online stores",
+      "Website redesigns",
+      "Speed and SEO fixes",
+      "Booking and enquiry forms",
+      "WhatsApp and CRM integration",
+      "Hosting and domains",
+      "Analytics and tracking",
+      "Content and copywriting",
+      "Ongoing care"
+    ],
+    "stackFor": "Web development",
+    "stack": [
+      {
+        "name": "Front end",
+        "items": [
+          "[FILL IN]"
+        ]
+      },
+      {
+        "name": "CMS",
+        "items": [
+          "[FILL IN]"
+        ]
+      },
+      {
+        "name": "Backend & data",
+        "items": [
+          "[FILL IN]"
+        ]
+      },
+      {
+        "name": "Hosting & launch",
+        "items": [
+          "[FILL IN]"
+        ]
+      }
+    ]
+  },
+  "apps": {
+    "need": "Android / iOS app",
+    "label": "App development",
+    "titleBefore": "Android & iOS apps,",
+    "brace": "built",
+    "titleAfter": "to be used.",
+    "lead": "Android and iOS apps, designed to be used, not just looked at. We plan them with you, build them properly and look after them once they're live.",
+    "pill": "Android · iOS · Cross-platform · Admin dashboards",
+    "showcaseLink": {
+      "href": "/work/apps/",
+      "label": "See them on a phone ↗"
+    },
+    "promises": [
+      {
+        "title": "Android and iOS",
+        "text": "One codebase for both, so you launch on both stores together."
+      },
+      {
+        "title": "Designed first",
+        "text": "You click through the screens before we write the code."
+      },
+      {
+        "title": "Tested on real phones",
+        "text": "The cheap ones and the new ones your customers actually use."
+      },
+      {
+        "title": "Looked after",
+        "text": "Updates, fixes and new features after launch."
+      }
+    ],
+    "servicesTitleBefore": "App services we",
+    "servicesBrace": "provide",
+    "services": [
+      "Android apps",
+      "iOS apps",
+      "Cross-platform apps",
+      "App UI/UX design",
+      "Clickable prototypes",
+      "Admin dashboards",
+      "Booking and ordering apps",
+      "Payments",
+      "Push notifications",
+      "App Store and Play Store launch",
+      "API and backend",
+      "Maintenance and updates"
+    ],
+    "stackFor": "Mobile app development",
+    "stack": [
+      {
+        "name": "Android",
+        "items": [
+          "Flutter",
+          "[FILL IN]"
+        ]
+      },
+      {
+        "name": "iOS",
+        "items": [
+          "Flutter",
+          "[FILL IN]"
+        ]
+      },
+      {
+        "name": "Cross-platform",
+        "items": [
+          "Flutter (one codebase)",
+          "Other stacks on request"
+        ]
+      },
+      {
+        "name": "Backend & data",
+        "items": [
+          "[FILL IN]"
+        ]
+      }
+    ]
+  }
+}

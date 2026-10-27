@@ -4,13 +4,11 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "@/styles/tokens.css";
 import "@/styles/globals.css";
-import { AudienceProvider } from "@/components/layout/Audience";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { KittoButton } from "@/components/layout/KittoButton";
 import { CONTACT, SITE } from "@/lib/content";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://codifykit.pages.dev";
+import { SITE_URL } from "@/lib/site-url";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -49,12 +47,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body>
         <a className="skip-link" href="#main">Skip to content</a>
-        <AudienceProvider>
-          <Header />
-          <main id="main">{children}</main>
-          <Footer />
-          <KittoButton />
-        </AudienceProvider>
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <KittoButton />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
       </body>
     </html>

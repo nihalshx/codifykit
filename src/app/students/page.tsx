@@ -42,7 +42,7 @@ export default function StudentsPage() {
             Codifykit started in an MCA classroom, helping classmates and juniors get their projects done right. We still do: from picking the idea to the final demo.
           </p>
           <div className={styles.ctas}>
-            <Link href="/talk/" className="btn">Get project help</Link>
+            <Link href="/contact/?need=College%20project" className="btn btn--violet">Get project help</Link>
             <a href="#how" className="btn btn--ghost">How it works</a>
           </div>
         </div>

@@ -51,8 +51,15 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <h1 className="h-display">{s.name}</h1>
         <p className="lead">{s.short}.</p>
         <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
-          <Link href="/talk/" className="btn">Start a project</Link>
-          <Link href="/work/" className="btn btn--ghost">See our work</Link>
+          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+          {s.slug === "web-app-development" ? (
+            <>
+              <Link href="/services/web/" className="btn btn--ghost">Websites →</Link>
+              <Link href="/services/apps/" className="btn btn--ghost">Android &amp; iOS apps →</Link>
+            </>
+          ) : (
+            <Link href="/work/" className="btn btn--ghost">See our work</Link>
+          )}
         </div>
       </section>
 
@@ -117,7 +124,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <Process ctaHref="/talk/" />
+      <Process />
 
       <section className="container section">
         <p className="label">Other services</p>

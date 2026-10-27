@@ -136,7 +136,7 @@ export function AppShowcase() {
           </p>
           <div className={styles.btns}>
             <Link href="/work/apps/" className="btn btn--light btn--sm">See all app work ↗</Link>
-            <Link href="/talk/" className="btn btn--outline-light btn--sm">Get in touch</Link>
+            <Link href="/contact/" className="btn btn--outline-light btn--sm">Start a project</Link>
           </div>
         </div>
       </div>

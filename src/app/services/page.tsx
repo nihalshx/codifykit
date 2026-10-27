@@ -20,6 +20,11 @@ export default function ServicesPage() {
         <p className="lead">
           Your website, app, systems, ads and content, planned together so they work together. No juggling five different vendors.
         </p>
+        <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+          <Link href="/services/web/" className="btn btn--ghost">Web development →</Link>
+          <Link href="/services/apps/" className="btn btn--ghost">App development →</Link>
+          <Link href="/contact/" className="btn btn--violet">Start a project</Link>
+        </div>
       </section>
       <section className="container">
         <div className={styles.grid}>
@@ -38,7 +43,7 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
-      <Process ctaHref="/talk/" />
+      <Process />
       <KittoCta />
     </>
   );

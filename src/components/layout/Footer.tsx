@@ -35,7 +35,9 @@ export function Footer() {
           </div>
           <div>
             <h2 className={styles.colHead}>Services</h2>
-            {SERVICES.map((s) => (
+            <Link href="/services/web/">Web development</Link>
+            <Link href="/services/apps/">App development</Link>
+            {SERVICES.filter((s) => s.slug !== "web-app-development").map((s) => (
               <Link key={s.slug} href={`/services/${s.slug}/`}>{s.name}</Link>
             ))}
           </div>
@@ -44,6 +46,7 @@ export function Footer() {
             <Link href="/work/">Work</Link>
             <Link href="/students/">Students</Link>
             <Link href="/about/">About</Link>
+            <Link href="/contact/">Start a project</Link>
             <Link href="/talk/">Talk to Kitto</Link>
           </div>
         </div>

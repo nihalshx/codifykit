@@ -2,90 +2,51 @@
   "name": "Codifykit",
   "tagline": "Let's build something worth growing.",
   "boilerplateShort": "Codifykit is a digital growth and creative studio that builds websites, apps, systems, ads, and visuals for businesses, creators, and students.",
-  "audienceLine": {
-    "business": [
-      {
-        "text": "We build "
-      },
-      {
-        "text": "apps for founders",
-        "href": "#apps",
-        "preview": "/work/apps/placeholder-app-3.svg"
-      },
-      {
-        "text": ", "
-      },
-      {
-        "text": "campaigns for brands",
-        "href": "#posters",
-        "preview": "/work/posters/placeholder-poster-1.svg"
-      },
-      {
-        "text": ", "
-      },
-      {
-        "text": "websites that convert",
-        "href": "#web",
-        "preview": "/work/web/placeholder-web-2.svg"
-      },
-      {
-        "text": " and "
-      },
-      {
-        "text": "projects with students",
-        "href": "#students",
-        "preview": "/images/students-desk.webp"
-      },
-      {
-        "text": ". Or just "
-      },
-      {
-        "text": "talk to Kitto",
-        "href": "/talk/",
-        "kitto": true
-      },
-      {
-        "text": "."
-      }
-    ],
-    "students": [
-      {
-        "text": "We help students "
-      },
-      {
-        "text": "pick an idea",
-        "href": "#students",
-        "preview": "/images/students-desk.webp"
-      },
-      {
-        "text": ", "
-      },
-      {
-        "text": "build the project",
-        "href": "#students",
-        "preview": "/images/students-desk.webp"
-      },
-      {
-        "text": " and "
-      },
-      {
-        "text": "present it with confidence",
-        "href": "#students",
-        "preview": "/images/students-desk.webp"
-      },
-      {
-        "text": ". Or just "
-      },
-      {
-        "text": "talk to Kitto",
-        "href": "/talk/",
-        "kitto": true
-      },
-      {
-        "text": "."
-      }
-    ]
-  },
+  "audienceLine": [
+    {
+      "text": "We build "
+    },
+    {
+      "text": "apps for founders",
+      "href": "/services/apps/",
+      "preview": "/work/apps/placeholder-app-3.svg"
+    },
+    {
+      "text": ", "
+    },
+    {
+      "text": "campaigns for brands",
+      "href": "#posters",
+      "preview": "/work/posters/placeholder-poster-1.svg"
+    },
+    {
+      "text": ", "
+    },
+    {
+      "text": "websites that convert",
+      "href": "/services/web/",
+      "preview": "/work/web/placeholder-web-2.svg"
+    },
+    {
+      "text": " and "
+    },
+    {
+      "text": "projects with students",
+      "href": "#students",
+      "preview": "/images/students-desk.webp"
+    },
+    {
+      "text": ". Or just "
+    },
+    {
+      "text": "talk to Kitto",
+      "href": "/talk/",
+      "kitto": true
+    },
+    {
+      "text": "."
+    }
+  ],
   "contact": {
     "email": "codifykit@gmail.com",
     "phone": "+91 85906 26562",

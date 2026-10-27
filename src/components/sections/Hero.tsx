@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { HeroReels } from "@/components/hero/HeroReels";
-import { useAudience } from "@/components/layout/Audience";
 import { SITE, WHEEL_CARDS, type AudienceSegment } from "@/lib/content";
 import styles from "./Hero.module.css";
 
@@ -10,8 +9,7 @@ const HERO_CARDS = WHEEL_CARDS;
 const UNDERLINE = ["#3A63B8", "#6A55C8", "#B9A8E8", "#1A1680"];
 
 export function Hero() {
-  const { audience } = useAudience();
-  const line = (audience === "students" ? SITE.audienceLine.students : SITE.audienceLine.business) as AudienceSegment[];
+  const line = SITE.audienceLine as AudienceSegment[];
   const [peek, setPeek] = useState<{ seg: AudienceSegment; x: number; y: number } | null>(null);
   let linkIndex = 0;
 
@@ -50,11 +48,7 @@ export function Hero() {
             })}
           </p>
           <div className={styles.ctas}>
-            {audience === "students" ? (
-              <a href="/students/" className="btn">Get project help</a>
-            ) : (
-              <a href="#ask" className="btn">Start a project</a>
-            )}
+            <a href="/contact/" className="btn btn--violet">Start a project</a>
             <a href="/work/" className="btn btn--ghost">See our work</a>
           </div>
         </div>

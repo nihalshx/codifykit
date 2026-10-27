@@ -156,7 +156,13 @@ export function HeroReels({
     const html = document.documentElement;
     const L = live.current;
     L.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!intro || L.reduced) {
+    // the entrance plays once per visit; coming back to the homepage goes straight to the wall
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("ck-intro-seen") === "1";
+      sessionStorage.setItem("ck-intro-seen", "1");
+    } catch { /* storage blocked: play it */ }
+    if (!intro || L.reduced || seen) {
       formation.set(1);
       expansion.set(1);
       L.finished = true;

@@ -24,7 +24,7 @@ ANTHROPIC_API_KEY=sk-ant-...
 3. If the repo's default branch isn't the one with the code, pick `claude/clever-cerf-4fh0l0` (or merge it into `main` first).
 4. **Environment Variables**:
    - `ANTHROPIC_API_KEY`: your Claude API key from console.anthropic.com (Kitto's chat needs it).
-   - `NEXT_PUBLIC_SITE_URL`: your final address, e.g. `https://codifykit.com` (sitemap + social previews).
+   - `NEXT_PUBLIC_SITE_URL`: your final address, e.g. `https://codifykit.com` (sitemap + social previews). If you leave it out, Vercel's production address is used.
    - Optional: `KITTO_MODEL` to use a different Claude model (default `claude-opus-5-5`).
 5. **Deploy**. Every push redeploys, and pull requests get preview links. Add your domain under **Settings → Domains**.
 
@@ -68,8 +68,10 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 |---|---|
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
-| Crumpled graph-paper background (hero + 3D pages) | `public/images/graph-paper.webp`, made by `scripts/make-graph-paper.py` |
-| Homepage sections | `src/components/sections/` |
+| Crumpled graph-paper background (hero only; the 3D and service pages use the clean `--ck-studio` grey) | `public/images/graph-paper.webp`, made by `scripts/make-graph-paper.py` |
+| Homepage sections (kept short: hero, marquee, what we do, posters, process, students, Kitto) | `src/components/sections/` |
+| Web and app service pages (`/services/web`, `/services/apps`): one template, text in `content/service-pages.json` | `src/components/landing/ServiceLanding.tsx` |
+| "Start a project" form (`/contact`): opens WhatsApp or email with the message filled in, nothing stored | `src/app/contact/` |
 | Hero: loader + reel cylinder in one CSS 3D scene (Motion). Pose maths + unit tests: `npm test` | `src/components/hero/HeroReels.tsx`, `src/components/hero/reelPose.ts` (+ `.test.ts`) |
 | Apps: tilted phones intro + pinned parallax columns with the hand-held phone (GSAP ScrollTrigger) | `src/components/sections/AppShowcase.tsx` |
 | 3D laptops / phones (`/work/web`, `/work/apps`) | `src/components/three/Showcase.tsx` |
