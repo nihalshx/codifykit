@@ -1,8 +1,8 @@
 "use client";
 /**
  * Apps section, rebuilt from the reference recording:
- *  A. Dark intro: big "{Apps} people actually use." heading, giant faint words sliding sideways with the
- *     scroll, and two tilted phones drifting up at different speeds.
+ *  A. Dark intro: "{Mobile} Development" heading, giant faint words sliding sideways with the scroll,
+ *     and the two tilted phone mockups (public/images/mockup-*.webp) drifting up at different speeds.
  *  B. Pinned grid: five columns of app screens slide past at different speeds (alternating directions)
  *     while a hand-held phone stays in the middle column and its screen moves through three app screens.
  * GSAP ScrollTrigger drives both parts from the scroll position.
@@ -25,16 +25,6 @@ const columns = Array.from({ length: COLS }, (_, c) =>
     return { app: APPS[i], src: SCREENS[i], key: `${c}-${r}` };
   })
 );
-
-function Phone({ src, className }: { src: string; className?: string }) {
-  return (
-    <div className={`${styles.phone} ${className ?? ""}`}>
-      <span className={styles.notch} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" draggable={false} />
-    </div>
-  );
-}
 
 export function AppShowcase() {
   const introRef = useRef<HTMLDivElement>(null);
@@ -59,12 +49,13 @@ export function AppShowcase() {
           ease: "none",
           scrollTrigger: { trigger: intro, start: "top bottom", end: "bottom top", scrub: true },
         });
-        gsap.fromTo(intro.querySelector(`.${styles.phoneA}`), { y: 120, rotate: -22 }, {
-          y: -260, rotate: -26, ease: "none",
+        // the two phones ride up a little faster than the page, the front one faster still
+        gsap.fromTo(intro.querySelector(`.${styles.phoneA}`), { y: 40 }, {
+          y: -90, ease: "none",
           scrollTrigger: { trigger: intro, start: "top bottom", end: "bottom top", scrub: true },
         });
-        gsap.fromTo(intro.querySelector(`.${styles.phoneB}`), { y: 220, rotate: 16 }, {
-          y: -380, rotate: 22, ease: "none",
+        gsap.fromTo(intro.querySelector(`.${styles.phoneB}`), { y: 80 }, {
+          y: -150, ease: "none",
           scrollTrigger: { trigger: intro, start: "top bottom", end: "bottom top", scrub: true },
         });
 
@@ -112,31 +103,38 @@ export function AppShowcase() {
 
   return (
     <section id="apps" className={styles.section} aria-labelledby="apps-title">
-      {/* A. intro */}
+      {/* A. intro, laid out like the reference: heading top left, ✳✳ top right, two tilted phones
+          overlapping the heading, a giant faint line of words sliding behind, then the line and buttons */}
       <div ref={introRef} className={styles.intro}>
+        <svg className={styles.orbits} viewBox="0 0 1400 900" preserveAspectRatio="none" aria-hidden="true">
+          <ellipse cx="300" cy="820" rx="420" ry="190" />
+          <ellipse cx="560" cy="700" rx="150" ry="330" transform="rotate(28 560 700)" />
+        </svg>
         <div className={styles.words} aria-hidden="true">
-          Android and iOS apps · designed to be used · Android and iOS apps · designed to be used ·
+          designed to be used · Android and iOS apps · designed to be used · Android and iOS apps ·
         </div>
         <div className={`container ${styles.introTop}`}>
           <h2 id="apps-title" className={styles.title}>
-            <span className={styles.brace}>{"{"}</span>Apps<span className={styles.brace}>{"}"}</span> people
-            <br /> actually use.
+            <span className={styles.brace}>{"{"}</span>Mobile<span className={styles.brace}>{"}"}</span>
+            <br /> Development
           </h2>
           <span className={styles.stars} aria-hidden="true">✳✳</span>
         </div>
         <div className={styles.pair} aria-hidden="true">
-          <Phone src={SCREENS[0]} className={styles.phoneA} />
-          <Phone src={SCREENS[1]} className={styles.phoneB} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/mockup-review.webp" alt="" className={styles.phoneA} width={900} height={1469} draggable={false} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/mockup-projects.webp" alt="" className={styles.phoneB} width={900} height={1472} draggable={false} />
         </div>
         <div className={`container ${styles.introBottom}`}>
           <p>
-            Android and iOS apps, designed to be used, not just looked at.
+            Making your app outstanding is a science.
             <br />
-            We plan them, build them and look after them.
+            We take it (a) seriously and (b) creatively.
           </p>
           <div className={styles.btns}>
-            <Link href="/work/apps/" className="btn btn--light btn--sm">See all app work ↗</Link>
-            <Link href="/contact/" className="btn btn--outline-light btn--sm">Start a project</Link>
+            <Link href="/work/apps/" className={styles.pill}>Check our portfolio</Link>
+            <Link href="/contact/?need=Android%20%2F%20iOS%20app" className={styles.pill}>Get in touch</Link>
           </div>
         </div>
       </div>
