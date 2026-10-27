@@ -19,6 +19,12 @@ body {
 }
 
 img, svg, video, canvas { display: block; max-width: 100%; }
+
+/* the parts of the page the browser draws, in the brand palette */
+::selection { background: var(--ck-lavender); color: var(--ck-navy); }
+:root { accent-color: var(--ck-violet); caret-color: var(--ck-violet); scrollbar-color: #B9B9C4 transparent; }
+input, textarea, select { caret-color: var(--ck-violet); }
+a { text-underline-offset: .18em; }
 a { color: inherit; }
 button { font: inherit; color: inherit; }
 h1, h2, h3, h4 {
@@ -108,7 +114,6 @@ p { margin: 0; }
   border: 1px dashed currentColor;
   border-radius: 6px;
   padding: 0 .35em;
-  opacity: .72;
   font-size: .92em;
 }
 

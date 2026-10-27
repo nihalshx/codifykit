@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { Brace } from "@/components/ui/Brace";
 import { T } from "@/components/ui/T";
 import { WEB_PROJECTS, isPlaceholder } from "@/lib/content";
+import { IconLock } from "@/components/ui/Icons";
 import styles from "./WebBrowser.module.css";
 
 const SPEED = 70; // px per second while it scrolls itself
@@ -126,7 +127,7 @@ export function WebBrowser() {
           <div className={styles.chrome}>
             <span className={styles.dots} aria-hidden="true"><i /><i /><i /></span>
             <span className={styles.address}>
-              <span aria-hidden="true">🔒</span> {p.domain}
+              <IconLock /> {p.domain}
             </span>
             <Link href={`/work/${p.slug}/`} className={styles.caseLink}>Case study →</Link>
           </div>

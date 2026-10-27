@@ -165,7 +165,7 @@ export function KittoChat() {
       </header>
 
       <div className={styles.cols}>
-        <aside className={styles.kittoCol}>
+        <aside className={styles.kittoCol} aria-label="Kitto">
           <div className={styles.blob} aria-hidden="true" />
           <Kitto mood={shownMood} size={260} hop={hop} className={styles.kitto} />
           <p className={styles.status} role="status">
@@ -230,7 +230,7 @@ export function KittoChat() {
           <p className={styles.note}>Kitto is an AI and can make mistakes. Prices and timelines always come from the team.</p>
         </section>
 
-        <aside className={styles.side}>
+        <aside className={styles.side} aria-label="Other ways to reach us">
           <div className={styles.card}>
             <h2 className={styles.cardTitle}>Kitto can help with</h2>
             <ul>

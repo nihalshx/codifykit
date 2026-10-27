@@ -40,20 +40,22 @@ export function KittoButton() {
   // not on /talk (it is the chat), /contact (the form has its own buttons) or the 3D showcases
   if (["/talk", "/contact", "/work/web", "/work/apps"].some((p) => pathname.startsWith(p))) return null;
   return (
-    <Link
-      href="/talk/"
-      className={styles.btn}
-      data-away={away || undefined}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onFocus={() => setHover(true)}
-      onBlur={() => setHover(false)}
-    >
-      <span className={styles.bubble}>Ask Kitto</span>
-      <span className={styles.cat} aria-hidden="true">
-        <Kitto mood={hover ? "happy" : "curious"} size={44} label="" />
-      </span>
-      <span className="sr-only">Chat with Kitto, our AI helper</span>
-    </Link>
+    <aside aria-label="Ask Kitto">
+      <Link
+        href="/talk/"
+        className={styles.btn}
+        data-away={away || undefined}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onFocus={() => setHover(true)}
+        onBlur={() => setHover(false)}
+      >
+        <span className={styles.bubble}>Ask Kitto</span>
+        <span className={styles.cat} aria-hidden="true">
+          <Kitto mood={hover ? "happy" : "curious"} size={44} label="" />
+        </span>
+        <span className="sr-only">Chat with Kitto, our AI helper</span>
+      </Link>
+    </aside>
   );
 }

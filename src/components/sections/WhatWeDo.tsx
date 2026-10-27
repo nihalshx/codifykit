@@ -33,7 +33,6 @@ export function WhatWeDo() {
                 <img src={m.img} alt="" loading="lazy" />
               </span>
               <span className={styles.text}>
-                <span className={styles.n}>{String(i + 1).padStart(2, "0")}</span>
                 <strong>{m.title}</strong>
                 <span>{m.line}</span>
               </span>

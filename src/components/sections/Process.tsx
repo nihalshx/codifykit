@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { T } from "@/components/ui/T";
 import { Brace } from "@/components/ui/Brace";
 import { PROCESS } from "@/lib/content";
+import { IconCode, IconGrow, IconIdea, IconLaunch, IconPen } from "@/components/ui/Icons";
 import styles from "./Process.module.css";
 
 // what each step is about, shown as labels orbiting the sphere
@@ -18,7 +19,7 @@ const ORBIT: string[][] = [
   ["Go live", "Tracking", "Speed"],
   ["Ads", "Content", "Leads", "Optimising"],
 ];
-const ICONS = ["◎", "✎", "⌘", "↗", "↻"];
+const ICONS = [IconIdea, IconPen, IconCode, IconLaunch, IconGrow];
 
 export function Process({ ctaHref = "/contact/" }: { ctaHref?: string }) {
   const wrapRef = useRef<HTMLElement>(null);
@@ -41,7 +42,7 @@ export function Process({ ctaHref = "/contact/" }: { ctaHref?: string }) {
         ScrollTrigger.create({
           trigger: wrapRef.current,
           start: "top top",
-          end: `+=${PROCESS.length * 60}%`,
+          end: `+=${PROCESS.length * 40}%`,
           pin: true,
           scrub: true,
           onUpdate: (self) => {
@@ -70,9 +71,10 @@ export function Process({ ctaHref = "/contact/" }: { ctaHref?: string }) {
           <ol className={styles.steps}>
             {PROCESS.map((s, i) => {
               const on = !pinned || i === active;
+              const Icon = ICONS[i] ?? IconIdea;
               return (
                 <li key={s.n} data-on={on} data-past={pinned && i < active}>
-                  <span className={styles.icon} aria-hidden="true">{ICONS[i]}</span>
+                  <span className={styles.icon} aria-hidden="true"><Icon /></span>
                   <span className={styles.num}>{s.n}</span>
                   <div>
                     <h3 className={styles.name}>{s.name}</h3>

@@ -4,6 +4,7 @@ import { Process } from "@/components/sections/Process";
 import { Reveal } from "@/components/ui/Reveal";
 import { Brace } from "@/components/ui/Brace";
 import { CONTACT, SITE, real, type ServicePage } from "@/lib/content";
+import { IconAsterisk } from "@/components/ui/Icons";
 import styles from "./ServiceLanding.module.css";
 
 /**
@@ -56,7 +57,7 @@ export function ServiceLanding({
           <div className={styles.pillMarquee}>
             <span>
               {Array.from({ length: 4 }, (_, i) => (
-                <b key={i}>{page.pill}<i>✳</i></b>
+                <b key={i}>{page.pill}<IconAsterisk size={28} className={styles.star} /></b>
               ))}
             </span>
           </div>
@@ -72,15 +73,14 @@ export function ServiceLanding({
             ))}
           </ul>
         )}
-        <ol className={styles.promiseList}>
+        <ul className={styles.promiseList}>
           {page.promises.map((p, i) => (
             <Reveal as="li" key={p.title} delay={i * 70}>
-              <span className={styles.n}>{String(i + 1).padStart(2, "0")}</span>
               <h2>{p.title}</h2>
               <p>{p.text}</p>
             </Reveal>
           ))}
-        </ol>
+        </ul>
       </section>
 
       {children}
@@ -116,10 +116,9 @@ export function ServiceLanding({
             </p>
           </div>
           <div className={styles.stack}>
-            {stack.map((g, i) => (
+            {stack.map((g) => (
               <div key={g.name}>
-                <span className={styles.n}>{String(i + 1).padStart(2, "0")}</span>
-                <h3>{g.name}</h3>
+                  <h3>{g.name}</h3>
                 <ul>{g.items.map((x) => <li key={x}>{x}</li>)}</ul>
               </div>
             ))}

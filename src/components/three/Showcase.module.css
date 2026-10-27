@@ -38,7 +38,7 @@
 
 .topRight { position: absolute; right: 24px; top: 96px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .pager { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 11px; }
-.pager button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(26,26,26,.45); background: rgba(255,255,255,.7); color: var(--ck-ink); cursor: pointer; font-size: 15px; line-height: 1; }
+.pager button { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(26,26,26,.45); background: rgba(255,255,255,.7); color: var(--ck-ink); cursor: pointer; font-size: 15px; line-height: 1; }
 .pager button:disabled { opacity: .3; cursor: default; }
 .turn { background: rgba(255,255,255,.75); border: 1px solid rgba(26,26,26,.25); color: var(--ck-ink); border-radius: 999px; padding: 7px 12px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
 .turn:hover { background: #fff; }
@@ -47,7 +47,7 @@
 .bigLabel { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
 .bigNum { font-family: var(--font-display); font-weight: 500; font-size: clamp(48px, 6vw, 88px); line-height: .95; letter-spacing: -.05em; }
 .bigNum[data-ph] { font-size: 16px; letter-spacing: 0; margin: 6px 0; }
-.small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-ink); text-decoration: none; opacity: .85; }
+.small { display: inline-block; padding: 12px 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-ink); text-decoration: none; opacity: .85; }
 .small[data-off] { opacity: .45; }
 .facts { position: absolute; left: 50%; bottom: 44px; translate: -50% 0; display: flex; gap: clamp(20px, 4vw, 64px); list-style: none; margin: 0; padding: 0; text-align: center; font-family: var(--font-display); font-size: 15px; line-height: 1.05; text-transform: uppercase; letter-spacing: -.01em; }
 .hint { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .65; white-space: nowrap; }
@@ -69,4 +69,5 @@
   .topRight { top: auto; bottom: 120px; right: 50%; translate: 50% 0; flex-direction: row; }
   .facts { bottom: 76px; font-size: 11px; gap: 14px; }
   .big { display: none; }
+  .pager button { width: 44px; height: 44px; }
 }

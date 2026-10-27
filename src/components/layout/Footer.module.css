@@ -11,8 +11,9 @@
 .inner { position: relative; z-index: 1; padding-top: clamp(64px, 8vw, 110px); padding-bottom: 32px; }
 .tagline { font-family: var(--font-display); font-size: clamp(36px, 6vw, 84px); line-height: 1.02; letter-spacing: -.03em; max-width: 13ch; }
 .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 72px; }
-.cols > div { display: flex; flex-direction: column; gap: 10px; }
-.cols a { text-decoration: none; color: rgba(255,255,255,.86); font-size: 15px; width: fit-content; }
+.cols > div { display: flex; flex-direction: column; gap: 2px; }
+.cols a { text-decoration: none; color: rgba(255,255,255,.86); font-size: 15px; width: fit-content; padding: 6px 0; min-height: 36px; display: inline-flex; align-items: center; }
+@media (pointer: coarse) { .cols a { min-height: 44px; } }
 .cols a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .colHead { font-family: var(--font-mono); font-weight: 400; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 6px; }
 .bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.2); font-size: 14px; color: rgba(255,255,255,.8); }

@@ -10,6 +10,7 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { APPS, APP_HERO_SCREENS } from "@/lib/content";
+import { IconAsterisk } from "@/components/ui/Icons";
 import styles from "./AppShowcase.module.css";
 
 // where the screen sits on public/images/hand-phone.webp (1024 x 1536), measured from the green screen
@@ -63,7 +64,7 @@ export function AppShowcase() {
         const grid = gridRef.current!;
         const cols = gsap.utils.toArray<HTMLElement>(`.${styles.col}`, grid);
         const tl = gsap.timeline({
-          scrollTrigger: { trigger: grid, start: "top top", end: mobile ? "+=160%" : "+=260%", scrub: 0.6, pin: true, anticipatePin: 1 },
+          scrollTrigger: { trigger: grid, start: "top top", end: mobile ? "+=110%" : "+=160%", scrub: 0.6, pin: true, anticipatePin: 1 },
         });
         // columns: alternate directions, outer columns faster
         cols.forEach((col, i) => {
@@ -103,7 +104,7 @@ export function AppShowcase() {
 
   return (
     <section id="apps" className={styles.section} aria-labelledby="apps-title">
-      {/* A. intro, laid out like the reference: heading top left, ✳✳ top right, two tilted phones
+      {/* A. intro, laid out like the reference: heading top left, two asterisks top right, two tilted phones
           overlapping the heading, a giant faint line of words sliding behind, then the line and buttons */}
       <div ref={introRef} className={styles.intro}>
         <svg className={styles.orbits} viewBox="0 0 1400 900" preserveAspectRatio="none" aria-hidden="true">
@@ -118,7 +119,7 @@ export function AppShowcase() {
             <span className={styles.brace}>{"{"}</span>Mobile<span className={styles.brace}>{"}"}</span>
             <br /> Development
           </h2>
-          <span className={styles.stars} aria-hidden="true">✳✳</span>
+          <span className={styles.stars} aria-hidden="true"><IconAsterisk size={64} /><IconAsterisk size={64} /></span>
         </div>
         <div className={styles.pair} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -174,7 +175,6 @@ export function AppShowcase() {
             ))}
           </div>
         </div>
-        <p className={styles.gridNote}>Every screen links to its case study.</p>
       </div>
     </section>
   );
