@@ -9,7 +9,8 @@
     "start": "npm run build && wrangler dev",
     "lint": "tsc --noEmit && tsc --noEmit -p worker",
     "placeholders": "node scripts/make-placeholders.mjs",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "test": "node --experimental-strip-types --test src/**/*.test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",

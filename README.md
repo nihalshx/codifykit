@@ -70,7 +70,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
 | Crumpled graph-paper background (hero + 3D pages) | `public/images/graph-paper.webp`, made by `scripts/make-graph-paper.py` |
 | Homepage sections | `src/components/sections/` |
-| Hero ring (loader ring → fly-in → inside the ring), Three.js + GSAP | `src/components/hero/HeroRing.tsx` |
+| Hero: loader + reel cylinder in one CSS 3D scene (Motion). Pose maths + unit tests: `npm test` | `src/components/hero/HeroReels.tsx`, `src/components/hero/reelPose.ts` (+ `.test.ts`) |
 | Apps: tilted phones intro + pinned parallax columns with the hand-held phone (GSAP ScrollTrigger) | `src/components/sections/AppShowcase.tsx` |
 | 3D laptops / phones (`/work/web`, `/work/apps`) | `src/components/three/Showcase.tsx` |
 | 3D models + credits | `public/models/` (`manifest.json`, `CREDITS.md`) |

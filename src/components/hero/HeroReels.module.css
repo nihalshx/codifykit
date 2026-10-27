@@ -1,0 +1,73 @@
+.root { position: absolute; inset: 0; }
+/* during the intro the scene covers the whole screen; the parent keeps its height in the page flow */
+.root[data-phase="intro"][data-intro] { position: fixed; z-index: 70; }
+.root[data-box] .frame { border-radius: var(--r-frame); clip-path: inset(0 round 28px); }
+
+.frame { position: absolute; inset: 0; overflow: hidden; isolation: isolate; will-change: clip-path; background: #F7F8FA; }
+/* crumpled graph paper is the sky */
+.paper { position: absolute; inset: 0; z-index: 0; background: var(--ck-graph-paper); }
+
+/* purple cloud banks: one behind the lower wall, one in front of it */
+.clouds {
+  position: absolute; left: -12%; right: -12%; bottom: 0; pointer-events: none; opacity: 0; will-change: transform, opacity;
+  background: url("/images/hero-clouds.webp") center bottom / auto 100% repeat-x;
+}
+.cloudsBack { z-index: 1; height: 46%; filter: saturate(.9) brightness(1.12) blur(1.5px); bottom: 12%; }
+.cloudsFront { z-index: 3; height: 40%; }
+.cloudsFront::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(transparent, #2a3fb4 70%); }
+
+.stage { position: absolute; inset: 0; z-index: 2; overflow: hidden; touch-action: pan-y; cursor: grab; user-select: none; }
+.stage:active { cursor: grabbing; }
+.scaler { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.ring { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
+
+.card {
+  --yaw: 180;
+  position: absolute; left: -135px; top: -240px; display: block; border-radius: 22px; overflow: hidden;
+  transform: rotateY(calc(var(--yaw) * 1deg)) translateZ(calc(var(--R) * -1px)) scale(var(--s));
+  transform-style: flat; will-change: transform, opacity; color: #fff; text-decoration: none; background: #0d0d12;
+  box-shadow: 0 30px 60px rgba(4, 5, 43, .25), 0 0 0 1px rgba(255,255,255,.12) inset;
+  -webkit-tap-highlight-color: transparent;
+}
+.card img, .preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.preview { opacity: 0; transition: opacity .5s ease; }
+.preview[data-playing] { opacity: 1; }
+.card[data-hover] { box-shadow: 0 0 0 3px #fff, 0 30px 70px rgba(26, 22, 128, .45); }
+.card:focus-visible { outline: 4px solid #fff; outline-offset: 4px; }
+.tag {
+  position: absolute; left: 12px; top: 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  background: rgba(4, 5, 43, .55); padding: 4px 9px; border-radius: 999px; backdrop-filter: blur(4px);
+}
+.hoverTag {
+  position: absolute; left: 50%; top: 96px; translate: -50% 0; z-index: 5; pointer-events: none;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  background: rgba(4, 5, 43, .75); color: #fff; padding: 6px 12px; border-radius: 999px;
+}
+.root[data-box] .hoverTag { top: 16px; }
+
+/* the loader: a white page over the scene that fades while the cards keep moving */
+.backdrop { position: absolute; inset: 0; z-index: 1; background: var(--ck-paper); pointer-events: none; }
+.loader { position: absolute; inset: 0; z-index: 75; pointer-events: none; color: var(--ck-ink); }
+.label { position: absolute; right: clamp(16px, 3vw, 40px); bottom: calc(clamp(16px, 3vw, 40px) + clamp(84px, 12vw, 168px)); }
+.caption { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ck-muted); }
+.counter {
+  position: absolute; right: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 40px); display: flex; align-items: flex-start;
+  font-family: var(--font-mono); font-weight: 500; font-size: clamp(80px, 12vw, 168px); line-height: 1; letter-spacing: -.06em;
+  font-variant-numeric: tabular-nums;
+}
+.digit { display: inline-block; height: 1em; overflow: hidden; }
+.strip { display: flex; flex-direction: column; transition: transform .55s cubic-bezier(.5, 0, .15, 1); }
+.strip span { height: 1em; display: block; }
+.counter small { font-size: .15em; letter-spacing: 0; margin: .35em 0 0 .3em; }
+.word {
+  position: fixed; left: clamp(16px, 3vw, 40px); top: clamp(12px, 2.4vw, 28px); z-index: 76; transform-origin: 0 50%;
+  font-family: var(--font-display); font-weight: 600; font-size: clamp(48px, 7vw, 104px); letter-spacing: -.045em; line-height: 1;
+  color: var(--ck-ink); pointer-events: none;
+}
+.skip {
+  position: absolute; left: clamp(16px, 3vw, 40px); bottom: clamp(16px, 3vw, 40px); z-index: 77;
+  min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--ck-ink); background: var(--ck-paper); font-size: 13px; cursor: pointer;
+}
+.skip:hover { background: var(--ck-ink); color: #fff; }
+
+@media (prefers-reduced-motion: reduce) { .strip { transition: none; } }

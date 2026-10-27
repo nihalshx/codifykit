@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import { HeroRing } from "@/components/hero/HeroRing";
+import { HeroReels } from "@/components/hero/HeroReels";
 import { useAudience } from "@/components/layout/Audience";
 import { SITE, WHEEL_CARDS, type AudienceSegment } from "@/lib/content";
 import styles from "./Hero.module.css";
 
-// 24 cards make a ring that frames well from the inside
-const HERO_CARDS = WHEEL_CARDS.slice(0, 24);
+// all the reels: 16 cards on the ring recycle through them as it turns
+const HERO_CARDS = WHEEL_CARDS;
 const UNDERLINE = ["#3A63B8", "#6A55C8", "#B9A8E8", "#1A1680"];
 
 export function Hero() {
@@ -27,7 +27,7 @@ export function Hero() {
             "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.intro='running'}}catch(e){}",
         }}
       />
-      <HeroRing cards={HERO_CARDS} intro>
+      <HeroReels cards={HERO_CARDS} intro>
         <div className={styles.under}>
           <p className={styles.audience} aria-live="polite">
             {line.map((seg, i) => {
@@ -58,7 +58,7 @@ export function Hero() {
             <a href="/work/" className="btn btn--ghost">See our work</a>
           </div>
         </div>
-      </HeroRing>
+      </HeroReels>
 
       {peek && (
         <div className={styles.peek} style={{ left: peek.x, top: peek.y }} aria-hidden="true">
