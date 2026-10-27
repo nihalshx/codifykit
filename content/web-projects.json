@@ -145,5 +145,35 @@
       "video": null,
       "featured": false
     }
-  ]
+  ],
+  "formats": {
+    "_note": "The stacked cards on the homepage: one per kind of website, each showing one of our projects. 'project' is a slug from projects below.",
+    "items": [
+      {
+        "name": "Landing page",
+        "line": "One page for one offer: people read it to the end and leave an enquiry.",
+        "project": "placeholder-web-2"
+      },
+      {
+        "name": "Business website",
+        "line": "For when customers look you up before they call: your services, your team and your work, so they arrive already sure.",
+        "project": "placeholder-web-1"
+      },
+      {
+        "name": "Portfolio",
+        "line": "Your work, shown big and in order, so the right people get in touch.",
+        "project": "placeholder-web-3"
+      },
+      {
+        "name": "Web app & dashboard",
+        "line": "Leads, orders and customers in one place your team actually opens every morning.",
+        "project": "placeholder-web-5"
+      },
+      {
+        "name": "Student project",
+        "line": "A clean, working site for your mini or main project, ready for the demo and the questions.",
+        "project": "placeholder-web-6"
+      }
+    ]
+  }
 }

@@ -30,6 +30,10 @@ export const APPS = appsData.apps;
 export const APP_HERO_SCREENS = appsData.heroScreens;
 export const PLATFORM_TECH = appsData.platformTech;
 export const WEB_PROJECTS = webData.projects;
+/** Kinds of website, each paired with one of our projects (the stacked cards on the homepage). */
+export const WEB_FORMATS = webData.formats.items
+  .map((f) => ({ ...f, project: webData.projects.find((p) => p.slug === f.project) }))
+  .filter((f) => f.project);
 export const CAMPAIGNS = postersData.campaigns;
 export const POSTER_CATEGORIES = postersData.categories;
 export const WHEEL_CARDS = wheelData.cards as WheelCard[];
