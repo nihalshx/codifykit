@@ -68,7 +68,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 |---|---|
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
-| Backgrounds: hero ring on dark `#1C1C1F` with orbit lines (`HeroReels.module.css`); 3D and service pages on the clean `--ck-studio` grey. The old graph paper is still in `public/images/graph-paper.webp` if wanted | `src/styles/tokens.css` |
+| Backgrounds: hero ring on the painted cloud sky `public/images/hero-sky.webp` (`HeroReels.module.css`); 3D and service pages on the clean `--ck-studio` grey. The old graph paper is still in `public/images/graph-paper.webp` if wanted | `src/styles/tokens.css` |
 | Homepage sections: hero, marquee, what we do, apps (scroll showcase), websites (browser you can scroll), posters (deck you flip through), process, students, Kitto | `src/components/sections/` (`AppShowcase`, `WebBrowser`, `PosterDeck`) |
 | Web and app service pages (`/services/web`, `/services/apps`): one template, text in `content/service-pages.json` | `src/components/landing/ServiceLanding.tsx` |
 | "Start a project" form (`/contact`): opens WhatsApp or email with the message filled in, nothing stored | `src/app/contact/` |
