@@ -3,9 +3,9 @@
 .root[data-phase="intro"][data-intro] { position: fixed; z-index: 70; }
 .root[data-box] .frame { border-radius: var(--r-frame); clip-path: inset(0 round 28px); }
 
-.frame { position: absolute; inset: 0; overflow: hidden; isolation: isolate; will-change: clip-path; background: #9C8FE0; }
-/* the sky: a painted paper-cut sky of violet clouds (public/images/hero-sky.webp) */
-.paper { position: absolute; inset: 0; z-index: 0; background: #9C8FE0 url("/images/hero-sky.webp") center / cover no-repeat; }
+.frame { position: absolute; inset: 0; overflow: hidden; isolation: isolate; will-change: clip-path; background: #8FA4E8; }
+/* the sky: a painted watercolour sky of blue and violet clouds (public/images/hero-sky.webp) */
+.paper { position: absolute; inset: 0; z-index: 0; background: #8FA4E8 url("/images/hero-sky.webp") center / cover no-repeat; }
 
 /* purple cloud banks: one behind the lower wall, one in front of it */
 .clouds {
