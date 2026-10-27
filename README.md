@@ -80,13 +80,14 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 
 ## 3D models
 
-`/work/web` uses a real MacBook model (`public/models/laptop.glb`, from the MIT-licensed pmndrs/examples repo; see `public/models/CREDITS.md`).
-`/work/posters` uses a phone modelled in code until you add a real one:
+`/work/web` and `/work/posters` use real models from Sketchfab: an Apple MacBook Pro and an Apple iPhone 18 Pro Max. Credits, licences and how they were prepared are in `public/models/CREDITS.md`, and `public/models/manifest.json` says which file each page loads.
 
-1. Get a phone GLB you're allowed to use commercially (CC0, CC-BY with credit, or bought), ideally without brand logos.
-2. Make sure the screen's material is named `screen` or `display` (rename it in Blender if needed).
-3. Save it as `public/models/phone.glb` and set `"phone": "/models/phone.glb"` in `public/models/manifest.json`.
-4. Add a line to `public/models/CREDITS.md`.
+To swap a model:
+
+1. Use a GLB you're allowed to use commercially.
+2. Phone: its screen material must be named with `screen` or `display`. Laptop: it needs a hinge node `screenflip` (lid upright at rotation 0) and a `screen` plane with 0..1 UVs. `scripts/split-macbook.mjs` shows how a one-piece laptop model was split.
+3. Compress it: `npx @gltf-transform/cli optimize in.glb out.glb --compress meshopt --texture-compress webp --texture-size 1024 --join false --flatten false --palette false --simplify false --prune-attributes false`
+4. Put it in `public/models/` and update `manifest.json` and `CREDITS.md`.
 
 ## Replacing placeholders with real work
 

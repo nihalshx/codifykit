@@ -107,24 +107,29 @@ type Device = {
 };
 
 /**
- * Laptop: the real model in public/models/laptop.glb (from pmndrs/examples, MIT).
- * Node "screenflip" is the hinge; the mesh whose material is "screen" is the display (UVs 0..1).
+ * Laptop: public/models/laptop.glb, the Sketchfab "Apple MacBook Pro" by Andrey 3D, split by
+ * scripts/split-macbook.mjs into a base, a hinged lid (node "screenflip", upright at rotation 0)
+ * and a separate "screen" plane (UVs 0..1, top-left = 0,0) that shows the site.
  */
-const MAC_W = 8.8; // model units
+const MAC_W = 0.313; // model units (metres)
 const LAPTOP_SCALE = 3.2 / MAC_W;
-const LAPTOP = { screenW: 8.3 * LAPTOP_SCALE, screenH: 5.373 * LAPTOP_SCALE };
-const hinge = (deg: number) => 1.575 - (deg / 110) * 2.0;
+const LAPTOP = { screenW: 0.3005 * LAPTOP_SCALE, screenH: 0.1924 * LAPTOP_SCALE };
+const hinge = (deg: number) => ((90 - deg) * Math.PI) / 180; // 0 closed, 90 upright, 110 open
 
-const PHONE = { w: 1.02, h: 2.12, t: 0.1, screenW: 0.94, screenH: 2.03 };
+// the phone GLB is scaled to this height; screen size measured from public/models/phone.glb
+const PHONE = { w: 1.02, h: 2.12, t: 0.1, screenW: 0.947, screenH: 2.06 };
 
 /** public/models/manifest.json lists which device models exist, e.g. { "laptop": "/models/laptop.glb", "phone": null } */
 async function loadGLB(kind: "laptop" | "phone") {
-  const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js");
+  const [{ GLTFLoader }, { MeshoptDecoder }] = await Promise.all([
+    import("three/examples/jsm/loaders/GLTFLoader.js"),
+    import("three/examples/jsm/libs/meshopt_decoder.module.js"),
+  ]);
   try {
     const manifest = (await (await fetch("/models/manifest.json")).json()) as Record<string, string | null>;
     const url = manifest[kind];
     if (!url) return null;
-    return (await new GLTFLoader().loadAsync(url)).scene;
+    return (await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(url)).scene;
   } catch {
     return null;
   }
@@ -150,8 +155,8 @@ function buildLaptop(T3: THREE, template: THREE_NS.Object3D): Device {
   root.add(body);
   const model = template.clone(true);
   model.scale.setScalar(LAPTOP_SCALE);
-  // centre it: the base spans z 0.4..6.4 and the lid rises ~6 units from the hinge
-  model.position.set(0, -0.75, -3.4 * LAPTOP_SCALE);
+  // centre it: the base sits at y = 0 and the lid rises 0.21 m from the hinge
+  model.position.set(0, -0.09 * LAPTOP_SCALE, 0);
   body.add(model);
   const flip = model.getObjectByName("screenflip")!;
   const screen = findScreen(model)!;
