@@ -7,18 +7,14 @@
 .canvas canvas { width: 100% !important; height: 100% !important; cursor: grab; }
 .canvas canvas:active { cursor: grabbing; }
 
-/* painted sky in brand colours: deep navy above, violet and lavender at the horizon */
+/* graphite paper sky */
 .sky {
   position: absolute; inset: 0; z-index: 1; opacity: 0;
-  background:
-    radial-gradient(70% 45% at 50% 78%, rgba(185,168,232,.95) 0%, rgba(140,120,218,.6) 30%, rgba(106,85,200,0) 65%),
-    radial-gradient(50% 40% at 12% 70%, rgba(58,99,184,.7), transparent 70%),
-    radial-gradient(40% 30% at 85% 30%, rgba(106,85,200,.45), transparent 70%),
-    linear-gradient(180deg, #04052B 0%, #10106A 28%, #2A2398 52%, #5B48BE 74%, #9C88E0 100%);
+  background: var(--ck-graphite-paper);
 }
-.sun { position: absolute; left: 50%; top: 62%; width: 26vw; height: 26vw; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.55), rgba(221,215,242,.25) 45%, transparent); filter: blur(10px); }
+.sun { position: absolute; left: 50%; top: 66%; width: 40vw; height: 22vw; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,.12), transparent); filter: blur(20px); }
 .stars {
-  position: absolute; inset: 0 0 50% 0; opacity: .7;
+  position: absolute; inset: 0 0 50% 0; opacity: .25;
   background-image:
     radial-gradient(1.5px 1.5px at 8% 14%, #fff, transparent), radial-gradient(1px 1px at 22% 6%, #fff, transparent),
     radial-gradient(1.2px 1.2px at 37% 20%, #fff, transparent), radial-gradient(1px 1px at 55% 9%, #fff, transparent),
@@ -27,17 +23,17 @@
 }
 
 .clouds { position: absolute; left: -6%; right: -6%; z-index: 3; pointer-events: none; opacity: 0; height: 30%; display: flex; }
-.clouds img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+.clouds img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; filter: grayscale(1) brightness(.62) contrast(1.15); }
 
 .petals { position: absolute; inset: 0; z-index: 4; pointer-events: none; overflow: hidden; }
 .root[data-phase="intro"] .petals { opacity: 0; }
 .petals i {
   position: absolute; top: -4%; left: var(--x); width: 9px; height: 5px; border-radius: 60% 40% 60% 40%;
-  background: linear-gradient(90deg, #DDD7F2, #B9A8E8); opacity: .85; scale: var(--s);
+  background: linear-gradient(90deg, #E6E6EA, #A9A9B2); opacity: .6; scale: var(--s);
   animation: fall var(--t) linear var(--d) infinite;
 }
 .petals i:nth-child(3n) { background: #fff; }
-.petals i:nth-child(4n) { background: #9FB6F0; }
+.petals i:nth-child(4n) { background: #6E6E78; }
 @keyframes fall {
   0% { transform: translate(0, 0) rotate(0deg); }
   50% { transform: translate(6vw, 55vh) rotate(220deg); }

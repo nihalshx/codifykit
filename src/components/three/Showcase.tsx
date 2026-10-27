@@ -1,6 +1,6 @@
 "use client";
 /**
- * Floating-device showcase (Three.js), shared by /work/web (laptops) and /work/posters (phones).
+ * Floating-device showcase (Three.js), shared by /work/web (laptops) and /work/apps (phones).
  * Specs: prompts/floating-laptops-web-prompt.md and prompts/floating-phones-posters-prompt.md.
  *
  * The devices are modelled in code (no GLB needed). When licensed GLB models arrive, swap
@@ -9,7 +9,6 @@
 import { useEffect, useRef, useState } from "react";
 import type * as THREE_NS from "three";
 import { T } from "@/components/ui/T";
-import { Lightbox } from "@/components/ui/Lightbox";
 import { ICON_PATH } from "@/components/ui/Logo";
 import { isPlaceholder } from "@/lib/content";
 import styles from "./Showcase.module.css";
@@ -25,10 +24,7 @@ export type ShowcaseItem = {
   bigLabel?: string | null;
   fallbackBig: string; // the year/date when there's no real number
   href?: string | null; // live site / instagram
-  images: string[]; // screenshot (laptop) or poster set (phone)
-  format?: string; // poster ratio, e.g. "4:5"
-  account?: string;
-  caption?: string;
+  images: string[]; // site screenshot (laptop) or app screens (phone)
 };
 
 type Kind = "laptop" | "phone";
@@ -234,144 +230,41 @@ function buildPhone(T3: THREE, rounded: (w: number, h: number, d: number, r: num
   return { root, body, screen, hit, size: new T3.Vector3(PHONE.w, PHONE.h, PHONE.t), bob: Math.random() * Math.PI * 2 };
 }
 
-// ---------------------------------------------------------------- social post (phone screens)
+// ---------------------------------------------------------------- app screens (phone)
 const SCREEN_PX = { w: 540, h: Math.round((540 * PHONE.screenH) / PHONE.screenW) };
+type AppState = { slide: number; push: number; scroll: number; tap: number };
+const APP_IDLE: AppState = { slide: 0, push: 0, scroll: 0, tap: 0 };
 
-function drawPost(
-  ctx: CanvasRenderingContext2D,
-  item: ShowcaseItem,
-  imgs: HTMLImageElement[],
-  state: { slide: number; push: number; heart: number; story: number }
-) {
+/** One app screen, full-bleed; tall screens scroll, sets slide like native navigation, plus a tap ripple. */
+function drawApp(ctx: CanvasRenderingContext2D, imgs: HTMLImageElement[], st: AppState) {
   const { w, h } = SCREEN_PX;
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#0d0d12";
   ctx.fillRect(0, 0, w, h);
-  const story = item.format === "9:16";
-  if (story) {
-    const img = imgs[state.slide % imgs.length];
-    if (img?.width) ctx.drawImage(img, 0, 0, w, h);
-    // progress bars
-    imgs.forEach((_, k) => {
-      const bw = (w - 24 - (imgs.length - 1) * 6) / imgs.length;
-      const x = 12 + k * (bw + 6);
-      ctx.fillStyle = "rgba(255,255,255,.4)";
-      roundRect(ctx, x, 16, bw, 5, 3);
-      ctx.fill();
-      const f = k < state.slide % imgs.length ? 1 : k === state.slide % imgs.length ? state.story : 0;
-      ctx.fillStyle = "#fff";
-      roundRect(ctx, x, 16, bw * f, 5, 3);
-      ctx.fill();
-    });
-    drawAvatarRow(ctx, item, 36, true);
-    return;
-  }
-  drawAvatarRow(ctx, item, 70, false);
-  const [rw, rh] = (item.format ?? "4:5").split(":").map(Number);
-  const ph = (w * rh) / rw;
-  const top = 132;
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, top, w, ph);
-  ctx.clip();
-  const cur = imgs[state.slide % imgs.length];
-  const next = imgs[(state.slide + 1) % imgs.length];
-  const z = 1 + 0.04 * state.push;
-  const shift = -state.push * w * (imgs.length > 1 ? 1 : 0);
-  if (cur?.width) {
-    if (imgs.length > 1) ctx.drawImage(cur, shift, top, w, ph);
-    else ctx.drawImage(cur, (w - w * z) / 2, top + (ph - ph * z) / 2, w * z, ph * z);
-  }
-  if (imgs.length > 1 && next?.width && state.push > 0) ctx.drawImage(next, shift + w, top, w, ph);
-  if (state.heart > 0 && state.heart < 1) {
-    const k = state.heart;
-    const s = k < 0.4 ? (k / 0.4) * 1.2 : k < 0.6 ? 1.2 - ((k - 0.4) / 0.2) * 0.2 : 1;
-    ctx.globalAlpha = k > 0.75 ? 1 - (k - 0.75) / 0.25 : 1;
-    drawHeart(ctx, w / 2, top + ph / 2, 90 * s, "#fff", true);
-    ctx.globalAlpha = 1;
-  }
-  ctx.restore();
-  // action row
-  const ay = top + ph + 40;
-  drawHeart(ctx, 40, ay, 30, "#111", false);
-  ctx.strokeStyle = "#111";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.arc(100, ay, 15, 0.25 * Math.PI, 2.2 * Math.PI);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(140, ay - 14);
-  ctx.lineTo(170, ay);
-  ctx.lineTo(140, ay + 14);
-  ctx.lineTo(146, ay);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(w - 50, ay - 16);
-  ctx.lineTo(w - 26, ay - 16);
-  ctx.lineTo(w - 26, ay + 16);
-  ctx.lineTo(w - 38, ay + 6);
-  ctx.lineTo(w - 50, ay + 16);
-  ctx.closePath();
-  ctx.stroke();
-  if (imgs.length > 1) {
-    imgs.forEach((_, k) => {
-      ctx.fillStyle = k === state.slide % imgs.length ? "#6A55C8" : "#C9C9C5";
-      ctx.beginPath();
-      ctx.arc(w / 2 - (imgs.length - 1) * 9 + k * 18, ay, 5, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  }
-  ctx.fillStyle = "#1A1A1A";
-  ctx.font = `600 22px "Inter Variable", sans-serif`;
-  ctx.textAlign = "left";
-  ctx.fillText(item.account ?? "", 24, ay + 56);
-  ctx.font = `400 22px "Inter Variable", sans-serif`;
-  const cap = item.caption ?? "";
-  ctx.fillStyle = "#4A4A55";
-  ctx.fillText(cap.length > 40 ? cap.slice(0, 40) + "…" : cap, 24, ay + 88);
-}
-
-function drawAvatarRow(ctx: CanvasRenderingContext2D, item: ShowcaseItem, y: number, onImage: boolean) {
-  const { w } = SCREEN_PX;
-  ctx.fillStyle = brandGradient(ctx, 56, 56);
-  ctx.beginPath();
-  ctx.arc(46, y, 24, 0, Math.PI * 2);
-  ctx.fill();
-  drawIcon(ctx, 33, y - 13, 26);
-  ctx.fillStyle = onImage ? "#fff" : "#1A1A1A";
-  ctx.font = `600 22px "Inter Variable", sans-serif`;
-  ctx.textAlign = "left";
-  ctx.fillText(item.account ?? "codifykit", 82, y + 8);
-  ctx.fillStyle = onImage ? "#fff" : "#1A1A1A";
-  for (let k = 0; k < 3; k++) {
+  const draw = (img: HTMLImageElement | undefined, x: number, scroll: number) => {
+    if (!img?.width) return;
+    const dh = (img.height * w) / img.width; // fit the width, like a phone app
+    const overflow = Math.max(0, dh - h);
+    ctx.drawImage(img, x, -overflow * scroll, w, dh);
+  };
+  const n = imgs.length;
+  const cur = imgs[st.slide % n];
+  if (n > 1 && st.push > 0) {
+    const next = imgs[(st.slide + 1) % n];
+    draw(cur, -st.push * w * 0.3, st.scroll); // current slides out a little (native push)
+    ctx.fillStyle = `rgba(0,0,0,${0.35 * st.push})`;
+    ctx.fillRect(0, 0, w, h);
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,.35)";
+    ctx.shadowBlur = 30;
+    draw(next, (1 - st.push) * w, 0);
+    ctx.restore();
+  } else draw(cur, 0, st.scroll);
+  if (st.tap > 0 && st.tap < 1) {
     ctx.beginPath();
-    ctx.arc(w - 52 + k * 12, y, 3, 0, Math.PI * 2);
+    ctx.arc(w * 0.66, h * 0.62, 26 + 30 * st.tap, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${0.55 * (1 - st.tap)})`;
     ctx.fill();
   }
-}
-
-function drawHeart(ctx: CanvasRenderingContext2D, x: number, y: number, s: number, color: string, fill: boolean) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(s / 32, s / 32);
-  ctx.beginPath();
-  ctx.moveTo(0, 10);
-  ctx.bezierCurveTo(-16, -2, -14, -16, -6, -16);
-  ctx.bezierCurveTo(-2, -16, 0, -12, 0, -10);
-  ctx.bezierCurveTo(0, -12, 2, -16, 6, -16);
-  ctx.bezierCurveTo(14, -16, 16, -2, 0, 10);
-  ctx.closePath();
-  if (fill) {
-    ctx.fillStyle = color;
-    ctx.shadowColor = "rgba(0,0,0,.3)";
-    ctx.shadowBlur = 12;
-    ctx.fill();
-  } else {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2.6;
-    ctx.stroke();
-  }
-  ctx.restore();
 }
 
 // ---------------------------------------------------------------- marker loop (hover)
@@ -399,12 +292,14 @@ export function Showcase({
   kind,
   items,
   title,
+  section,
   primaryLabel,
 }: {
   kind: Kind;
   items: ShowcaseItem[];
   title: string; // intro title card
-  primaryLabel: string; // "Visit live site ↗" / "View on Instagram ↗"
+  section: string; // breadcrumb + intro label, e.g. "Websites"
+  primaryLabel: string; // "Visit live site ↗" / "Open case study →"
 }) {
   const mountRef = useRef<HTMLDivElement>(null);
   const loopRef = useRef<SVGPathElement>(null);
@@ -414,8 +309,6 @@ export function Showcase({
   const [intro, setIntro] = useState(true);
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [box, setBox] = useState<number | null>(null);
-  const [boxIdx, setBoxIdx] = useState(0);
   const [failed, setFailed] = useState(false);
   const item = items[current];
 
@@ -443,7 +336,7 @@ export function Showcase({
         setFailed(true);
         return;
       }
-      renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
+      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
       renderer.outputColorSpace = T3.SRGBColorSpace;
       mount.appendChild(renderer.domElement);
 
@@ -479,6 +372,12 @@ export function Showcase({
       (mats.logo.map as THREE_NS.Texture).colorSpace = T3.SRGBColorSpace;
       const template = await loadGLB(kind);
       if (disposed) return;
+      const maxAniso = renderer.capabilities.getMaxAnisotropy();
+      template?.traverse((o) => {
+        const m = (o as THREE_NS.Mesh).material as THREE_NS.MeshStandardMaterial | undefined;
+        if (!m) return;
+        [m.map, m.normalMap, m.roughnessMap, m.metalnessMap, m.aoMap, m.emissiveMap].forEach((t) => t && (t.anisotropy = maxAniso));
+      });
       if (kind === "laptop" && !template) {
         setFailed(true);
         return;
@@ -525,7 +424,7 @@ export function Showcase({
         canvas.width = SCREEN_PX.w;
         canvas.height = SCREEN_PX.h;
         const ctx = canvas.getContext("2d")!;
-        drawPost(ctx, it, images[i], { slide: 0, push: 0, heart: 0, story: 0 });
+        drawApp(ctx, images[i], APP_IDLE);
         const tex = new T3.CanvasTexture(canvas);
         tex.flipY = !gltfScreen;
         tex.colorSpace = T3.SRGBColorSpace;
@@ -612,8 +511,16 @@ export function Showcase({
       if (reduced) endIntro();
 
       // ---- controls
+      // the strip loops, so there are always devices ahead and behind
+      const N = items.length;
+      const mod = (v: number) => ((v % N) + N) % N;
+      const wrapDist = (v: number) => v - N * Math.round(v / N);
+      /** bring item i to the middle by the shortest way round */
       const go = (i: number) => {
-        targetIdx = Math.max(0, Math.min(items.length - 1, i));
+        targetIdx += wrapDist(mod(i) - mod(Math.round(targetIdx)));
+      };
+      const step = (n: number) => {
+        targetIdx = Math.round(targetIdx) + n;
       };
       api.current = {
         go,
@@ -637,7 +544,7 @@ export function Showcase({
         if (locked) return;
         wheel += amount;
         if (Math.abs(wheel) > 30) {
-          go(targetIdx + Math.sign(wheel));
+          step(Math.sign(wheel));
           wheel = 0;
           locked = true;
         }
@@ -645,8 +552,8 @@ export function Showcase({
       const onKey = (e: KeyboardEvent) => {
         if (e.key === "Escape" && phase !== "done") endIntro();
         if (phase !== "done") return;
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") go(targetIdx + 1);
-        if (e.key === "ArrowLeft" || e.key === "ArrowUp") go(targetIdx - 1);
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") step(1);
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") step(-1);
       };
       let dragX: number | null = null, dragStart = 0, dragged = false;
       const onDown = (e: PointerEvent) => {
@@ -660,7 +567,7 @@ export function Showcase({
         const dx = e.clientX - dragX;
         if (Math.abs(dx) > 8) dragged = true;
         const per = mobile ? window.innerWidth * 0.5 : 220;
-        go(Math.round(dragStart - dx / per));
+        targetIdx = Math.round(dragStart - dx / per);
       };
       const onUp = () => (dragX = null);
 
@@ -679,14 +586,11 @@ export function Showcase({
       };
       const onClick = () => {
         if (dragged || hovered < 0) return;
-        if (hovered !== Math.round(pos)) return go(hovered);
+        if (hovered !== mod(Math.round(pos))) return go(hovered);
         const it = items[hovered];
-        if (kind === "laptop") {
-          if (it.href) window.open(it.href, "_blank", "noopener");
-        } else {
-          setBoxIdx(0);
-          setBox(hovered);
-        }
+        if (!it.href) return;
+        if (kind === "laptop") window.open(it.href, "_blank", "noopener");
+        else window.location.href = it.href; // app case study
       };
       const el = renderer.domElement;
       el.addEventListener("wheel", onWheel, { passive: false });
@@ -713,7 +617,7 @@ export function Showcase({
       let raf = 0, last = performance.now(), running = true;
       const v3 = new T3.Vector3();
       const v3b = new T3.Vector3();
-      let midState = { slide: 0, push: 0, heart: 0, story: 0 };
+      let midState: AppState = { ...APP_IDLE };
       let midClock = 0, midIndex = -1, scrollClock = 0;
       const midScreenOffsets = screens.map(() => 0);
 
@@ -723,15 +627,17 @@ export function Showcase({
         d.root.position.copy(STEP).multiplyScalar(dist + flyIn * 0.6);
         d.root.position.y += reduced ? 0 : Math.sin(now / 1000 + d.bob) * 0.06;
         const behind = Math.max(0, -dist - 1);
-        const sc = Math.max(0.0001, 1 - clamp01(behind / 1.5));
+        // fade out at the far end of the loop so nothing pops at the seam
+        const farEnd = clamp01((N / 2 - 0.4 - dist) / 0.8);
+        const sc = Math.max(0.0001, (1 - clamp01(behind / 1.5)) * farEnd);
         d.root.scale.setScalar(sc);
-        d.root.visible = sc > 0.01 && dist < 7;
+        d.root.visible = sc > 0.01;
         // turn toward the viewer as it reaches the middle
         q.copy(tilted).slerp(facing, inOut(1 - Math.min(1, Math.abs(dist))));
         if (kind === "phone") {
           // phones two steps ahead show their backs and turn round as they arrive
           const back = clamp01(dist - 1);
-          const flipNow = i === Math.round(pos) ? flipVal : 0;
+          const flipNow = i === mod(Math.round(pos)) ? flipVal : 0;
           const turn = Math.max(back, flipNow);
           if (turn > 0) {
             tmpQ.copy(q).multiply(turned);
@@ -746,7 +652,7 @@ export function Showcase({
         if (d.setLid) {
           const a = Math.abs(dist);
           let open = a < 1 ? lerp(110, 60, a) : a < 2 ? lerp(60, 15, a - 1) : 15;
-          if (i === Math.round(pos)) open = lerp(2, open, lidToggleVal);
+          if (i === mod(Math.round(pos))) open = lerp(2, open, lidToggleVal);
           d.setLid(open);
         }
       };
@@ -760,7 +666,7 @@ export function Showcase({
         pos += (targetIdx - pos) * (1 - Math.exp(-dt * 7));
         lidToggleVal += (lidToggle - lidToggleVal) * (1 - Math.exp(-dt * 5));
         flipVal += (flip - flipVal) * (1 - Math.exp(-dt * 5));
-        const mid = Math.round(pos);
+        const mid = mod(Math.round(pos));
         if (mid !== lastReported) {
           lastReported = mid;
           setCurrent(mid);
@@ -824,7 +730,7 @@ export function Showcase({
         devices.forEach((d, i) => {
           d.root.visible = phase !== "intro";
           if (phase === "intro") return;
-          placeDevice(d, i - pos, i, now);
+          placeDevice(d, wrapDist(i - pos), i, now);
         });
 
         // ---- the middle device's screen
@@ -834,14 +740,14 @@ export function Showcase({
             if (midIndex >= 0) {
               if (kind === "laptop") screens[midIndex].tex.offset.y = midScreenOffsets[midIndex];
               else {
-                drawPost(screens[midIndex].ctx!, items[midIndex], images[midIndex], { slide: 0, push: 0, heart: 0, story: 0 });
+                drawApp(screens[midIndex].ctx!, images[midIndex], APP_IDLE);
                 screens[midIndex].tex.needsUpdate = true;
               }
             }
             midIndex = mid;
             midClock = 0;
             scrollClock = 0;
-            midState = { slide: 0, push: 0, heart: 0, story: 0 };
+            midState = { ...APP_IDLE };
           }
           if (!reduced) {
             midClock += dt;
@@ -862,21 +768,19 @@ export function Showcase({
               else k = 1 - inOut((scrollClock - 2.4 - dur) / dur);
               s.tex.offset.y = travel * k;
             } else {
-              const it = items[mid];
               const imgs = images[mid];
-              if (it.format === "9:16") {
-                midState.story = clamp01(midClock / 5);
-                if (midClock > 5) { midClock = 0; midState.slide++; midState.story = 0; }
-              } else if (imgs.length > 1) {
-                const t = midClock % 2.5;
-                midState.push = t > 2.05 ? easeOut(clamp01((t - 2.05) / 0.45)) : 0;
-                if (midClock >= 2.5) { midClock -= 2.5; midState.slide++; midState.push = 0; }
-              } else {
-                midState.push = Math.min(1, midClock / 6);
-                midState.heart = clamp01((midClock - 1.4) / 1.1);
-                if (midClock > 7) midClock = 0;
+              // each screen: scroll it, tap, then push to the next screen (4s per screen)
+              const per = 4;
+              const t = midClock % per;
+              midState.scroll = inOut(clamp01((t - 0.6) / 2.2));
+              midState.tap = clamp01((t - 2.9) / 0.5);
+              midState.push = imgs.length > 1 ? easeOut(clamp01((t - 3.4) / 0.5)) : 0;
+              if (midClock >= per) {
+                midClock -= per;
+                if (imgs.length > 1) midState.slide++;
+                midState.push = 0;
               }
-              drawPost(screens[mid].ctx!, it, imgs, midState);
+              drawApp(screens[mid].ctx!, imgs, midState);
               screens[mid].tex.needsUpdate = true;
             }
           }
@@ -965,7 +869,7 @@ export function Showcase({
         <path ref={loopRef} pathLength={1} />
       </svg>
 
-      <p className={styles.crumbs}>Codifykit <span>/</span> Work <span>/</span> {kind === "laptop" ? "Websites" : "Posters"}</p>
+      <p className={styles.crumbs}>Codifykit <span>/</span> Work <span>/</span> {section}</p>
 
       {/* credits, top-left */}
       <div className={styles.credits}>
@@ -989,9 +893,9 @@ export function Showcase({
 
       <div className={styles.topRight}>
         <div className={styles.pager}>
-          <button type="button" aria-label="Previous" onClick={() => api.current.go(current - 1)} disabled={current === 0}>‹</button>
+          <button type="button" aria-label="Previous" onClick={() => api.current.go(current - 1)}>‹</button>
           <span>{String(current + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</span>
-          <button type="button" aria-label="Next" onClick={() => api.current.go(current + 1)} disabled={current === items.length - 1}>›</button>
+          <button type="button" aria-label="Next" onClick={() => api.current.go(current + 1)}>›</button>
         </div>
         <button type="button" className={styles.turn} onClick={() => api.current.toggle()}>
           ↻ {kind === "laptop" ? "Open / close" : "Turn it around"}
@@ -1011,7 +915,7 @@ export function Showcase({
 
       <div className={styles.bottomRight}>
         {item?.href ? (
-          <a href={item.href} target="_blank" rel="noopener" className={styles.small}>{primaryLabel}</a>
+          <a href={item.href} {...(kind === "laptop" ? { target: "_blank", rel: "noopener" } : {})} className={styles.small}>{primaryLabel}</a>
         ) : (
           <span className={styles.small} data-off>{primaryLabel.replace(" ↗", "")}: coming soon</span>
         )}
@@ -1021,21 +925,13 @@ export function Showcase({
       {intro && !failed && (
         <div className={styles.introUi} aria-hidden={!intro}>
           <span className={styles.introLeft}>Codifykit</span>
-          <span className={styles.introRight}>{kind === "laptop" ? "Websites" : "Posters"}, {year}</span>
+          <span className={styles.introRight}>{section}, {year}</span>
           <span className={styles.introLoad}><small>Loading</small>{String(progress).padStart(3, "0")}</span>
           <button type="button" className={styles.skip} onClick={() => api.current.skip()}>Skip intro</button>
         </div>
       )}
       {failed && <p className={styles.loading}>3D view isn&apos;t available on this device. The full list is below.</p>}
 
-      {box !== null && (
-        <Lightbox
-          items={items[box].images.map((src, k) => ({ src, alt: `Poster ${k + 1}`, caption: <T>{items[box].title}</T> }))}
-          index={boxIdx}
-          onIndex={setBoxIdx}
-          onClose={() => setBox(null)}
-        />
-      )}
     </div>
   );
 }

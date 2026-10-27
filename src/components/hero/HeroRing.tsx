@@ -241,7 +241,7 @@ export function HeroRing({
       // loader: outside the ring, ring tilted and spinning
       const OUT = { z: radius * (mobile ? 7.5 : 5.6), y: 0, fov: 30, tiltX: 1.05, tiltZ: -0.3, scale: 1 };
       // live: camera at the centre, looking at the far wall
-      const IN = { z: 0, y: 0.05, fov: mobile ? 88 : 64, tiltX: 0, tiltZ: 0, scale: 1 };
+      const IN = { z: 0, y: 0.05, fov: mobile ? 74 : 48, tiltX: 0, tiltZ: 0, scale: 1 };
       const state = { ...(runIntro ? OUT : IN), sky: runIntro ? 0 : 1, clouds: runIntro ? 0 : 1, inset: runIntro ? 0 : 1 };
       let spin = 0, spinTarget = 0, velocity = 0, autoSpeed = runIntro ? 0.9 : 0.06;
       let dragging = false;
@@ -388,7 +388,7 @@ export function HeroRing({
         camera.fov = state.fov;
         camera.updateProjectionMatrix();
         if (state.z > 0.01) camera.lookAt(0, 0, 0);
-        else camera.rotation.set(0.02, 0, 0);
+        else camera.rotation.set(-0.06, 0, 0); // look slightly down so the cards sit high in the frame, rising out of the clouds
 
         // play the video of cards near the middle of the view
         if (finished) {

@@ -71,7 +71,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | Homepage sections | `src/components/sections/` |
 | Hero ring (loader ring → fly-in → inside the ring), Three.js + GSAP | `src/components/hero/HeroRing.tsx` |
 | Apps: tilted phones intro + pinned parallax columns with the hand-held phone (GSAP ScrollTrigger) | `src/components/sections/AppShowcase.tsx` |
-| 3D laptops / phones (`/work/web`, `/work/posters`) | `src/components/three/Showcase.tsx` |
+| 3D laptops / phones (`/work/web`, `/work/apps`) | `src/components/three/Showcase.tsx` |
 | 3D models + credits | `public/models/` (`manifest.json`, `CREDITS.md`) |
 | Kitto mascot (SVG version) | `src/components/kitto/Kitto.tsx`, `public/kitto/` |
 | Kitto chat UI | `src/components/chat/KittoChat.tsx` |
@@ -80,7 +80,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 
 ## 3D models
 
-`/work/web` and `/work/posters` use real models from Sketchfab: an Apple MacBook Pro and an Apple iPhone 18 Pro Max. Credits, licences and how they were prepared are in `public/models/CREDITS.md`, and `public/models/manifest.json` says which file each page loads.
+`/work/web` (websites on laptops) and `/work/apps` (app screens on phones) use real models from Sketchfab: an Apple MacBook Pro and an Apple iPhone 18 Pro Max. Credits, licences and how they were prepared are in `public/models/CREDITS.md`, and `public/models/manifest.json` says which file each page loads.
 
 To swap a model:
 

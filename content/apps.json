@@ -1,5 +1,5 @@
 {
-  "_note": "Real app projects only. Every [PLACEHOLDER] is shown on the site with a dashed 'placeholder' style until you replace it. heroScreens = 3 tall screens for the hand-held phone; the first 9 apps fill the homepage grid.",
+  "_note": "Real app projects only. Every [PLACEHOLDER] is shown with a dashed outline until replaced. screens: 1-3 app screens (9:19.5, tall ones scroll) shown on the 3D phone and the case study; the first one is used in the homepage grid. heroScreens = 3 tall screens for the hand-held phone.",
   "heroScreens": [
     "/work/apps/placeholder-tall-1.svg",
     "/work/apps/placeholder-tall-2.svg",
@@ -20,7 +20,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-1.svg"
+        "/work/apps/placeholder-app-1.svg",
+        "/work/apps/placeholder-app-5.svg",
+        "/work/apps/placeholder-app-9.svg"
       ],
       "preview": null
     },
@@ -38,7 +40,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-2.svg"
+        "/work/apps/placeholder-app-2.svg",
+        "/work/apps/placeholder-app-6.svg",
+        "/work/apps/placeholder-app-10.svg"
       ],
       "preview": null
     },
@@ -56,7 +60,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-3.svg"
+        "/work/apps/placeholder-app-3.svg",
+        "/work/apps/placeholder-app-7.svg",
+        "/work/apps/placeholder-app-11.svg"
       ],
       "preview": null
     },
@@ -74,7 +80,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-4.svg"
+        "/work/apps/placeholder-app-4.svg",
+        "/work/apps/placeholder-app-8.svg",
+        "/work/apps/placeholder-app-12.svg"
       ],
       "preview": null
     },
@@ -92,7 +100,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-5.svg"
+        "/work/apps/placeholder-app-5.svg",
+        "/work/apps/placeholder-app-9.svg",
+        "/work/apps/placeholder-app-1.svg"
       ],
       "preview": null
     },
@@ -110,7 +120,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-6.svg"
+        "/work/apps/placeholder-app-6.svg",
+        "/work/apps/placeholder-app-10.svg",
+        "/work/apps/placeholder-app-2.svg"
       ],
       "preview": null
     },
@@ -128,7 +140,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-7.svg"
+        "/work/apps/placeholder-app-7.svg",
+        "/work/apps/placeholder-app-11.svg",
+        "/work/apps/placeholder-app-3.svg"
       ],
       "preview": null
     },
@@ -146,7 +160,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-8.svg"
+        "/work/apps/placeholder-app-8.svg",
+        "/work/apps/placeholder-app-12.svg",
+        "/work/apps/placeholder-app-4.svg"
       ],
       "preview": null
     },
@@ -164,7 +180,9 @@
       "year": "[PLACEHOLDER]",
       "oneLine": "[PLACEHOLDER One line on what the app does]",
       "screens": [
-        "/work/apps/placeholder-app-9.svg"
+        "/work/apps/placeholder-app-9.svg",
+        "/work/apps/placeholder-app-1.svg",
+        "/work/apps/placeholder-app-5.svg"
       ],
       "preview": null
     }

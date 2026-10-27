@@ -7,7 +7,7 @@
 
 How they were prepared:
 
-- **laptop.glb**: the Sketchfab file is a single mesh. `scripts/split-macbook.mjs` splits it into a base, a lid on a hinge node (`screenflip`) and a separate `screen` plane that shows the website screenshots. It was then compressed with glTF-Transform (meshopt geometry, WebP textures at 1024px, `--prune-attributes false` so the screen keeps its UVs).
-- **phone.glb**: compressed the same way. Its screen material (`COLOUR_Black_Screen`) shows the poster posts.
+- **laptop.glb**: the Sketchfab file is a single mesh. `scripts/split-macbook.mjs` splits it into a base, a lid on a hinge node (`screenflip`) and a separate `screen` plane that shows the website screenshots. It was then compressed with glTF-Transform (meshopt geometry, WebP textures at 2048px from the 4096px source, `--prune-attributes false` so the screen keeps its UVs).
+- **phone.glb**: compressed the same way. Its screen material (`COLOUR_Black_Screen`) shows the app screens on `/work/apps`.
 
 Both models show Apple products, including the Apple logo.

@@ -50,7 +50,7 @@ export function Posters({ heading = true }: { heading?: boolean }) {
               <p className="label">Posters &amp; brand</p>
               <h2 className="h2">Posters that <Brace>stop</Brace> the scroll.</h2>
             </div>
-            <Link href="/work/posters/" className="btn btn--ghost">Enter the 3D poster showcase ↗</Link>
+            <Link href="/work/posters/" className="btn btn--ghost">See all posters ↗</Link>
           </div>
         )}
         <div className={styles.chips} role="group" aria-label="Filter posters">

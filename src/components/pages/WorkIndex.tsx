@@ -17,9 +17,9 @@ export function WorkIndex() {
           <span className={styles.entryLabel}>3D showcase</span>
           <span className={styles.entryTitle}>Websites in 3D ↗</span>
         </Link>
-        <Link href="/work/posters/" className={styles.entry}>
+        <Link href="/work/apps/" className={styles.entry}>
           <span className={styles.entryLabel}>3D showcase</span>
-          <span className={styles.entryTitle}>Posters in 3D ↗</span>
+          <span className={styles.entryTitle}>Apps in 3D ↗</span>
         </Link>
       </div>
       <div className={styles.chips} role="group" aria-label="Filter work">

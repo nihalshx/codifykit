@@ -1,40 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { KittoCta } from "@/components/ui/KittoCta";
+import { AppsShowcase } from "./AppsShowcase";
 import { T } from "@/components/ui/T";
 import { APPS } from "@/lib/content";
-import styles from "./apps.module.css";
 
 export const metadata: Metadata = {
-  title: "App work",
-  description: "Android and iOS apps by Codifykit, designed to be used, not just looked at.",
+  title: "Apps we built",
+  description: "Android and iOS apps by Codifykit, shown on real phones in 3D. Designed to be used, not just looked at.",
 };
 
 export default function AppsPage() {
   return (
-    <div className={styles.page}>
-      <section className="container page-hero">
-        <p className={`label ${styles.label}`}>Apps</p>
-        <h1 className="h-display">Apps people actually use.</h1>
-        <p className={styles.lead}>Android and iOS apps, designed to be used, not just looked at. We mainly build in Flutter (one codebase for both), and work in other stacks when a project needs it.</p>
-      </section>
-      <section className="container">
-        <ul className={styles.grid}>
-          {APPS.map((a, i) => (
+    <>
+      <AppsShowcase />
+      {/* plain list for screen readers, search engines and no-WebGL browsers */}
+      <section className="container section" aria-labelledby="apps-list">
+        <h2 id="apps-list" className="h2">All app projects</h2>
+        <ul style={{ marginTop: 24, display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 20, listStyle: "none", padding: 0 }}>
+          {APPS.map((a) => (
             <li key={a.slug}>
-              <Link href={`/work/${a.slug}/`} className={styles.card}>
-                <span className={styles.screen}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={a.screens[0]} alt="" loading={i < 5 ? "eager" : "lazy"} />
-                </span>
-                <span className={styles.title}><T>{a.title}</T></span>
-                <span className={styles.meta}>{a.platforms.join(" + ")} · {a.builtWith.join(", ")}</span>
+              <Link href={`/work/${a.slug}/`} style={{ textDecoration: "none" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={a.screens[0]} alt="" loading="lazy" style={{ borderRadius: 22, width: "100%", aspectRatio: "9 / 19.5", objectFit: "cover", objectPosition: "top" }} />
+                <span style={{ display: "block", marginTop: 8 }}><T>{a.title}</T></span>
+                <span className="muted" style={{ fontSize: 13 }}>{a.platforms.join(" + ")}</span>
               </Link>
             </li>
           ))}
         </ul>
       </section>
-      <div className={styles.cta}><KittoCta title="Got an app idea?" /></div>
-    </div>
+    </>
   );
 }

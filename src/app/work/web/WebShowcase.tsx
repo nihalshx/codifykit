@@ -21,5 +21,5 @@ const ITEMS: ShowcaseItem[] = WEB_PROJECTS.map((p) => ({
 }));
 
 export function WebShowcase() {
-  return <Showcase kind="laptop" items={ITEMS} title="Websites we built" primaryLabel="Visit live site ↗" />;
+  return <Showcase kind="laptop" items={ITEMS} title="Websites we built" section="Websites" primaryLabel="Visit live site ↗" />;
 }
