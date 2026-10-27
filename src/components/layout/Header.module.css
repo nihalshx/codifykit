@@ -59,13 +59,3 @@
   .right { margin-left: auto; }
 }
 
-/* dark pages (3D showcases) */
-:global(html[data-dark]) .header { background: transparent; backdrop-filter: none; color: #fff; }
-:global(html[data-dark]) .logo { color: #fff; }
-:global(html[data-dark]) .nav a { color: rgba(255,255,255,.85); }
-:global(html[data-dark]) .nav a:hover, :global(html[data-dark]) .nav a[aria-current="page"] { border-color: #fff; }
-:global(html[data-dark]) .switch { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); }
-:global(html[data-dark]) .switch button { color: rgba(255,255,255,.7); }
-:global(html[data-dark]) .switch button[aria-pressed="true"] { background: #fff; color: var(--ck-navy); }
-:global(html[data-dark]) .menuBtn { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.3); }
-:global(html[data-dark]) .menuBtn span[aria-hidden], :global(html[data-dark]) .menuBtn span[aria-hidden]::before { background: #fff; }

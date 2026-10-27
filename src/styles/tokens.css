@@ -23,13 +23,10 @@
   --kitto-blob: #DDD7F2;
   --kitto-fx: #B9AEE6;
 
-  /* Graphite paper: charcoal with a fine paper grain (used behind the hero and the 3D pages) */
-  --ck-graphite: #1E1E21;
-  --ck-graphite-light: #2E2E33;
-  --ck-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  --ck-graphite-paper:
-    var(--ck-grain),
-    radial-gradient(70% 60% at 50% 45%, #34343A 0%, #26262A 45%, #1A1A1D 100%);
+  /* Crumpled graph paper (public/images/graph-paper.webp, made by scripts/make-graph-paper.py),
+     used behind the hero ring and the 3D showcases */
+  --ck-graph-paper: #F7F8FA url("/images/graph-paper.webp") center / cover no-repeat;
+  --ck-pen: #1A1680; /* hand-drawn marks on the paper */
 
   /* Gradients */
   --ck-gradient: linear-gradient(135deg, #04052B 0%, #1A1680 55%, #6A55C8 85%, #B9A8E8 100%);

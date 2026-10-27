@@ -68,6 +68,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 |---|---|
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
+| Crumpled graph-paper background (hero + 3D pages) | `public/images/graph-paper.webp`, made by `scripts/make-graph-paper.py` |
 | Homepage sections | `src/components/sections/` |
 | Hero ring (loader ring → fly-in → inside the ring), Three.js + GSAP | `src/components/hero/HeroRing.tsx` |
 | Apps: tilted phones intro + pinned parallax columns with the hand-held phone (GSAP ScrollTrigger) | `src/components/sections/AppShowcase.tsx` |

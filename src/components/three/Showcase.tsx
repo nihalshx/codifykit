@@ -315,7 +315,6 @@ export function Showcase({
   useEffect(() => {
     let disposed = false;
     let cleanup = () => {};
-    document.documentElement.dataset.dark = "1";
     (async () => {
       let T3: THREE;
       try {
@@ -850,7 +849,6 @@ export function Showcase({
     return () => {
       disposed = true;
       cleanup();
-      delete document.documentElement.dataset.dark;
     };
   }, [items, kind, title]);
 

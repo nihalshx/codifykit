@@ -1,51 +1,51 @@
 .wrap {
-  position: relative; height: 100svh; min-height: 600px; margin-top: -80px; overflow: hidden; color: #fff; user-select: none;
-  background: var(--ck-graphite-paper);
+  position: relative; height: 100svh; min-height: 600px; margin-top: -80px; overflow: hidden; color: var(--ck-ink); user-select: none;
+  background: var(--ck-graph-paper);
 }
 .backdrop {
   position: absolute; inset: 0; pointer-events: none;
-  /* soft spotlight behind the middle device */
-  background: radial-gradient(38% 42% at 54% 56%, rgba(255,255,255,.07), transparent 70%);
+  /* a little light on the paper behind the middle device */
+  background: radial-gradient(40% 44% at 54% 56%, rgba(255,255,255,.55), transparent 70%);
 }
 .canvas { position: absolute; inset: 0; touch-action: pan-y; }
 .canvas canvas { width: 100% !important; height: 100% !important; cursor: grab; }
 .loopSvg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 2; }
-.loopSvg path { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity .15s; }
+.loopSvg path { fill: none; stroke: var(--ck-pen); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity .15s; }
 
 .wrap > :is(.crumbs, .credits, .topRight, .big, .facts, .hint, .bottomRight) { z-index: 3; transition: opacity .6s ease; }
 .wrap[data-intro] > :is(.crumbs, .credits, .topRight, .big, .facts, .hint, .bottomRight) { opacity: 0; pointer-events: none; }
 
-.crumbs { position: absolute; left: 50%; top: 96px; translate: -50% 0; font-size: 12px; color: rgba(255,255,255,.75); white-space: nowrap; }
+.crumbs { position: absolute; left: 50%; top: 96px; translate: -50% 0; font-size: 12px; color: var(--ck-muted); white-space: nowrap; }
 .crumbs span { opacity: .4; margin: 0 6px; }
 
 .credits { position: absolute; left: 24px; top: 96px; width: min(300px, 30vw); }
 .count { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; opacity: .7; }
 .title {
   font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 2.6vw, 40px); line-height: .95;
-  letter-spacing: -.035em; text-transform: uppercase; margin: 8px 0 14px; color: #fff;
+  letter-spacing: -.035em; text-transform: uppercase; margin: 8px 0 14px; color: var(--ck-ink);
 }
-.table { margin: 0; border-top: 1px solid rgba(255,255,255,.55); font-size: 11.5px; }
-.table div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.14); }
+.table { margin: 0; border-top: 1px solid rgba(26,26,26,.7); font-size: 11.5px; }
+.table div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid rgba(26,26,26,.14); }
 .table dt { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; padding-top: 2px; }
 .table dd { margin: 0; text-align: right; }
 .list { list-style: none; padding: 0; margin: 16px 0 0; max-height: 32vh; overflow-y: auto; }
-.list button { background: none; border: 0; padding: 2px 0; color: rgba(255,255,255,.5); font-size: 11.5px; cursor: pointer; text-align: left; min-height: 24px; }
+.list button { background: none; border: 0; padding: 2px 0; color: rgba(26,26,26,.5); font-size: 11.5px; cursor: pointer; text-align: left; min-height: 24px; }
 .list button span { font-family: var(--font-mono); font-size: 10px; margin-right: 8px; }
-.list button[aria-current] { color: #fff; font-weight: 600; }
-.list button:hover { color: #fff; }
+.list button[aria-current] { color: var(--ck-ink); font-weight: 600; }
+.list button:hover { color: var(--ck-ink); }
 
 .topRight { position: absolute; right: 24px; top: 96px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .pager { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 11px; }
-.pager button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(255,255,255,.45); background: transparent; color: #fff; cursor: pointer; font-size: 15px; line-height: 1; }
+.pager button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(26,26,26,.45); background: rgba(255,255,255,.7); color: var(--ck-ink); cursor: pointer; font-size: 15px; line-height: 1; }
 .pager button:disabled { opacity: .3; cursor: default; }
-.turn { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25); color: #fff; border-radius: 999px; padding: 7px 12px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
-.turn:hover { background: rgba(255,255,255,.18); }
+.turn { background: rgba(255,255,255,.75); border: 1px solid rgba(26,26,26,.25); color: var(--ck-ink); border-radius: 999px; padding: 7px 12px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.turn:hover { background: #fff; }
 
 .big { position: absolute; left: 24px; bottom: 22px; display: flex; flex-direction: column; gap: 2px; }
 .bigLabel { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; }
 .bigNum { font-family: var(--font-display); font-weight: 500; font-size: clamp(48px, 6vw, 88px); line-height: .95; letter-spacing: -.05em; }
 .bigNum[data-ph] { font-size: 16px; letter-spacing: 0; margin: 6px 0; }
-.small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #fff; text-decoration: none; opacity: .85; }
+.small { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ck-ink); text-decoration: none; opacity: .85; }
 .small[data-off] { opacity: .45; }
 .facts { position: absolute; left: 50%; bottom: 44px; translate: -50% 0; display: flex; gap: clamp(20px, 4vw, 64px); list-style: none; margin: 0; padding: 0; text-align: center; font-family: var(--font-display); font-size: 15px; line-height: 1.05; text-transform: uppercase; letter-spacing: -.01em; }
 .hint { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .5; white-space: nowrap; }
@@ -54,11 +54,11 @@
 /* intro */
 .overlay { position: absolute; inset: 0; background-size: cover; background-position: center; pointer-events: none; opacity: 0; z-index: 4; }
 .introUi { position: absolute; inset: 0; z-index: 5; pointer-events: none; font-size: 14px; }
-.introLeft, .introRight { position: absolute; top: 50%; translate: 0 -50%; color: rgba(255,255,255,.85); }
+.introLeft, .introRight { position: absolute; top: 50%; translate: 0 -50%; color: var(--ck-ink); }
 .introLeft { left: 24px; } .introRight { right: 24px; }
 .introLoad { position: absolute; left: 50%; bottom: 64px; translate: -50% 0; display: flex; flex-direction: column; align-items: center; font-family: var(--font-display); font-size: 30px; letter-spacing: -.03em; }
 .introLoad small { font-family: var(--font-mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; opacity: .55; }
-.skip { position: absolute; right: 24px; bottom: 22px; pointer-events: auto; background: transparent; border: 0; color: #fff; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; opacity: .8; }
+.skip { position: absolute; right: 24px; bottom: 22px; pointer-events: auto; background: transparent; border: 0; color: var(--ck-ink); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; opacity: .8; }
 .loading { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; opacity: .8; text-align: center; z-index: 5; }
 
 @media (max-width: 900px) {

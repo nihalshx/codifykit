@@ -3,9 +3,10 @@
  * Homepage hero, rebuilt from the reference recording:
  *  1. Loader: plain page, big wordmark top-left, rolling % counter bottom-right. Cards are added to a
  *     tilted ring one by one as their covers load; the ring spins.
- *  2. Enter: at 100% the sky fades in, the ring levels out and the camera flies into its centre.
+ *  2. Enter: at 100% the graph paper fades in, the ring levels out and the camera flies into its centre.
  *  3. Settle: the full-screen scene shrinks into the rounded hero frame; header + audience line come in.
  *  4. Live: you stand inside the ring; it turns slowly; drag / swipe / horizontal wheel turn it, flicks glide.
+ *  Backdrop: crumpled graph paper (public/images/graph-paper.webp).
  * Three.js renders the ring, GSAP runs the timeline.
  */
 import { useEffect, useRef, useState } from "react";
@@ -105,7 +106,6 @@ export function HeroRing({
   const frameRef = useRef<HTMLDivElement>(null);
   const mountRef = useRef<HTMLDivElement>(null);
   const skyRef = useRef<HTMLDivElement>(null);
-  const cloudRef = useRef<HTMLDivElement>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const digitsRef = useRef<HTMLSpanElement>(null);
   const skipRef = useRef<HTMLButtonElement>(null);
@@ -242,7 +242,7 @@ export function HeroRing({
       const OUT = { z: radius * (mobile ? 7.5 : 5.6), y: 0, fov: 30, tiltX: 1.05, tiltZ: -0.3, scale: 1 };
       // live: camera at the centre, looking at the far wall
       const IN = { z: 0, y: 0.05, fov: mobile ? 74 : 48, tiltX: 0, tiltZ: 0, scale: 1 };
-      const state = { ...(runIntro ? OUT : IN), sky: runIntro ? 0 : 1, clouds: runIntro ? 0 : 1, inset: runIntro ? 0 : 1 };
+      const state = { ...(runIntro ? OUT : IN), sky: runIntro ? 0 : 1, inset: runIntro ? 0 : 1 };
       let spin = 0, spinTarget = 0, velocity = 0, autoSpeed = runIntro ? 0.9 : 0.06;
       let dragging = false;
 
@@ -256,13 +256,6 @@ export function HeroRing({
         // the canvas follows the visible frame so the ring stays centred in it
         mount.style.inset = `${topPx}px ${sidePx}px ${bottom}% ${sidePx}px`;
         if (skyRef.current) skyRef.current.style.opacity = String(state.sky);
-        if (cloudRef.current) {
-          const visibleH = box ? frame.clientHeight : window.innerHeight * (1 - bottom / 100) - topPx;
-          cloudRef.current.style.opacity = String(state.clouds);
-          cloudRef.current.style.transform = `translateY(${(1 - state.clouds) * 60}%)`;
-          cloudRef.current.style.bottom = `${bottom}%`;
-          cloudRef.current.style.height = `${Math.max(120, visibleH * 0.3)}px`;
-        }
       };
       applyFrame();
 
@@ -271,7 +264,7 @@ export function HeroRing({
       function finish() {
         if (finished) return;
         finished = true;
-        Object.assign(state, IN, { sky: 1, clouds: 1, inset: 1 });
+        Object.assign(state, IN, { sky: 1, inset: 1 });
         items.forEach((it) => it.group.scale.setScalar(1));
         autoSpeed = 0.06;
         applyFrame();
@@ -388,7 +381,7 @@ export function HeroRing({
         camera.fov = state.fov;
         camera.updateProjectionMatrix();
         if (state.z > 0.01) camera.lookAt(0, 0, 0);
-        else camera.rotation.set(-0.06, 0, 0); // look slightly down so the cards sit high in the frame, rising out of the clouds
+        else camera.rotation.set(-0.02, 0, 0);
 
         // play the video of cards near the middle of the view
         if (finished) {
@@ -428,7 +421,6 @@ export function HeroRing({
           // level the ring and fly into it
           .to(state, { tiltX: 0, tiltZ: 0, duration: 1.6, ease: "power3.inOut" }, 0.1)
           .to(state, { z: 0, y: IN.y, fov: IN.fov, duration: 2.0, ease: "power3.inOut" }, 0.35)
-          .to(state, { clouds: 1, duration: 1.2, ease: "power2.out" }, 1.1)
           // shrink the scene into the hero frame; header + headline follow
           .to(state, { inset: 1, duration: 1.1, ease: "power3.inOut", onUpdate: applyFrame }, 2.15)
           .call(() => {
@@ -481,20 +473,8 @@ export function HeroRing({
   return (
     <div ref={rootRef} className={styles.root} data-phase={phase} data-intro={intro || undefined}>
       <div ref={frameRef} className={styles.frame}>
-        <div ref={skyRef} className={styles.sky} aria-hidden="true">
-          <span className={styles.sun} />
-          <span className={styles.stars} />
-        </div>
+        <div ref={skyRef} className={styles.sky} aria-hidden="true" />
         <div ref={mountRef} className={styles.canvas} />
-        <div ref={cloudRef} className={styles.clouds} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero-clouds.webp" alt="" draggable={false} />
-        </div>
-        <div className={styles.petals} aria-hidden="true">
-          {Array.from({ length: 18 }, (_, i) => (
-            <i key={i} style={{ "--x": `${(i * 53) % 100}%`, "--d": `${(i * 0.73) % 9}s`, "--t": `${9 + (i % 5) * 2}s`, "--s": `${0.6 + ((i * 7) % 5) / 6}` } as React.CSSProperties} />
-          ))}
-        </div>
         {hoverLabel && phase === "live" && <span className={styles.hoverTag}>{hoverLabel}</span>}
       </div>
 
