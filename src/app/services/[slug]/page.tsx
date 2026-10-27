@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Process } from "@/components/sections/Process";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { WorkCard } from "@/components/pages/WorkCard";
 import { T } from "@/components/ui/T";
-import { CASE_STUDIES, PLATFORM_TECH, SERVICES, TOOLS, serviceBySlug } from "@/lib/content";
+import { CASE_STUDIES, PLATFORM_TECH, SERVICES, TOOLS, real, serviceBySlug } from "@/lib/content";
 import styles from "../services.module.css";
 import s2 from "./service.module.css";
 
@@ -41,7 +40,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const s = serviceBySlug((await params).slug);
   if (!s) notFound();
   const related = CASE_STUDIES.filter((c) => RELATED[s.slug].includes(c.kind)).slice(0, 6);
-  const tools = TOOLS.filter((g) => TOOL_GROUPS[s.slug].includes(g.name));
+  const tools = TOOLS.filter((g) => TOOL_GROUPS[s.slug].includes(g.name))
+    .map((g) => ({ ...g, items: real(g.items) }))
+    .filter((g) => g.items.length);
+  const platforms = PLATFORM_TECH.map((p) => ({ ...p, items: real(p.items) }));
   const others = SERVICES.filter((o) => o.slug !== s.slug);
 
   return (
@@ -85,7 +87,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             We mainly build apps in Flutter, so one codebase runs on both Android and iOS. If your project needs another stack, we can work in that too.
           </p>
           <div className={s2.platforms}>
-            {PLATFORM_TECH.map((p) => (
+            {platforms.map((p) => (
               <div key={p.name} className={s2.platform}>
                 <h3 className="h3">{p.name}</h3>
                 <ul>{p.items.map((i) => <li key={i}><T>{i}</T></li>)}</ul>
@@ -110,6 +112,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
+      {tools.length > 0 && (
       <section className="container section">
         <p className="label">Tools &amp; technologies</p>
         <h2 className="h2">What we use for this.</h2>
@@ -123,8 +126,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           ))}
         </div>
       </section>
+      )}
 
-      <Process />
 
       <section className="container section">
         <p className="label">Other services</p>

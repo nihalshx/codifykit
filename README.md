@@ -69,7 +69,7 @@ By default Kitto allows 20 messages per visitor every 10 minutes, counted per Cl
 | All text content (services, projects, posters, apps, wheel cards) | `content/*.json` |
 | Brand colours, type, spacing, motion | `src/styles/tokens.css` |
 | Crumpled graph-paper background (hero only; the 3D and service pages use the clean `--ck-studio` grey) | `public/images/graph-paper.webp`, made by `scripts/make-graph-paper.py` |
-| Homepage sections (kept short: hero, marquee, what we do, posters, process, students, Kitto) | `src/components/sections/` |
+| Homepage sections: hero, marquee, what we do, apps (scroll showcase), websites (browser you can scroll), posters (deck you flip through), process, students, Kitto | `src/components/sections/` (`AppShowcase`, `WebBrowser`, `PosterDeck`) |
 | Web and app service pages (`/services/web`, `/services/apps`): one template, text in `content/service-pages.json` | `src/components/landing/ServiceLanding.tsx` |
 | "Start a project" form (`/contact`): opens WhatsApp or email with the message filled in, nothing stored | `src/app/contact/` |
 | Hero: loader + reel cylinder in one CSS 3D scene (Motion). Pose maths + unit tests: `npm test` | `src/components/hero/HeroReels.tsx`, `src/components/hero/reelPose.ts` (+ `.test.ts`) |
@@ -99,7 +99,7 @@ Anything in `content/*.json` that starts with `[PLACEHOLDER` or `[FILL IN` shows
 To add real work:
 
 1. Put files in `public/work/web/`, `public/work/apps/`, `public/work/posters/` and `public/work/reels/` (sizes are in `docs/07-assets.md` of the handoff pack).
-2. Update the matching JSON file: titles, clients, years and image paths. Use `null` for anything you can't share; the site hides it.
+2. Update the matching JSON file: titles, clients, years and image paths. Use `null` for anything you can't share; the site hides it. Case studies can also take `"problem"` and `"result"` (one or two sentences each); they show on the case study page only when filled in.
 3. Reels in the hero wheel: set `video` on a card in `content/wheel-cards.json` to a muted 9:16 MP4. Cards near the top play it automatically.
 4. Team photo: add `public/images/team-pill.webp` and swap the placeholder in `src/components/sections/Story.tsx` and `src/app/about/page.tsx`.
 5. Delete the placeholder files you no longer use.

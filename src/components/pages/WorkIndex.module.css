@@ -7,4 +7,6 @@
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 48px 0 32px; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
 @media (max-width: 900px) { .grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .grid, .entries { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .entries { gap: 12px; } .entry { min-height: 130px; padding: 18px; border-radius: 20px; } .entryTitle { font-size: 21px; } .entryLabel { font-size: 10px; } .grid { grid-template-columns: 1fr 1fr; gap: 20px 12px; } }
+.count { font-family: var(--font-mono); font-size: 11px; opacity: .6; margin-left: 6px; }
+@media (min-width: 901px) { .entries { grid-template-columns: repeat(4, 1fr); } }

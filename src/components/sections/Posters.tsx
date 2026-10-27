@@ -42,7 +42,7 @@ export function Posters({ heading = true }: { heading?: boolean }) {
   }, [shown]);
 
   return (
-    <section id="posters" className={`section ${styles.section}`}>
+    <section id={heading ? "posters" : "all-posters"} className={`section ${styles.section}`}>
       <div className="container">
         {heading && (
           <div className={styles.head}>

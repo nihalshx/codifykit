@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Process } from "@/components/sections/Process";
 import { KittoCta } from "@/components/ui/KittoCta";
 import { Icon } from "@/components/ui/Logo";
-import { SERVICES, SITE } from "@/lib/content";
+import { SERVICES } from "@/lib/content";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -69,8 +68,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Process />
-      <KittoCta title={SITE.tagline} line="Tell us what you're working on. We'll sit with it, then tell you honestly how we'd build it." />
+      <KittoCta title="Want to work with us?" line="Tell us what you're working on. We'll sit with it, then tell you honestly how we'd build it." />
     </>
   );
 }

@@ -59,21 +59,25 @@ export type CaseStudy = {
   images: string[];
   liveUrl?: string | null;
   facts: string[];
+  /** optional in the content files: what the client needed, and the (real, approved) result */
+  problem?: string;
+  result?: string;
 };
+const story = (x: object) => x as { problem?: string; result?: string };
 
 export const CASE_STUDIES: CaseStudy[] = [
   ...APPS.map((a) => ({
     slug: a.slug, kind: "Apps" as const, title: a.title, client: a.client,
     type: `${a.platforms.join(" and ")} app`, year: a.year, builtWith: a.builtWith,
-    oneLine: a.oneLine, images: a.screens, facts: [],
+    oneLine: a.oneLine, images: a.screens, facts: [], ...story(a),
   })),
   ...WEB_PROJECTS.map((w) => ({
     slug: w.slug, kind: "Websites" as const, title: w.title, client: w.client, type: w.type,
     year: w.year, builtWith: w.builtWith, oneLine: w.oneLine, images: [w.screenshot],
-    liveUrl: w.liveUrl, facts: w.facts,
+    liveUrl: w.liveUrl, facts: w.facts, ...story(w),
   })),
   ...CAMPAIGNS.map((c) => ({
     slug: c.slug, kind: "Posters" as const, title: c.title, client: c.client, type: c.type,
-    year: c.date, builtWith: [], oneLine: c.caption, images: c.posters, facts: c.facts,
+    year: c.date, builtWith: [], oneLine: c.caption, images: c.posters, facts: c.facts, ...story(c),
   })),
 ];

@@ -6,9 +6,9 @@ import styles from "./WhatWeDo.module.css";
 
 // the four things people come for, each with its own page
 const MAIN = [
-  { title: "Websites", line: "Business sites, landing pages and portfolios that bring enquiries in.", href: "/services/web/", img: WEB_PROJECTS[0]?.screenshot },
-  { title: "Android & iOS apps", line: "Apps designed to be used, built properly and looked after.", href: "/services/apps/", img: APPS[0]?.screens[0] },
-  { title: "Branding & posters", line: "Logos, posters and campaign creative that look like you.", href: "/services/branding-creative/", img: "/work/posters/placeholder-poster-1.svg" },
+  { title: "Websites", line: "Business sites, landing pages and portfolios that bring enquiries in.", href: "#web", img: WEB_PROJECTS[0]?.screenshot },
+  { title: "Android & iOS apps", line: "Apps designed to be used, built properly and looked after.", href: "#apps", img: APPS[0]?.screens[0] },
+  { title: "Branding & posters", line: "Logos, posters and campaign creative that look like you.", href: "#posters", img: "/work/posters/placeholder-poster-1.svg" },
   { title: "Video", line: "Realistic AI videos, reels and edits for social media and ads.", href: "/services/video-production/", img: "/work/reels/placeholder-reel-2.svg" },
 ];
 const MORE = SERVICES.filter((s) => ["crm-erp", "social-media-content", "digital-marketing-ads", "strategy"].includes(s.slug));
@@ -22,7 +22,7 @@ export function WhatWeDo() {
           <p className="label">What we do</p>
           <h2 id="wwd-title" className="h2">One team, the <Brace>whole</Brace> job.</h2>
         </div>
-        <p className="lead">Your website, app, ads and content, planned together so they work together. Pick where you want to start.</p>
+        <p className="lead">Your website, app, ads and content, planned together so they work together. Tap one to see the work.</p>
       </div>
       <div className={`container ${styles.grid}`}>
         {MAIN.map((m, i) => (

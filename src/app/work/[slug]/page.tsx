@@ -24,6 +24,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   if (i < 0) notFound();
   const c = CASE_STUDIES[i];
   const next = CASE_STUDIES[(i + 1) % CASE_STUDIES.length];
+  const prev = CASE_STUDIES[(i - 1 + CASE_STUDIES.length) % CASE_STUDIES.length];
+  const need = c.kind === "Apps" ? "Android / iOS app" : c.kind === "Websites" ? "Website" : "Branding & posters";
+  const story = [
+    ["The problem", c.problem],
+    ["What we built", c.oneLine],
+    ["The result", c.result],
+  ].filter(([, v]) => v) as [string, string][];
   const rows: [string, string | undefined][] = [
     ["Client", c.client],
     ["Type", c.type],
@@ -34,7 +41,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <>
       <section className="container page-hero">
-        <p className="label"><Link href="/work/">Work</Link> / {c.kind}</p>
+        <nav aria-label="Breadcrumb" className={styles.crumbs}>
+          <Link href="/work/">← All work</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={`/work/?filter=${c.kind}`}>{c.kind}</Link>
+        </nav>
         <h1 className="h-display"><T>{c.title}</T></h1>
         <div className={styles.top}>
           <dl className={styles.table}>
@@ -42,23 +53,28 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <div key={k}><dt>{k}</dt><dd><T>{v}</T></dd></div>
             ))}
           </dl>
-          {c.liveUrl && <a href={c.liveUrl} target="_blank" rel="noopener" className="btn">Visit live site ↗</a>}
-        </div>
-      </section>
-
-      <section className="container section">
-        <div className={styles.story}>
-          <div><h2 className="h3">The problem</h2><p className="muted"><T>[PLACEHOLDER What the client needed]</T></p></div>
-          <div><h2 className="h3">What we built</h2><p className="muted"><T>{c.oneLine}</T></p></div>
-          <div>
-            <h2 className="h3">The result</h2>
-            <p className="muted"><T>[PLACEHOLDER Result, only real and approved numbers]</T></p>
-            {c.facts.length > 0 && (
-              <ul className={styles.facts}>{c.facts.map((f, k) => <li key={k}><T>{f}</T></li>)}</ul>
-            )}
+          <div className={styles.actions}>
+            {c.liveUrl && <a href={c.liveUrl} target="_blank" rel="noopener" className="btn btn--ghost">Visit live site ↗</a>}
+            <Link href={`/contact/?need=${encodeURIComponent(need)}`} className="btn btn--violet">Start a project like this</Link>
           </div>
         </div>
       </section>
+
+      {story.length > 0 && (
+        <section className="container section">
+          <div className={styles.story}>
+            {story.map(([h, v], k) => (
+              <div key={h}>
+                <h2 className="h3">{h}</h2>
+                <p className="muted"><T>{v}</T></p>
+                {k === story.length - 1 && c.facts.length > 0 && (
+                  <ul className={styles.facts}>{c.facts.map((f, j) => <li key={j}><T>{f}</T></li>)}</ul>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="container">
         <div className={styles.gallery} data-kind={c.kind}>
@@ -69,12 +85,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         </div>
       </section>
 
-      <section className="container section">
-        <Link href={`/work/${next.slug}/`} className={styles.next}>
+      <nav className={`container section ${styles.pager}`} aria-label="More projects">
+        <Link href={`/work/${prev.slug}/`} className={styles.next}>
+          <span className="label">Previous</span>
+          <span className={styles.nextTitle}>← <T>{prev.title}</T></span>
+        </Link>
+        <Link href={`/work/${next.slug}/`} className={styles.next} data-next>
           <span className="label">Next project</span>
           <span className={styles.nextTitle}><T>{next.title}</T> →</span>
         </Link>
-      </section>
+      </nav>
       <KittoCta title="Want something like this?" />
     </>
   );

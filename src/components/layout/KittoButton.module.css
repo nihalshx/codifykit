@@ -1,7 +1,9 @@
 .btn {
   position: fixed; right: 16px; bottom: 16px; z-index: 40;
   display: flex; align-items: center; gap: 8px; text-decoration: none;
+  transition: transform .35s var(--ease-out), opacity .35s;
 }
+.btn[data-away] { transform: translateY(120%); opacity: 0; pointer-events: none; }
 :global(html[data-intro="running"]) .btn { opacity: 0; pointer-events: none; }
 .cat {
   width: 64px; height: 64px; border-radius: 50%; background: var(--kitto-blob);
@@ -15,3 +17,7 @@
   opacity: 0; transform: translateX(8px); transition: opacity var(--dur-fast), transform var(--dur-fast) var(--ease-out);
 }
 .btn:hover .bubble, .btn:focus-visible .bubble { opacity: 1; transform: none; }
+@media (max-width: 767px) {
+  .btn { right: 12px; bottom: 12px; }
+  .cat { width: 52px; height: 52px; padding-top: 16px; }
+}

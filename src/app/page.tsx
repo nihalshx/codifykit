@@ -1,20 +1,24 @@
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { WhatWeDo } from "@/components/sections/WhatWeDo";
-import { Posters } from "@/components/sections/Posters";
+import { AppShowcase } from "@/components/sections/AppShowcase";
+import { WebBrowser } from "@/components/sections/WebBrowser";
+import { PosterDeck } from "@/components/sections/PosterDeck";
 import { Process } from "@/components/sections/Process";
 import { Students } from "@/components/sections/Students";
 import { AskKitto } from "@/components/sections/AskKitto";
 
-// Kept short on purpose: the app and web showcases live on /services/apps and /services/web,
-// the story on /about and the tools on each service page.
+// What we do first (so people can jump to what they came for), then one interactive showcase per
+// kind of work: apps (scroll), websites (a browser you scroll), posters (a deck you flip through).
 export default function Home() {
   return (
     <>
       <Hero />
       <Marquee />
       <WhatWeDo />
-      <Posters />
+      <AppShowcase />
+      <WebBrowser />
+      <PosterDeck />
       <Process />
       <Students />
       <AskKitto />
