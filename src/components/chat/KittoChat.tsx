@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Kitto, type Mood } from "@/components/kitto/Kitto";
-import { Logo } from "@/components/ui/Logo";
 import { CONTACT } from "@/lib/content";
 import { KITTO_CHIPS, KITTO_GREETING, takeDraft } from "./kitto";
 import styles from "./KittoChat.module.css";
@@ -158,43 +157,77 @@ export function KittoChat() {
 
   return (
     <div className={styles.page}>
-      <header className={styles.top}>
-        <Link href="/" aria-label="Codifykit home"><Logo height={24} /></Link>
-        <span className={styles.topTitle}>Talk to Kitto</span>
-        <Link href="/" className={styles.back}>Back to the site ↗</Link>
-      </header>
-
       <div className={styles.cols}>
-        <aside className={styles.kittoCol} aria-label="Kitto">
-          <div className={styles.blob} aria-hidden="true" />
-          <Kitto mood={shownMood} size={260} hop={hop} className={styles.kitto} />
-          <p className={styles.status} role="status">
-            <span data-mood={mood} />
-            {STATUS[mood] ?? "Kitto is here"}
-          </p>
-        </aside>
-
+        {/* the conversation, as one chat window */}
         <section className={styles.chat} aria-labelledby="talk-title">
-          <h1 id="talk-title" className="h2">What are you working on?</h1>
-          <div ref={listRef} className={styles.list} aria-live="polite">
-            <div className={styles.bot}>
-              <span className={styles.who}>Kitto</span>
-              {KITTO_GREETING}
+          <header className={styles.chatHead}>
+            <span className={styles.avatar} aria-hidden="true" />
+            <div>
+              <h1 id="talk-title" className={styles.chatTitle}>Kitto</h1>
+              <p className={styles.status} role="status">
+                <span data-mood={mood} />
+                {STATUS[mood] ?? "Kitto is here"}
+              </p>
             </div>
-            {messages.map((m, i) => (
-              <div key={i} className={m.role === "user" ? styles.user : `${styles.bot} ${m.error ? styles.err : ""}`}>
-                {m.role === "assistant" && <span className={styles.who}>Kitto</span>}
-                {m.content || <span className={styles.dots} aria-label="Kitto is typing"><i /><i /><i /></span>}
-                {m.error && (
-                  <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className={styles.errLink}>WhatsApp the team ↗</a>
-                )}
+            <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className={styles.human}>Talk to a human ↗</a>
+          </header>
+
+          <div ref={listRef} className={styles.list} aria-live="polite">
+            <p className={styles.intro}>Tell Kitto what you&apos;re working on. Kitto helps you shape the idea, then writes a short brief for our team.</p>
+            <div className={styles.row}>
+              <span className={styles.avatarSm} aria-hidden="true" />
+              <div className={styles.bot}>{KITTO_GREETING}</div>
+            </div>
+            {messages.map((m, i) =>
+              m.role === "user" ? (
+                <div key={i} className={styles.user}>{m.content}</div>
+              ) : (
+                <div key={i} className={styles.row}>
+                  <span className={styles.avatarSm} aria-hidden="true" />
+                  <div className={`${styles.bot} ${m.error ? styles.err : ""}`}>
+                    {m.content || <span className={styles.dots} aria-label="Kitto is typing"><i /><i /><i /></span>}
+                    {m.error && (
+                      <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className={styles.errLink}>WhatsApp the team ↗</a>
+                    )}
+                  </div>
+                </div>
+              )
+            )}
+            {/* after a couple of turns, offer to hand it to the team, right in the conversation */}
+            {userTurns >= 2 && !busy && !briefOpen && !brief && (
+              <div className={styles.offer}>
+                <p>Ready to send this to the team? Kitto can write it up as a short brief.</p>
+                <button type="button" className="btn btn--sm btn--violet" onClick={() => setBriefOpen(true)}>Make a brief</button>
               </div>
-            ))}
+            )}
+            {briefOpen && !brief && (
+              <form onSubmit={makeBrief} className={styles.briefForm}>
+                <p className={styles.briefTitle}>Where should the team reply?</p>
+                <label>Your name<input name="name" required maxLength={120} autoComplete="name" /></label>
+                <label>Phone or email<input name="contact" required maxLength={160} autoComplete="email" /></label>
+                <div className={styles.briefBtns}>
+                  <button type="submit" className="btn btn--sm btn--violet" disabled={briefBusy}>{briefBusy ? "Writing…" : "Write the brief"}</button>
+                  <button type="button" className="btn btn--sm btn--ghost" onClick={() => setBriefOpen(false)}>Not yet</button>
+                </div>
+                {briefErr && <p className={styles.errText}>{briefErr}</p>}
+              </form>
+            )}
+            {brief && (
+              <div className={styles.brief}>
+                <p className={styles.briefTitle}>Your brief</p>
+                <pre>{brief}</pre>
+                <div className={styles.briefBtns}>
+                  <a className="btn btn--sm btn--violet" href={`https://wa.me/${CONTACT.whatsapp.split("/").pop()}?text=${waText}`} target="_blank" rel="noopener">Send on WhatsApp ↗</a>
+                  <a className="btn btn--sm btn--ghost" href={`mailto:${CONTACT.email}?subject=${encodeURIComponent("Project brief from Kitto")}&body=${encodeURIComponent(brief)}`}>Send by email</a>
+                </div>
+              </div>
+            )}
           </div>
+
           {userTurns === 0 && (
-            <div className={styles.chips}>
+            <div className={styles.chips} aria-label="Suggestions">
               {KITTO_CHIPS.map((c) => (
-                <button key={c.label} type="button" className="chip" onClick={() => send(c.prompt)}>{c.label}</button>
+                <button key={c.label} type="button" className={styles.chip} onClick={() => send(c.prompt)}>{c.label}</button>
               ))}
             </div>
           )}
@@ -225,12 +258,19 @@ export function KittoChat() {
                 }
               }}
             />
-            <button type="submit" disabled={busy || !text.trim()} aria-label="Send">→</button>
+            <button type="submit" disabled={busy || !text.trim()} aria-label="Send">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
           </form>
           <p className={styles.note}>Kitto is an AI and can make mistakes. Prices and timelines always come from the team.</p>
         </section>
 
-        <aside className={styles.side} aria-label="Other ways to reach us">
+        {/* Kitto, reacting to the conversation */}
+        <aside className={styles.kittoCol} aria-label="Kitto">
+          <div className={styles.stage}>
+            <div className={styles.blob} aria-hidden="true" />
+            <Kitto mood={shownMood} size={240} hop={hop} className={styles.kitto} />
+          </div>
           <div className={styles.card}>
             <h2 className={styles.cardTitle}>Kitto can help with</h2>
             <ul>
@@ -241,35 +281,10 @@ export function KittoChat() {
             </ul>
           </div>
           <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Send this chat to the team</h2>
-            {!briefOpen && !brief && (
-              <>
-                <p className="muted">Kitto writes a short summary and you send it to us on WhatsApp or email.</p>
-                <button type="button" className="btn btn--sm" disabled={!userTurns} onClick={() => setBriefOpen(true)}>
-                  Make a brief
-                </button>
-              </>
-            )}
-            {briefOpen && !brief && (
-              <form onSubmit={makeBrief} className={styles.briefForm}>
-                <label>Your name<input name="name" required maxLength={120} autoComplete="name" /></label>
-                <label>Phone or email<input name="contact" required maxLength={160} autoComplete="email" /></label>
-                <button type="submit" className="btn btn--sm" disabled={briefBusy}>{briefBusy ? "Writing…" : "Write the brief"}</button>
-                {briefErr && <p className={styles.errText}>{briefErr}</p>}
-              </form>
-            )}
-            {brief && (
-              <div className={styles.brief}>
-                <pre>{brief}</pre>
-                <a className="btn btn--sm" href={`https://wa.me/${CONTACT.whatsapp.split("/").pop()}?text=${waText}`} target="_blank" rel="noopener">Send on WhatsApp ↗</a>
-                <a className="btn btn--sm btn--ghost" href={`mailto:${CONTACT.email}?subject=${encodeURIComponent("Project brief from Kitto")}&body=${encodeURIComponent(brief)}`}>Send by email</a>
-              </div>
-            )}
-          </div>
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>Talk to a human</h2>
+            <h2 className={styles.cardTitle}>Rather talk to a person?</h2>
             <a href={CONTACT.whatsapp} target="_blank" rel="noopener">WhatsApp {CONTACT.phone} ↗</a>
             <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            <Link href="/contact/">Or fill in the project form →</Link>
           </div>
         </aside>
       </div>

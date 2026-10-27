@@ -1,8 +1,52 @@
-.kitto { position: relative; flex: none; transform-origin: 50% 96%; }
-.layer { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
-.out { animation: fadeOut 120ms linear forwards; }
-@keyframes fadeOut { to { opacity: 0; } }
-.bob { animation: bob 2.2s ease-in-out infinite; }
-@keyframes bob { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.012); } }
-.hop { animation: hop 420ms var(--ease-out); }
-@keyframes hop { 0% { transform: translateY(0) scaleY(.96); } 45% { transform: translateY(-14px) scaleY(1.03); } 100% { transform: none; } }
+.kitto { --lx: 0px; --ly: 0px; --tilt: 0deg; position: relative; flex: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.drawing, .pose { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.drawing :global(svg) { display: block; width: 100%; height: 100%; overflow: visible; }
+.hidden { visibility: hidden; }
+
+/* every moving part turns around a point in the drawing's own coordinates (viewBox 0 0 500 800) */
+.drawing :global([data-part]) { transform-box: view-box; }
+
+/* breathing */
+.drawing :global([data-part="body"]) { transform-origin: 250px 760px; animation: breathe 3.4s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.008, 1.02); } }
+
+/* the tail sways, faster when Kitto is happy or excited, barely when asleep */
+.drawing :global([data-part="tail"]) { transform-origin: 205px 735px; animation: tail 3.6s ease-in-out infinite; }
+.kitto:is([data-mood="happy"], [data-mood="excited"]) .drawing :global([data-part="tail"]) { animation-duration: 1.1s; }
+.kitto[data-mood="sleepy"] .drawing :global([data-part="tail"]) { animation-duration: 7s; }
+@keyframes tail { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(7deg); } }
+
+/* the head follows the pointer, with a slow idle drift on top */
+.drawing :global([data-part="head"]) { transform-origin: 250px 330px; transform: rotate(var(--tilt)); transition: transform .35s var(--ease-out); }
+.kitto[data-mood="thinking"] .drawing :global([data-part="head"]) { transform: rotate(-7deg); }
+.kitto[data-mood="sleepy"] .drawing :global([data-part="head"]) { transform: rotate(4deg) translateY(6px); }
+
+/* the pupils look where the pointer is */
+.drawing :global([data-part="pupil"]) { transform: translate(var(--lx), var(--ly)); transition: transform .14s linear; }
+
+/* blinks */
+.drawing :global([data-part="eyes"]) { transform-origin: 250px 242px; transition: transform 70ms ease-in; }
+.kitto[data-blink] .drawing :global([data-part="eyes"]) { transform: scaleY(.08); }
+
+/* ear twitches */
+.drawing :global(:is([data-part="ear_L"], [data-part="ear_R"])) { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .16s var(--ease-out); }
+.kitto[data-twitch="l"] .drawing :global([data-part="ear_L"]) { transform: rotate(-12deg); }
+.kitto[data-twitch="r"] .drawing :global([data-part="ear_R"]) { transform: rotate(12deg); }
+.kitto:hover .drawing :global(:is([data-part="ear_L"], [data-part="ear_R"])) { transform: scaleY(1.06); }
+
+/* whiskers twitch with the breath */
+.drawing :global(:is([data-part="whiskers_L"], [data-part="whiskers_R"])) { transform-box: fill-box; animation: whisk 3.4s ease-in-out infinite; }
+.drawing :global([data-part="whiskers_L"]) { transform-origin: 100% 50%; }
+.drawing :global([data-part="whiskers_R"]) { transform-origin: 0% 50%; animation-delay: -.4s; }
+@keyframes whisk { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-3deg); } }
+
+/* a new mood lands with a small squash */
+.squish { transform-origin: 50% 96%; animation: squish .32s var(--ease-out); }
+@keyframes squish { 0% { transform: scale(1.03, .96); } 60% { transform: scale(.99, 1.015); } 100% { transform: none; } }
+
+.hop { transform-origin: 50% 96%; animation: hop 460ms var(--ease-out); }
+@keyframes hop { 0% { transform: translateY(0) scaleY(.94); } 45% { transform: translateY(-16px) scaleY(1.04); } 100% { transform: none; } }
+
+/* reduced motion: Kitto sits still */
+.still .drawing :global([data-part]) { animation: none !important; transition: none !important; }
+.still { cursor: default; }
