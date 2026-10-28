@@ -17,12 +17,12 @@
 .badge { position: relative; width: 70px; height: 44px; }
 .num {
   position: absolute; left: 0; top: 50%; translate: 0 -50%; display: grid; place-items: center; width: 58px; height: 38px; border-radius: 10px;
-  background: rgba(26, 26, 26, .05); font-family: var(--font-mono); font-size: 14px; color: rgba(26, 26, 26, .38);
+  background: rgba(26, 26, 26, .045); font-family: var(--font-mono); font-size: 14px; color: #636368;
   transition: opacity .3s;
 }
 .pic { position: absolute; inset: 0; border-radius: 12px; opacity: 0; scale: .7; transition: opacity .35s, scale .45s var(--ease-out); overflow: hidden; }
 .name {
-  font-family: var(--font-display); font-size: clamp(22px, 1.8vw, 30px); letter-spacing: -.02em; color: rgba(26, 26, 26, .4);
+  font-family: var(--font-display); font-size: clamp(22px, 1.8vw, 30px); letter-spacing: -.02em; color: #6B6B70;
   transform-origin: left center; transition: color .3s, transform .45s var(--ease-out);
 }
 .desc { font-size: clamp(15px, 1.15vw, 19px); color: var(--ck-muted); opacity: 0; transform: translateX(-10px); transition: opacity .3s, transform .45s var(--ease-out); }

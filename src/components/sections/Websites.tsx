@@ -47,11 +47,11 @@ export function Websites() {
   }, []);
 
   return (
-    <section id="web" className={styles.section} aria-labelledby="web-title">
+    <section id="web-wall" className={styles.section} aria-labelledby="web-wall-title">
       <div className={`container ${styles.head}`}>
         <div>
           <p className="label">Websites</p>
-          <h2 id="web-title" className="h2">
+          <h2 id="web-wall-title" className="h2">
             Websites that bring <Brace>customers</Brace> in.
           </h2>
         </div>
