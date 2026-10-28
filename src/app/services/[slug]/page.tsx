@@ -6,7 +6,6 @@ import { WorkCard } from "@/components/pages/WorkCard";
 import { Crumbs } from "@/components/ui/Crumbs";
 import { Faq } from "@/components/ui/Faq";
 import { ServiceSwitch } from "@/components/ui/ServiceSwitch";
-import { Steps } from "@/components/ui/Steps";
 import { T } from "@/components/ui/T";
 import { CASE_STUDIES, DETAIL_SERVICES, FAQ, TOOLS, real, serviceBySlug } from "@/lib/content";
 import s2 from "./service.module.css";
@@ -69,8 +68,6 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </ul>
         </div>
       </section>
-
-      <Steps title="From first chat to live." />
 
       {related.length > 0 && (
         <section className="container section">

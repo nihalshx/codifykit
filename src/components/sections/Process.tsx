@@ -1,108 +1,92 @@
 "use client";
 /**
- * Process, rebuilt from the reference: a pinned list of steps on the left (the active one opens),
- * and on the right a soft sphere with an orbit of labelled dots that turns with the scroll.
- * Each step brings its own set of labels onto the orbit.
+ * Process, built from the reference: a plain list of the five steps on the left and three nested
+ * circles on the right. The step under the pointer (or tapped, or focused) opens: a small picture
+ * replaces its number, the name grows and a one-line description appears beside it, and the step's
+ * own labels appear inside the circles. Three labelled dots stay put whatever the step.
  */
-import { useEffect, useRef, useState } from "react";
-import { T } from "@/components/ui/T";
+import { useState } from "react";
 import { Brace } from "@/components/ui/Brace";
 import { PROCESS } from "@/lib/content";
-import { IconCode, IconGrow, IconIdea, IconLaunch, IconPen } from "@/components/ui/Icons";
 import styles from "./Process.module.css";
 
-// what each step is about, shown as labels orbiting the sphere
-const ORBIT: string[][] = [
-  ["Your idea", "Insights", "Goals"],
-  ["UX strategy", "Brand look", "Prototype"],
-  ["Development", "Testing", "Integrations", "Content"],
-  ["Go live", "Tracking", "Speed"],
-  ["Ads", "Content", "Leads", "Optimising"],
+// the dots that never move: where it starts, what we learn, where it goes
+const FIXED = [
+  { label: "Your idea", x: 79, y: 15 },
+  { label: "Insights", x: 37, y: 63 },
+  { label: "Growth", x: 25, y: 75 },
 ];
-const ICONS = [IconIdea, IconPen, IconCode, IconLaunch, IconGrow];
+// each step's own labels, and where they sit inside the circles (% of the circle box)
+const LABELS: { label: string; x: number; y: number }[][] = [
+  [{ label: "Goals", x: 50, y: 34 }, { label: "Audience", x: 70, y: 52 }],
+  [{ label: "UX strategy", x: 52, y: 30 }, { label: "Brand look", x: 87, y: 44 }, { label: "Prototype", x: 64, y: 50 }],
+  [{ label: "Development", x: 31, y: 30 }, { label: "Testing", x: 30, y: 44 }, { label: "Integrations", x: 82, y: 66 }, { label: "Content", x: 63, y: 73 }],
+  [{ label: "Go live", x: 46, y: 26 }, { label: "Tracking", x: 84, y: 56 }, { label: "Speed", x: 60, y: 70 }],
+  [{ label: "Ads", x: 30, y: 30 }, { label: "Leads", x: 26, y: 47 }, { label: "Experiments", x: 80, y: 62 }, { label: "Optimising", x: 58, y: 74 }],
+];
 
-export function Process({ ctaHref = "/contact/" }: { ctaHref?: string }) {
-  const wrapRef = useRef<HTMLElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
+export function Process() {
   const [active, setActive] = useState(0);
-  const [pinned, setPinned] = useState(false);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobile = window.matchMedia("(max-width: 899px)").matches;
-    if (reduced || mobile) return;
-    let ctx: gsap.Context | undefined;
-    let cancelled = false;
-    (async () => {
-      const [{ gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
-      if (cancelled) return;
-      gsap.registerPlugin(ScrollTrigger);
-      setPinned(true);
-      ctx = gsap.context(() => {
-        ScrollTrigger.create({
-          trigger: wrapRef.current,
-          start: "top top",
-          end: `+=${PROCESS.length * 40}%`,
-          pin: true,
-          scrub: true,
-          onUpdate: (self) => {
-            setActive(Math.min(PROCESS.length - 1, Math.floor(self.progress * PROCESS.length * 0.9999)));
-            if (orbitRef.current) orbitRef.current.style.setProperty("--turn", `${self.progress * 220}deg`);
-          },
-        });
-      });
-    })();
-    return () => {
-      cancelled = true;
-      ctx?.revert();
-    };
-  }, []);
-
-  const labels = ORBIT[active] ?? ORBIT[0];
 
   return (
-    <section ref={wrapRef} className={styles.wrap} aria-labelledby="process-title">
-      <div className={`container ${styles.grid}`}>
-        <div className={styles.left}>
-          <p className="label">Process</p>
-          <h2 id="process-title" className="h2">
+    <section className={`section ${styles.wrap}`} aria-labelledby="process-title">
+      <div className="container">
+        <div className={styles.head}>
+          <h2 id="process-title" className={styles.title}>
             From idea to growth, <Brace>one</Brace> team.
           </h2>
-          <ol className={styles.steps}>
-            {PROCESS.map((s, i) => {
-              const on = !pinned || i === active;
-              const Icon = ICONS[i] ?? IconIdea;
-              return (
-                <li key={s.n} data-on={on} data-past={pinned && i < active}>
-                  <span className={styles.icon} aria-hidden="true"><Icon /></span>
-                  <span className={styles.num}>{s.n}</span>
-                  <div>
-                    <h3 className={styles.name}>{s.name}</h3>
-                    <p className={styles.desc}><T>{s.desc}</T></p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-          <a href={ctaHref} className={`gradient-card ${styles.cta}`}>
-            <span className={styles.ctaLabel}>Let&apos;s build</span>
-            <span className={styles.ctaText}>Start a project →</span>
-          </a>
+          <p className={styles.lead}>Five steps, the same people the whole way through. You see the plan before we build, and we stay on after launch.</p>
         </div>
 
-        <div className={styles.visual} aria-hidden="true">
-          <div className={styles.sphereBack} />
-          <div className={styles.sphere} />
-          <div className={styles.sphereFront} />
-          <div ref={orbitRef} className={styles.orbit}>
-            {labels.map((l, i) => (
-              <span key={`${active}-${l}`} className={styles.dot} style={{ "--a": `${(i / labels.length) * 360 + active * 37}deg`, "--i": i } as React.CSSProperties}>
-                <i />
-                <em>{l}</em>
-              </span>
+        <div className={styles.grid}>
+          <ol className={styles.steps}>
+            {PROCESS.map((s, i) => (
+              <li key={s.n} data-on={i === active || undefined}>
+                <button
+                  type="button"
+                  className={styles.row}
+                  aria-expanded={i === active}
+                  onPointerEnter={(e) => e.pointerType === "mouse" && setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onClick={() => setActive(i)}
+                >
+                  <span className={styles.badge} aria-hidden="true">
+                    <span className={styles.num}>{s.n}</span>
+                    <span className={styles.pic} data-step={i} />
+                  </span>
+                  <span className={styles.name}>{s.name}</span>
+                  <span className={styles.desc}>{s.short}</span>
+                </button>
+              </li>
             ))}
+          </ol>
+
+          <div className={styles.visual} aria-hidden="true">
+            <div className={styles.circles}>
+              <span className={styles.c1} />
+              <span className={styles.c2} />
+              <span className={styles.c3} />
+              {FIXED.map((f) => (
+                <span key={f.label} className={styles.fixed} style={{ left: `${f.x}%`, top: `${f.y}%` }}>
+                  <em>{f.label}</em>
+                  <i />
+                </span>
+              ))}
+              {LABELS.map((set, si) =>
+                set.map((l, li) => (
+                  <span
+                    key={`${si}-${l.label}`}
+                    className={styles.tag}
+                    data-on={si === active || undefined}
+                    data-right={l.x > 72 || undefined}
+                    style={{ left: `${l.x}%`, top: `${l.y}%`, "--d": `${li * 70}ms` } as React.CSSProperties}
+                  >
+                    {l.label}
+                  </span>
+                ))
+              )}
+            </div>
           </div>
-          <span className={styles.step}>{PROCESS[active]?.n} / {String(PROCESS.length).padStart(2, "0")}</span>
         </div>
       </div>
     </section>

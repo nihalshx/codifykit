@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Process } from "@/components/sections/Process";
 import { Reveal } from "@/components/ui/Reveal";
 import { Brace } from "@/components/ui/Brace";
 import { Crumbs } from "@/components/ui/Crumbs";
@@ -12,7 +11,7 @@ import styles from "./ServiceLanding.module.css";
 
 /**
  * One template for the service landing pages, laid out like the reference:
- * intro with a pill strip → what you get → the dark showcase (passed in) → process →
+ * intro with a pill strip → what you get → the dark showcase (passed in) →
  * services we provide → tools & technologies → questions → start a project → the other services.
  * Placeholder values ([FILL IN …]) are left out here, so nothing half-finished shows.
  */
@@ -91,7 +90,6 @@ export function ServiceLanding({
 
       {children}
 
-      <Process ctaHref="/contact/" />
 
       {/* services we provide */}
       <section className="container section" aria-labelledby="provide-title">
