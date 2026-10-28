@@ -29,6 +29,7 @@ export function KittoChat() {
   const [brief, setBrief] = useState<string | null>(null);
   const [briefBusy, setBriefBusy] = useState(false);
   const [briefErr, setBriefErr] = useState<string | null>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const idle = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -61,6 +62,16 @@ export function KittoChat() {
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
+
+  // phones: the chat is sized to the visible screen, so the input stays above the on-screen keyboard
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const fit = () => pageRef.current?.style.setProperty("--vvh", `${vv.height}px`);
+    fit();
+    vv.addEventListener("resize", fit);
+    return () => vv.removeEventListener("resize", fit);
+  }, []);
 
   const send = useCallback(
     async (raw: string) => {
@@ -156,12 +167,18 @@ export function KittoChat() {
   const waText = brief ? encodeURIComponent(`Hi Codifykit! Here's my brief from Kitto:\n\n${brief}`) : "";
 
   return (
-    <div className={styles.page}>
+    <div ref={pageRef} className={styles.page}>
       <div className={styles.cols}>
         {/* the conversation, as one chat window */}
         <section className={styles.chat} aria-labelledby="talk-title">
           <header className={styles.chatHead}>
-            <span className={styles.avatar} aria-hidden="true" />
+            {/* Kitto's face shows the mood here too (on phones it's the only Kitto on screen) */}
+            <span
+              key={hop}
+              className={styles.avatar}
+              style={{ backgroundImage: `url(/kitto/emotions/kitto_${shownMood}.svg)` }}
+              aria-hidden="true"
+            />
             <div>
               <h1 id="talk-title" className={styles.chatTitle}>Kitto</h1>
               <p className={styles.status} role="status">
@@ -169,7 +186,9 @@ export function KittoChat() {
                 {STATUS[mood] ?? "Kitto is here"}
               </p>
             </div>
-            <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className={styles.human}>Talk to a human ↗</a>
+            <a href={CONTACT.whatsapp} target="_blank" rel="noopener" className={styles.human}>
+              <span className={styles.humanLong}>Talk to a human</span><span className={styles.humanShort}>WhatsApp</span><span aria-hidden="true">↗</span>
+            </a>
           </header>
 
           <div ref={listRef} className={styles.list} aria-live="polite">
@@ -250,6 +269,10 @@ export function KittoChat() {
                 setText(e.target.value);
                 poke();
                 if (!busy) setMood(e.target.value ? "focused" : "curious");
+              }}
+              onFocus={() => {
+                // the keyboard takes half a phone screen: keep the latest message in view
+                setTimeout(() => listRef.current?.scrollTo({ top: listRef.current.scrollHeight }), 300);
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {

@@ -1,9 +1,10 @@
-.page { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
-.cols { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; padding: 24px 0 32px; align-items: start; }
+/* the visible screen height (set from visualViewport, so it shrinks with the keyboard), less the 80px site header */
+.page { --screen: calc(var(--vvh, 100dvh) - 80px); max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gutter); }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; padding: 20px 0 32px; align-items: start; }
 
-/* the chat window */
+/* the chat window: exactly one screen tall on a laptop, so the input never drops below the fold */
 .chat {
-  display: flex; flex-direction: column; height: calc(100svh - 128px); min-height: 520px;
+  display: flex; flex-direction: column; height: calc(var(--screen) - 40px); min-height: 460px; max-height: 900px;
   background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 30px 70px rgba(4,5,43,.08);
 }
 .chatHead { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: #fff; box-shadow: 0 1px 0 #EEEFF3; z-index: 1; }
@@ -13,18 +14,24 @@
 .avatar, .avatarSm {
   flex: none; border-radius: 50%; background: var(--kitto-blob) url("/kitto/emotions/kitto_curious.svg") 50% 14% / 210% auto no-repeat;
 }
-.avatar { width: 44px; height: 44px; }
+.avatar { width: 44px; height: 44px; animation: pop .35s var(--ease-out); }
+@keyframes pop { 40% { transform: scale(1.12); } }
 .avatarSm { width: 32px; height: 32px; }
-.status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ck-muted); }
+.status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ck-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.status span { flex: none; }
 .status span { width: 8px; height: 8px; border-radius: 50%; background: #2BB673; }
 .status span[data-mood="thinking"] { background: var(--ck-violet); animation: pulse 1s ease-in-out infinite; }
 .status span[data-mood="sad"] { background: #C2410C; }
 .status span[data-mood="sleepy"] { background: #B8B8BE; }
 @keyframes pulse { 50% { opacity: .3; } }
-.human { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; font-weight: 500; color: var(--ck-ink); text-decoration: none; padding: 10px 14px; border-radius: var(--r-pill); background: var(--ck-studio); white-space: nowrap; }
+.human { display: inline-flex; align-items: center; gap: .3em; min-height: 40px; font-size: 14px; font-weight: 500; color: var(--ck-ink); text-decoration: none; padding: 10px 14px; border-radius: var(--r-pill); background: var(--ck-studio); white-space: nowrap; }
 .human:hover { background: var(--ck-ink); color: #fff; }
+.humanShort { display: none; }
 
-.list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 20px; background: var(--ck-studio); }
+.list {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 12px;
+  padding: 20px max(20px, calc((100% - 760px) / 2)); background: var(--ck-studio);
+}
 .intro { align-self: center; max-width: 46ch; text-align: center; font-size: 14px; color: var(--ck-muted); margin-bottom: 4px; }
 .row { display: flex; align-items: flex-end; gap: 8px; max-width: 88%; animation: msgIn .3s var(--ease-out); }
 .bot, .user { padding: 12px 16px; font-size: 16px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -50,53 +57,76 @@
 .brief pre { white-space: pre-wrap; font-family: var(--font-body); font-size: 14px; line-height: 1.5; background: var(--ck-studio); padding: 12px; border-radius: 12px; margin: 0; max-height: 260px; overflow: auto; }
 .errText { color: #B42318; font-size: 14px; }
 
-.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 20px 0; background: #fff; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px max(20px, calc((100% - 760px) / 2)) 0; background: #fff; }
 .chip {
   min-height: 40px; padding: 0 14px; border-radius: var(--r-pill); border: 1.5px solid var(--kitto-blob); background: #fff; color: var(--ck-ink);
   font-size: 14px; cursor: pointer; transition: background var(--dur-fast), border-color var(--dur-fast);
 }
 .chip:hover { background: var(--kitto-blob); }
-.form { display: flex; align-items: flex-end; gap: 8px; margin: 12px 20px 0; background: var(--ck-studio); border-radius: 26px; padding: 5px 5px 5px 20px; }
-.form:focus-within { outline: 2px solid var(--ck-violet); outline-offset: 2px; }
+.form { display: flex; align-items: flex-end; gap: 8px; margin: 12px max(20px, calc((100% - 760px) / 2)) 0; background: var(--ck-studio); border-radius: 26px; padding: 5px 5px 5px 20px; }
+.form:focus-within { box-shadow: inset 0 0 0 2px var(--ck-violet); background: #fff; }
 .form textarea { flex: 1; min-width: 0; resize: none; background: transparent; border: 0; color: var(--ck-ink); font: inherit; font-size: 16px; padding: 12px 0; max-height: 160px; outline: none; field-sizing: content; }
 .form textarea::placeholder { color: #6E6E77; }
 .form button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--ck-violet); color: #fff; cursor: pointer; flex: none; display: grid; place-items: center; transition: background var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
 .form button:not(:disabled):hover { background: var(--ck-indigo); transform: translateX(2px); }
 .form button:disabled { opacity: .4; cursor: default; }
-.note { font-size: 13px; color: var(--ck-muted); padding: 10px 20px 14px; background: #fff; }
+.note { font-size: 13px; color: var(--ck-muted); padding: 10px max(20px, calc((100% - 760px) / 2)) 14px; background: #fff; }
 
 /* Kitto beside the window */
-.kittoCol { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 14px; }
-.stage { position: relative; display: grid; place-items: end center; height: 300px; }
-.blob { position: absolute; left: 50%; bottom: 20px; translate: -50% 0; width: 250px; height: 250px; border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; background: var(--kitto-blob); animation: morph 12s ease-in-out infinite alternate; }
+.kittoCol { position: sticky; top: 100px; display: flex; flex-direction: column; gap: 12px; }
+.stage { position: relative; display: grid; place-items: end center; height: 260px; }
+.blob { position: absolute; left: 50%; bottom: 16px; translate: -50% 0; width: 220px; height: 220px; border-radius: 46% 54% 58% 42% / 52% 44% 56% 48%; background: var(--kitto-blob); animation: morph 12s ease-in-out infinite alternate; }
 @keyframes morph { to { border-radius: 58% 42% 44% 56% / 44% 58% 42% 56%; rotate: 20deg; } }
-.kitto { position: relative; width: 190px !important; height: 304px !important; }
+.kitto { position: relative; width: 160px !important; height: 256px !important; }
 .card { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 20px; background: #fff; font-size: 15px; }
 .card ul { margin: 0; padding-left: 18px; color: var(--ck-muted); display: flex; flex-direction: column; gap: 4px; }
 .card a { color: var(--ck-ink); padding: 6px 0; }
 .card > a { display: block; }
 .cardTitle { font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 
-@media (max-width: 1000px) {
-  .cols { grid-template-columns: 1fr; padding-top: 12px; }
-  .kittoCol { position: static; order: -1; flex-direction: row; align-items: center; }
-  .stage { height: 150px; width: 130px; flex: none; }
-  .blob { width: 120px; height: 120px; bottom: 8px; }
-  .kitto { width: 96px !important; height: 154px !important; }
-  .card:nth-of-type(1) { display: none; }
-  .card { flex: 1; padding: 14px 16px; font-size: 14px; }
-  .chat { height: calc(100svh - 120px); }
+/* shorter laptop screens (1366x768, 1280x720): a smaller Kitto, and only the "talk to a person" card */
+@media (min-width: 1001px) and (max-height: 860px) {
+  .stage { height: 200px; }
+  .blob { width: 170px; height: 170px; }
+  .kitto { width: 124px !important; height: 198px !important; }
+  .kittoCol > .card:nth-child(2) { display: none; }
 }
-@media (max-width: 560px) {
-  .kittoCol .card { display: none; }
-  .kittoCol { justify-content: center; }
-  .human { padding: 8px 12px; font-size: 13px; }
-  .list { padding: 14px; }
-  .chips { padding: 10px 14px 0; }
-  .form { margin: 10px 14px 0; }
-  .note { padding: 8px 14px 12px; }
+
+/* tablets and phones: the chat is the page, like a messaging app. Kitto lives in the header avatar. */
+@media (max-width: 1000px) {
+  .cols { display: block; padding: 16px 0; }
+  .kittoCol { display: none; }
+  .chat { height: calc(var(--screen) - 32px); min-height: 0; max-height: none; }
+}
+@media (max-width: 640px) {
+  .page { padding: 0; }
+  .cols { padding: 0; }
+  .chat { height: var(--screen); border-radius: 0; box-shadow: none; }
+  .chatHead { padding: 10px 14px; gap: 10px; }
+  .avatar { width: 40px; height: 40px; }
+  .chatTitle { font-size: 17px; }
+  .human { min-height: 40px; padding: 0 14px; font-size: 14px; }
+  .humanLong { display: none; }
+  .humanShort { display: inline; }
+  .list { padding: 14px 12px; gap: 10px; }
+  .intro { font-size: 13px; }
+  .row { max-width: 92%; }
+  .user { max-width: 85%; }
+  .bot, .user { padding: 10px 14px; font-size: 15px; }
+  .avatarSm { width: 28px; height: 28px; }
+  /* suggestions: one row you can swipe, instead of three rows covering the messages */
+  .chips {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 10px 12px 0; scroll-padding: 12px;
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; white-space: nowrap; }
+  .form { margin: 10px 12px 0; padding-left: 16px; }
+  .form button { width: 44px; height: 44px; }
+  .note { padding: 6px 14px calc(8px + env(safe-area-inset-bottom)); font-size: 12px; text-align: center; }
   .offer, .briefForm, .brief { margin-left: 0; }
+  .offer { padding: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .blob, .row, .user, .offer, .briefForm, .brief { animation: none; }
+  .blob, .row, .user, .offer, .briefForm, .brief, .avatar { animation: none; }
 }

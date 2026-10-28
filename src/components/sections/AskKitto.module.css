@@ -42,7 +42,7 @@
 }
 .chip:hover { background: var(--kitto-blob); }
 .form { display: flex; align-items: center; gap: 8px; margin: 12px 14px 0; background: var(--ck-studio); border-radius: 999px; padding: 4px 4px 4px 18px; }
-.form:focus-within { outline: 2px solid var(--ck-violet); outline-offset: 2px; }
+.form:focus-within { box-shadow: inset 0 0 0 2px var(--ck-violet); background: #fff; }
 .form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ck-ink); font: inherit; font-size: 16px; height: 46px; outline: none; }
 .form input::placeholder { color: #6E6E77; }
 .form button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--ck-violet); color: #fff; cursor: pointer; flex: none; display: grid; place-items: center; transition: background var(--dur-fast), transform var(--dur-fast) var(--ease-out); }
@@ -57,5 +57,16 @@
   .kittoStage { height: 190px; place-items: end center; margin: 0; }
   .blob { width: 160px; height: 140px; left: 50%; translate: -50% 0; bottom: 8px; }
   .kitto { width: 116px !important; height: 186px !important; margin-left: 0; }
+}
+@media (max-width: 560px) {
+  .msgs { padding: 14px 12px; min-height: 0; }
+  /* suggestions: one swipeable row, so the mini chat stays short */
+  .chips {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: -12px; padding-right: 12px;
+    -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent);
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; white-space: nowrap; }
+  .form { margin: 10px 12px 0; }
 }
 @media (prefers-reduced-motion: reduce) { .blob, .mine { animation: none; } }
